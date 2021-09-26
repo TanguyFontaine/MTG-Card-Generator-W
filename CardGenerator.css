@@ -1,0 +1,22 @@
+/*body {
+}
+
+ for the root div, values are inherited to the next divs (i think so) 
+*, *::before, *::after {
+    width: 100%;
+    height: 100%;
+}
+
+.card-generator {
+    display: flex; /* swap to display: grid for top to bottom diplay 
+}
+
+.ui-panel {
+    background: #004bff;
+}
+
+.card-image-panel {
+    background: #ff0000;
+}
+
+*/
