@@ -5,6 +5,7 @@ import { SimpleGrid } from "@chakra-ui/react"
 
 /***************************************************************/
 
+import theme from "./theme"
 import { UiPanel } from "./components/ui_panel"
 import { CardImagePanel } from "./components/card_image_panel"
 
@@ -19,7 +20,7 @@ function CardGenerator() {
     const [cardName, setCardName] = useState("")
 
     return (
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
             <SimpleGrid columns={2} h="100vh" w="100%">
                 <UiPanel cardName={cardName} setCardName={(name) => setCardName(name)} setImageFileFunction={(file) => setImageFile(file)} selectedImageFileName={imageFile.name}/>
                 <CardImagePanel imageFile={imageFile} cardName={cardName}/>

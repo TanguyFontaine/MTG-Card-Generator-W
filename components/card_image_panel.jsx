@@ -9,7 +9,7 @@ export function CardImagePanel(props) {
     const imageFile = props.imageFile;
 
     return (
-        <Box bg="blue">
+        <Box bg="blue.800">
             <Text>Card name : {name} </Text>
             <Image alt={imageFile.name} src={imageFile.content}></Image>
         </Box>
