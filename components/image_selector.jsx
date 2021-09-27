@@ -39,7 +39,7 @@ export function ImageSelector(props) {
     return (
         <HStack spacing={4}>
             <Button colorScheme="blue" onClick={() => openFileSelector()}>Select image file </Button>
-            <Box bg="white" p={2}>{selectedImageFileName}</Box>
+            <Box p={2}>{selectedImageFileName}</Box>
         </HStack>
     );
 }

@@ -15,15 +15,19 @@ function CardGenerator() {
     const [imageFile, setImageFile] = useState({
         name: "",
         content: ""
-    });
+    })
 
     const [cardName, setCardName] = useState("")
+
+    const [types, setTypes] = useState([])
 
     return (
         <ChakraProvider theme={theme}>
             <SimpleGrid columns={2} h="100vh" w="100%">
-                <UiPanel cardName={cardName} setCardName={(name) => setCardName(name)} setImageFileFunction={(file) => setImageFile(file)} selectedImageFileName={imageFile.name}/>
-                <CardImagePanel imageFile={imageFile} cardName={cardName}/>
+                <UiPanel cardName={cardName} setCardName={(name) => setCardName(name)} 
+                         setImageFileFunction={(file) => setImageFile(file)} selectedImageFileName={imageFile.name}
+                         types={types} setTypes={(types) => setTypes(types)}/>
+                <CardImagePanel imageFile={imageFile} cardName={cardName} types={types}/>
             </SimpleGrid>
         </ChakraProvider>
     );

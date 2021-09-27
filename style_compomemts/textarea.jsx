@@ -3,7 +3,8 @@ import { Textarea as ChakraTextarea, Text}  from "@chakra-ui/react"
 
 /***************************************************************/
 export function Textarea(props) {
-    let [value, setValue] = useState("")
+    let value = props.value
+    let setValue = props.setValue
 
     let handleInputChange = (e) => {
       let inputValue = e.target.value
