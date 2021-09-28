@@ -30,12 +30,12 @@ function CardGenerator() {
     return (
         <ChakraProvider theme={theme} >
             <SimpleGrid columns={2} h="100vh" w="100%">
-                <UiPanel cardName={cardName} setCardName={(name) => setCardName(name)} 
+                <UiPanel setCardName={(name) => setCardName(name)} 
                          setImageFileFunction={(file) => setImageFile(file)} selectedImageFileName={imageFile.name}
-                         types={types} setTypes={(types) => setTypes(types)}
-                         superTypes={superTypes} setSuperTypes={(superTypes) => setSuperTypes(superTypes)}
-                         subTypes={subTypes} setSubTypes={(subTypes) => setSubTypes(subTypes)}
-                         cardFrame={cardFrame} setCardFrame={(cardFrame) => setCardFrame(cardFrame)}/>
+                         setTypes={(types) => setTypes(types)}
+                         setSuperTypes={(superTypes) => setSuperTypes(superTypes)}
+                         setSubTypes={(subTypes) => setSubTypes(subTypes)}
+                         setCardFrame={(cardFrame) => setCardFrame(cardFrame)}/>
                 <CardImagePanel imageFile={imageFile} cardName={cardName} types={types} superTypes={superTypes} subTypes={subTypes} cardFrame={cardFrame}/>
             </SimpleGrid>
         </ChakraProvider>

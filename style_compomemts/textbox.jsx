@@ -3,7 +3,7 @@ import { Input as ChakraTextbox, Text}  from "@chakra-ui/react"
 
 /***************************************************************/
 export function Textbox(props) {
-    let value = props.value
+    //let value = props.value       TODO check why we should pass the value until here only to set value={value}.
     let setValue = props.setValue
 
     let handleInputChange = (e) => {
@@ -14,7 +14,7 @@ export function Textbox(props) {
     return (
     <>
       <ChakraTextbox
-        value={value}
+        //value={value}             TODO check what it does.
         onChange={handleInputChange}
         size="sm"
         {...props}

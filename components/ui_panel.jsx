@@ -15,10 +15,10 @@ export function UiPanel(props) {
     return (
         <Box>
             <VStack spacing={2}>
-                <CardName cardName={props.cardName} setCardName={(value) => props.setCardName(value)}/>
-                <TypesSelection types={props.types} setTypes={(value) => props.setTypes(value)}/>
-                <SuperTypesSelection superTypes={props.superTypes} setSuperTypes={(value) => props.setSuperTypes(value)}/>
-                <SubTypes subTypes={props.subTypes} setSubTypes={(value) => props.setSubTypes(value)}/>
+                <CardName setCardName={(value) => props.setCardName(value)}/>
+                <TypesSelection setTypes={(value) => props.setTypes(value)}/>
+                <SuperTypesSelection setSuperTypes={(value) => props.setSuperTypes(value)}/>
+                <SubTypes setSubTypes={(value) => props.setSubTypes(value)}/>
                 <CardFrameSelection setCardFrame={(value) => props.setCardFrame(value)}/>
                 <ImageSelector setImageFileFunction={(file) => props.setImageFileFunction(file)} selectedImageFileName={props.selectedImageFileName}/>
             </VStack>

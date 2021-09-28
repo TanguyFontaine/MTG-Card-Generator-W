@@ -10,7 +10,7 @@ export function CardName(props) {
     return (
         <HStack spacing={2}>
             <Text>Name :</Text>
-            <Textbox value={props.cardName} setValue={(value) => props.setCardName(value)} placeholder="Enter the name of your card here."/>
+            <Textbox setValue={(value) => props.setCardName(value)} placeholder="Enter the name of your card here."/>
          </HStack>
     );
 }
