@@ -21,13 +21,16 @@ function CardGenerator() {
 
     const [types, setTypes] = useState([])
 
+    const [superTypes, setSuperTypes] = useState([])
+
     return (
-        <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme} >
             <SimpleGrid columns={2} h="100vh" w="100%">
                 <UiPanel cardName={cardName} setCardName={(name) => setCardName(name)} 
                          setImageFileFunction={(file) => setImageFile(file)} selectedImageFileName={imageFile.name}
-                         types={types} setTypes={(types) => setTypes(types)}/>
-                <CardImagePanel imageFile={imageFile} cardName={cardName} types={types}/>
+                         types={types} setTypes={(types) => setTypes(types)}
+                         superTypes={superTypes} setSuperTypes={(superTypes) => setSuperTypes(superTypes)}/>
+                <CardImagePanel imageFile={imageFile} cardName={cardName} types={types} superTypes={superTypes}/>
             </SimpleGrid>
         </ChakraProvider>
     );
