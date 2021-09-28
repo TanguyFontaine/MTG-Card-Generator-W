@@ -6,6 +6,7 @@ import { ImageSelector } from "./image_selector"
 import { CardName } from "./card_name"
 import { TypesSelection } from "./types_selection"
 import { SuperTypesSelection } from "./super_types_selection"
+import { SubTypes } from "./sub_types"
 
 
 /***************************************************************/
@@ -16,6 +17,7 @@ export function UiPanel(props) {
                 <CardName cardName={props.cardName} setCardName={(value) => props.setCardName(value)}/>
                 <TypesSelection types={props.types} setTypes={(value) => props.setTypes(value)}/>
                 <SuperTypesSelection superTypes={props.superTypes} setSuperTypes={(value) => props.setSuperTypes(value)}/>
+                <SubTypes subTypes={props.subTypes} setSubTypes={(value) => props.setSubTypes(value)}/>
                 <ImageSelector setImageFileFunction={(file) => props.setImageFileFunction(file)} selectedImageFileName={props.selectedImageFileName}/>
             </VStack>
         </Box>

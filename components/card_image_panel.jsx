@@ -9,6 +9,7 @@ export function CardImagePanel(props) {
     const imageFile = props.imageFile
     const types = props.types
     const superTypes = props.superTypes
+    const subTypes = props.subTypes
 
     const typesItems = types.map((type) => <Text>{type}</Text>);
     const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
@@ -18,6 +19,7 @@ export function CardImagePanel(props) {
             <Text>Card name : {name} </Text>
             <HStack spacing={2}><Text>types :</Text>{typesItems}</HStack>
             <HStack spacing={2}><Text>super types :</Text>{superTypesItems}</HStack>
+            <Text>Sub types : {subTypes} </Text>
             <Image alt={imageFile.name} src={imageFile.content}></Image>
         </Box>
     );
