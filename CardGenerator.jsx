@@ -25,6 +25,7 @@ function CardGenerator() {
 
     const [subTypes, setSubTypes] = useState("")
 
+    const [cardFrame, setCardFrame] = useState("")
 
     return (
         <ChakraProvider theme={theme} >
@@ -33,8 +34,9 @@ function CardGenerator() {
                          setImageFileFunction={(file) => setImageFile(file)} selectedImageFileName={imageFile.name}
                          types={types} setTypes={(types) => setTypes(types)}
                          superTypes={superTypes} setSuperTypes={(superTypes) => setSuperTypes(superTypes)}
-                         subTypes={subTypes} setSubTypes={(subTypes) => setSubTypes(subTypes)}/>
-                <CardImagePanel imageFile={imageFile} cardName={cardName} types={types} superTypes={superTypes} subTypes={subTypes}/>
+                         subTypes={subTypes} setSubTypes={(subTypes) => setSubTypes(subTypes)}
+                         cardFrame={cardFrame} setCardFrame={(cardFrame) => setCardFrame(cardFrame)}/>
+                <CardImagePanel imageFile={imageFile} cardName={cardName} types={types} superTypes={superTypes} subTypes={subTypes} cardFrame={cardFrame}/>
             </SimpleGrid>
         </ChakraProvider>
     );
