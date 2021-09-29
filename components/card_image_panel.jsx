@@ -12,6 +12,7 @@ export function CardImagePanel(props) {
     const subTypes = props.subTypes
     const chosenCardFrame = props.cardFrame
     const spellDescription = props.spellDescription
+    const flavorText = props.flavorText
 
     const typesItems = types.map((type) => <Text>{type}</Text>);
     const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
@@ -24,6 +25,7 @@ export function CardImagePanel(props) {
             <Text>Sub types : {subTypes} </Text>
             <Text>Card frame : {chosenCardFrame} </Text>
             <Text>Abilities : {spellDescription} </Text>
+            <Text>Flavor text : {flavorText} </Text>
             <Image alt={imageFile.name} src={imageFile.content}></Image>
         </Box>
     );

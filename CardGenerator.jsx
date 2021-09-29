@@ -32,6 +32,8 @@ function CardGenerator() {
 
     const [spellDescription, setSpellDescription] = useState("")
 
+    const [flavorText, setFlavorText] = useState("")
+
     return (
         <ChakraProvider theme={theme} >
             <SimpleGrid columns={2} h="100vh" w="100%">
@@ -41,7 +43,8 @@ function CardGenerator() {
                          setSuperTypes={(superTypes) => setSuperTypes(superTypes)}
                          setSubTypes={(subTypes) => setSubTypes(subTypes)}
                          setCardFrame={(cardFrame) => setCardFrame(cardFrame)}
-                         setSpellDescription={(spellDescription) => setSpellDescription(spellDescription)}/>
+                         setSpellDescription={(spellDescription) => setSpellDescription(spellDescription)}
+                         setFlavorText={(flavorText) => setFlavorText(flavorText)}/>
                 <CardImagePanel 
                     imageFile={imageFile} 
                     cardName={cardName} 
@@ -49,7 +52,8 @@ function CardGenerator() {
                     superTypes={superTypes} 
                     subTypes={subTypes} 
                     cardFrame={cardFrame} 
-                    spellDescription={spellDescription}/>
+                    spellDescription={spellDescription}
+                    flavorText={flavorText}/>
             </SimpleGrid>
         </ChakraProvider>
     );

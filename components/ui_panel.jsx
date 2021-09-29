@@ -9,7 +9,7 @@ import { SuperTypesSelection } from "./super_types_selection"
 import { SubTypes } from "./sub_types"
 import { CardFrameSelection } from "./card_frame_selection"
 import { SpellDescription } from "./spell_description"
-
+import { FlavorText } from "./flavor_text"
 
 /***************************************************************/
 export function UiPanel(props) {
@@ -22,6 +22,7 @@ export function UiPanel(props) {
                 <SubTypes setSubTypes={(value) => props.setSubTypes(value)}/>
                 <CardFrameSelection setCardFrame={(value) => props.setCardFrame(value)}/>
                 <SpellDescription setSpellDescription={(value) => props.setSpellDescription(value)}/>
+                <FlavorText setFlavorText={(value) => props.setFlavorText(value)}/>
                 <ImageSelector setImageFileFunction={(file) => props.setImageFileFunction(file)} selectedImageFileName={props.selectedImageFileName}/>
             </VStack>
         </Box>
