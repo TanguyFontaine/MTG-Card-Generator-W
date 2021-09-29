@@ -8,6 +8,7 @@ import { TypesSelection } from "./types_selection"
 import { SuperTypesSelection } from "./super_types_selection"
 import { SubTypes } from "./sub_types"
 import { CardFrameSelection } from "./card_frame_selection"
+import { SpellDescription } from "./spell_description"
 
 
 /***************************************************************/
@@ -20,6 +21,7 @@ export function UiPanel(props) {
                 <SuperTypesSelection setSuperTypes={(value) => props.setSuperTypes(value)}/>
                 <SubTypes setSubTypes={(value) => props.setSubTypes(value)}/>
                 <CardFrameSelection setCardFrame={(value) => props.setCardFrame(value)}/>
+                <SpellDescription setSpellDescription={(value) => props.setSpellDescription(value)}/>
                 <ImageSelector setImageFileFunction={(file) => props.setImageFileFunction(file)} selectedImageFileName={props.selectedImageFileName}/>
             </VStack>
         </Box>

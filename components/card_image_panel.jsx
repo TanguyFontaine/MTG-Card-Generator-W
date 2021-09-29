@@ -11,6 +11,7 @@ export function CardImagePanel(props) {
     const superTypes = props.superTypes
     const subTypes = props.subTypes
     const chosenCardFrame = props.cardFrame
+    const spellDescription = props.spellDescription
 
     const typesItems = types.map((type) => <Text>{type}</Text>);
     const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
@@ -22,6 +23,7 @@ export function CardImagePanel(props) {
             <HStack spacing={2}><Text>super types :</Text>{superTypesItems}</HStack>
             <Text>Sub types : {subTypes} </Text>
             <Text>Card frame : {chosenCardFrame} </Text>
+            <Text>Abilities : {spellDescription} </Text>
             <Image alt={imageFile.name} src={imageFile.content}></Image>
         </Box>
     );
