@@ -11,6 +11,7 @@ import { CardFrameSelection } from "./card_frame_selection"
 import { SpellDescription } from "./spell_description"
 import { FlavorText } from "./flavor_text"
 import { PowerToughness } from "./power_and_toughness"
+import { Loyalty } from "./loyalty"
 
 /***************************************************************/
 export function UiPanel(props) {
@@ -25,6 +26,7 @@ export function UiPanel(props) {
                 <SpellDescription setSpellDescription={(value) => props.setSpellDescription(value)}/>
                 <FlavorText setFlavorText={(value) => props.setFlavorText(value)}/>
                 <PowerToughness setPower={(value) => props.setPower(value)} setToughness={(value) => props.setToughness(value)}/>
+                <Loyalty setLoyalty={(value) => props.setLoyalty(value)}/>
                 <ImageSelector setImageFileFunction={(file) => props.setImageFileFunction(file)} selectedImageFileName={props.selectedImageFileName}/>
             </VStack>
         </Box>

@@ -15,6 +15,7 @@ export function CardImagePanel(props) {
     const flavorText = props.flavorText
     const power = props.power
     const toughness = props.toughness
+    const loyalty = props.loyalty
 
     const typesItems = types.map((type) => <Text>{type}</Text>);
     const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
@@ -30,6 +31,7 @@ export function CardImagePanel(props) {
             <Text>Flavor text : {flavorText} </Text>
             <Text>Power : {power} </Text>
             <Text>Toughness : {toughness} </Text>
+            <Text>Loyalty : {loyalty} </Text>
             <Image alt={imageFile.name} src={imageFile.content}></Image>
         </Box>
     );

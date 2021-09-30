@@ -38,6 +38,8 @@ function CardGenerator() {
 
     const [toughness, setToughness] = useState("")
 
+    const [loyalty, setLoyalty] = useState("")
+
     return (
         <ChakraProvider theme={theme} >
             <SimpleGrid columns={2} h="100vh" w="100%">
@@ -50,7 +52,8 @@ function CardGenerator() {
                          setSpellDescription={(spellDescription) => setSpellDescription(spellDescription)}
                          setFlavorText={(flavorText) => setFlavorText(flavorText)}
                          setPower={(power) => setPower(power)}
-                         setToughness={(toughness) => setToughness(toughness)}/>
+                         setToughness={(toughness) => setToughness(toughness)}
+                         setLoyalty={(loyalty) => setLoyalty(loyalty)}/>
                 <CardImagePanel 
                          imageFile={imageFile} 
                          cardName={cardName} 
@@ -61,7 +64,8 @@ function CardGenerator() {
                          spellDescription={spellDescription}
                          flavorText={flavorText}
                          power={power}
-                         toughness={toughness}/>
+                         toughness={toughness}
+                         loyalty={loyalty}/>
             </SimpleGrid>
         </ChakraProvider>
     );
