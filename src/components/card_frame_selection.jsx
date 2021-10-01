@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, HStack } from "@chakra-ui/react"
+import { HStack } from "@chakra-ui/react"
 /**************************************************** */
 
+import { Text } from "../style_compomemts/text"
 import { Select } from "../style_compomemts/select"
-
 
 /***************************************************************/
 export function CardFrameSelection(props) {

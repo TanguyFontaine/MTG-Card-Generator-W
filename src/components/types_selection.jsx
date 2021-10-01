@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, HStack } from "@chakra-ui/react"
+import { Box, HStack } from "@chakra-ui/react"
 /**************************************************** */
 
 import { Checkbox } from "../style_compomemts/checkbox"
 import { CheckboxGroup } from "../style_compomemts/checkbox_group"
+import { Text } from "../style_compomemts/text"
 
 
 /***************************************************************/

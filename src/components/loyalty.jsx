@@ -1,16 +1,17 @@
 import React from 'react';
-import { Text, HStack } from "@chakra-ui/react"
+import { HStack } from "@chakra-ui/react"
 /**************************************************** */
 
 import { Textbox } from "../style_compomemts/textbox"
+import { Text } from "../style_compomemts/text"
 
 
 /***************************************************************/
-export function SubTypes(props) {
+export function Loyalty(props) {
     return (
         <HStack spacing={2}>
-            <Text>Sub types :</Text>
-            <Textbox setValue={(subTypes) => props.setSubTypes(subTypes)} placeholder="Enter the sub types of your card here."/>
+            <Text>Loyalty :</Text>
+            <Textbox setValue={(value) => props.setLoyalty(value)} placeholder="Enter the name of your card here."/>
          </HStack>
     );
 }

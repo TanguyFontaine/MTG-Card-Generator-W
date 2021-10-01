@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFilePicker } from 'use-file-picker';
-import { Box, Stack, HStack, VStack } from "@chakra-ui/react"
+import { Box, HStack } from "@chakra-ui/react"
 /***************************************************************/
 
 import { Button } from "../style_compomemts/button"
