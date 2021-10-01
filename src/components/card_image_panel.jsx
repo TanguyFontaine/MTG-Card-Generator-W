@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Box, HStack } from "@chakra-ui/react"
 /***************************************************************/
 
-import { Text } from "../style_compomemts/text"
+import { Text } from "../style_components/text"
 
 /***************************************************************/
 export function CardImagePanel(props) {

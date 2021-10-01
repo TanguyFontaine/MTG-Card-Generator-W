@@ -3,7 +3,7 @@ import { useFilePicker } from 'use-file-picker';
 import { Box, HStack } from "@chakra-ui/react"
 /***************************************************************/
 
-import { Button } from "../style_compomemts/button"
+import { Button } from "../style_components/button"
 
 
 /***************************************************************/

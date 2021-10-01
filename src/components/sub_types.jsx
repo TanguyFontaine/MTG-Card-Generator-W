@@ -2,8 +2,8 @@ import React from 'react';
 import { HStack } from "@chakra-ui/react"
 /**************************************************** */
 
-import { Textbox } from "../style_compomemts/textbox"
-import { Text } from "../style_compomemts/text"
+import { Textbox } from "../style_components/textbox"
+import { Text } from "../style_components/text"
 
 
 /***************************************************************/
