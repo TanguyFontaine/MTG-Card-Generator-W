@@ -8,7 +8,8 @@ import { Text } from "../style_components/text"
 export function CardImagePanel(props) {
 
     const name = props.cardName
-    const imageFile = props.imageFile
+    const imageFileContent = props.imageFile.content
+    const imageFileName = props.imageFile.name
     const types = props.types
     const superTypes = props.superTypes
     const subTypes = props.subTypes
@@ -22,6 +23,26 @@ export function CardImagePanel(props) {
     const typesItems = types.map((type) => <Text>{type}</Text>);
     const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
 
+    function fileExtensionIsValid(imageFileName) {
+
+        const athorizedFileExtensions = ["png", "jpeg", "jpg", "gif", "webp"]
+
+        const splitFileName = imageFileName.split('.')
+        return (athorizedFileExtensions.some(ext =>(ext === splitFileName[splitFileName.length - 1].toLowerCase())));
+      }
+
+    function DisplayImage(props) {
+        const imageFileName = props.imageFileName
+        const imageFileContent = props.imageFileContent
+
+        if (fileExtensionIsValid(imageFileName)) {
+            return (
+                <Image alt={imageFileName} src={imageFileContent}></Image>
+            );
+        }
+        return (<div>Invalid image file : supported extensions are png, jpg, jpeg, gif, webp</div>);
+    }
+
     return (
         <Box bg="blue.800">
             <Text>Card name : {name} </Text>
@@ -34,7 +55,7 @@ export function CardImagePanel(props) {
             <Text>Power : {power} </Text>
             <Text>Toughness : {toughness} </Text>
             <Text>Loyalty : {loyalty} </Text>
-            <Image alt={imageFile.name} src={imageFile.content}></Image>
+            <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent}></DisplayImage>
         </Box>
     );
 }
