@@ -35,7 +35,8 @@ export function CardImagePanel(props) {
         const imageFileName = props.imageFileName
         const imageFileContent = props.imageFileContent
 
-        if (fileExtensionIsValid(imageFileName)) {
+        // Do not display the error panel while an image has not been selected
+        if (imageFileName === "" || fileExtensionIsValid(imageFileName)) {
             return (
                 <Image alt={imageFileName} src={imageFileContent}></Image>
             );
