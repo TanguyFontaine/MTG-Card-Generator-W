@@ -32,7 +32,7 @@ function CardGenerator() {
 
     const [subTypes, setSubTypes] = useState("")
 
-    const [cardFrame, setCardFrame] = useState("")
+    const [cardFrameColor, setCardFrame] = useState("Colorless")
 
     // To be completed later
     const [manaSymbols, setManaSymbols] = useState([])
@@ -68,7 +68,7 @@ function CardGenerator() {
                          types={types} 
                          superTypes={superTypes} 
                          subTypes={subTypes} 
-                         cardFrame={cardFrame} 
+                         cardFrameColor={cardFrameColor} 
                          spellDescription={spellDescription}
                          flavorText={flavorText}
                          power={power}

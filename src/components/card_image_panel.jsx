@@ -3,7 +3,8 @@ import { Image, Box, HStack, Heading, useStyleConfig } from "@chakra-ui/react"
 /***************************************************************/
 
 import { Text } from "../style_components/text"
-import blackFrame from "../ressources/black_frame.png" 
+import { frames } from "../ressources/frames"
+import { isDefined } from '@chakra-ui/utils';
 
 /***************************************************************/
 
@@ -30,6 +31,20 @@ function DisplayImage(props) {
     return (<div>Invalid image file : supported extensions are png, jpg, jpeg, gif, webp</div>);
 }
 
+function retrieveCorrespondingFrameImage(frameColor) {
+    // By default, take the first frame : Colorless
+    let frameImage = frames[0].source
+
+    if (isDefined(frameColor)) {
+        const selectedFrame = frames.find(frame => frame.color === frameColor)
+
+        if (isDefined(selectedFrame)) {
+            frameImage = selectedFrame.source
+        }
+    }
+
+    return frameImage
+}
 
 export function CardImagePanel(props) {
 
@@ -39,12 +54,12 @@ export function CardImagePanel(props) {
     const types = props.types
     const superTypes = props.superTypes
     const subTypes = props.subTypes
-    const chosenCardFrame = props.cardFrame
     const spellDescription = props.spellDescription
     const flavorText = props.flavorText
     const power = props.power
     const toughness = props.toughness
     const loyalty = props.loyalty
+    const selectedCardFrame = props.cardFrameColor
 
     const typesItems = types.map((type) => <Text>{type}</Text>);
     const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
@@ -54,15 +69,15 @@ export function CardImagePanel(props) {
     return (
         <Box __css={style} bg="blue.800">
             <Box name="cardFrame">
-                <Image mt={3} ml={3} src={blackFrame}/>
-                <Text pos="absolute" top="8.5%" left="54.5%" fontSize={38}>{name}</Text>
+                <Image mt={3} ml={3} src={retrieveCorrespondingFrameImage(selectedCardFrame)}/>
+                <Text pos="absolute" top="8.7%" left="54.5%" fontSize={38}>{name}</Text>
             </Box>
             <Box name="other information">
             <Text>Card name : {name} </Text>
             <HStack spacing={2}><Text>types :</Text>{typesItems}</HStack>
             <HStack spacing={2}><Text>super types :</Text>{superTypesItems}</HStack>
             <Text>Sub types : {subTypes} </Text>
-            <Text>Card frame : {chosenCardFrame} </Text>
+            <Text>Card frame : {selectedCardFrame} </Text>
             <Text>Abilities : {spellDescription} </Text>
             <Text>Flavor text : {flavorText} </Text>
             <Text>Power : {power} </Text>
