@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, VStack, Stack, Grid } from "@chakra-ui/react"
+import { Box, VStack, Stack, Grid, useStyleConfig } from "@chakra-ui/react"
 /**************************************************** */
 
 import { ImageSelector } from "./image_selector"
@@ -15,8 +15,11 @@ import { Loyalty } from "./loyalty"
 
 /***************************************************************/
 export function UiPanel(props) {
+
+    const style = useStyleConfig("UiPanel")
+
     return (
-        <Box>
+        <Box __css={style} >
             <Grid mt="7%" mx="5%" gap={6}>
                 <CardName setCardName={(value) => props.setCardName(value)}/>
                 <TypesSelection setTypes={(value) => props.setTypes(value)}/>

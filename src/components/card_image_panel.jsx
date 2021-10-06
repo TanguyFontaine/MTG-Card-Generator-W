@@ -1,10 +1,36 @@
 import React from 'react';
-import { Image, Box, HStack } from "@chakra-ui/react"
+import { Image, Box, HStack, Heading, useStyleConfig } from "@chakra-ui/react"
 /***************************************************************/
 
 import { Text } from "../style_components/text"
+import blackFrame from "../ressources/black_frame.png" 
 
 /***************************************************************/
+
+function fileExtensionIsValid(imageFileName) {
+
+    const athorizedFileExtensions = ["png", "jpeg", "jpg", "gif", "webp"]
+
+    const splitFileName = imageFileName.split('.')
+    return (athorizedFileExtensions.some(ext =>(ext === splitFileName[splitFileName.length - 1].toLowerCase())));
+  }
+
+
+
+function DisplayImage(props) {
+    const imageFileName = props.imageFileName
+    const imageFileContent = props.imageFileContent
+
+    // Do not display the error panel while an image has not been selected
+    if (imageFileName === "" || fileExtensionIsValid(imageFileName)) {
+        return (
+            <Image alt={imageFileName} src={imageFileContent}></Image>
+        );
+    }
+    return (<div>Invalid image file : supported extensions are png, jpg, jpeg, gif, webp</div>);
+}
+
+
 export function CardImagePanel(props) {
 
     const name = props.cardName
@@ -23,29 +49,15 @@ export function CardImagePanel(props) {
     const typesItems = types.map((type) => <Text>{type}</Text>);
     const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
 
-    function fileExtensionIsValid(imageFileName) {
-
-        const athorizedFileExtensions = ["png", "jpeg", "jpg", "gif", "webp"]
-
-        const splitFileName = imageFileName.split('.')
-        return (athorizedFileExtensions.some(ext =>(ext === splitFileName[splitFileName.length - 1].toLowerCase())));
-      }
-
-    function DisplayImage(props) {
-        const imageFileName = props.imageFileName
-        const imageFileContent = props.imageFileContent
-
-        // Do not display the error panel while an image has not been selected
-        if (imageFileName === "" || fileExtensionIsValid(imageFileName)) {
-            return (
-                <Image alt={imageFileName} src={imageFileContent}></Image>
-            );
-        }
-        return (<div>Invalid image file : supported extensions are png, jpg, jpeg, gif, webp</div>);
-    }
+    const style = useStyleConfig("CardImagePanel")
 
     return (
-        <Box bg="blue.800">
+        <Box __css={style} bg="blue.800">
+            <Box name="cardFrame">
+                <Image mt={3} ml={3} src={blackFrame}/>
+                <Text pos="absolute" top="8.5%" left="54.5%" fontSize={38}>{name}</Text>
+            </Box>
+            <Box name="other information">
             <Text>Card name : {name} </Text>
             <HStack spacing={2}><Text>types :</Text>{typesItems}</HStack>
             <HStack spacing={2}><Text>super types :</Text>{superTypesItems}</HStack>
@@ -57,6 +69,7 @@ export function CardImagePanel(props) {
             <Text>Toughness : {toughness} </Text>
             <Text>Loyalty : {loyalty} </Text>
             <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent}></DisplayImage>
+            </Box>
         </Box>
     );
 }

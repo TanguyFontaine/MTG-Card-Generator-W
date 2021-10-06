@@ -3,6 +3,13 @@ import React, { useState } from 'react';
 import { ChakraProvider } from "@chakra-ui/react"
 import { SimpleGrid } from "@chakra-ui/react"
 
+import "@fontsource/eb-garamond/400.css"
+import "@fontsource/eb-garamond/500.css"
+import "@fontsource/eb-garamond/600.css"
+import "@fontsource/eb-garamond/700.css"
+import "@fontsource/eb-garamond/800.css"
+import "@saeris/typeface-beleren-bold"
+
 /***************************************************************/
 
 import theme from "./theme"
@@ -38,6 +45,7 @@ function CardGenerator() {
 
     const [toughness, setToughness] = useState("")
 
+    // clean planeswalker ?
     const [loyalty, setLoyalty] = useState("")
 
     return (
