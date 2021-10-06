@@ -29,12 +29,18 @@ function DisplayImage(props) {
     return (<div>Invalid image file : supported extensions are png, jpg, jpeg, gif, webp</div>);
 }
 
-function retrieveCorrespondingFrameImage(frameColor) {
+function retrieveCorrespondingFrameImage(frameColor, cardPower, cardToughness) {
+    // to retieve the frame with the power/toughness box or the frame without
+    let frameIndex = 0
+    if (cardPower !== "" || cardToughness !== "") {
+        frameIndex = 1
+    }
+    
     // By default take the =olorless frame
-    let frameImage = frames["Colorless"]
+    let frameImage = frames["Colorless"][frameIndex]
 
     if (isDefined(frameColor) && frameColor !== "") {
-        frameImage = frames[frameColor]
+        frameImage = frames[frameColor][frameIndex]
     }
 
     return frameImage
@@ -63,7 +69,7 @@ export function CardImagePanel(props) {
     return (
         <Box __css={style} bg="blue.800">
             <Box name="cardFrame">
-                <Image mt={3} ml={3} src={retrieveCorrespondingFrameImage(selectedCardFrame)}/>
+                <Image mt={3} ml={3} src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)}/>
                 <Text pos="absolute" top="8.7%" left="54.5%" fontSize={38}>{name}</Text>
             </Box>
             <Box name="other information">
