@@ -14,9 +14,7 @@ function fileExtensionIsValid(imageFileName) {
 
     const splitFileName = imageFileName.split('.')
     return (athorizedFileExtensions.some(ext =>(ext === splitFileName[splitFileName.length - 1].toLowerCase())));
-  }
-
-
+}
 
 function DisplayImage(props) {
     const imageFileName = props.imageFileName
@@ -32,15 +30,11 @@ function DisplayImage(props) {
 }
 
 function retrieveCorrespondingFrameImage(frameColor) {
-    // By default, take the first frame : Colorless
-    let frameImage = frames[0].source
+    // By default take the =olorless frame
+    let frameImage = frames["Colorless"]
 
-    if (isDefined(frameColor)) {
-        const selectedFrame = frames.find(frame => frame.color === frameColor)
-
-        if (isDefined(selectedFrame)) {
-            frameImage = selectedFrame.source
-        }
+    if (isDefined(frameColor) && frameColor !== "") {
+        frameImage = frames[frameColor]
     }
 
     return frameImage

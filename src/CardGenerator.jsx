@@ -32,7 +32,7 @@ function CardGenerator() {
 
     const [subTypes, setSubTypes] = useState("")
 
-    const [cardFrameColor, setCardFrame] = useState("Colorless")
+    const [cardFrameColor, setCardFrame] = useState("")
 
     // To be completed later
     const [manaSymbols, setManaSymbols] = useState([])

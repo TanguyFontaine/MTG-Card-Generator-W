@@ -9,7 +9,7 @@ import { frames } from "../ressources/frames"
 /***************************************************************/
 export function CardFrameSelection(props) {
 
-    const frameColors = frames.map((frame) => frame.color)
+    const frameColors = Object.keys(frames)
 
     return (
         <HStack spacing={2}>

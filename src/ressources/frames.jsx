@@ -17,40 +17,21 @@ import hybridBlueRedFrameImage from "./hybrid_blue_red_frame.png"
 import hybridBlackRedFrameImage from "./hybrid_black_red_frame.png" 
 import hybridBlackGreenFrameImage from "./hybrid_black_green_frame.png" 
 
-const colorlessFrameColor = "Colorless"
-const whiteFrameColor = "White"
-const blueFrameColor = "Blue"
-const blackFrameColor = "Black"
-const redFrameColor = "Red"
-const greenFrameColor = "Green"
-const goldenFrameColor = "Golden"
-const greyFrameColor = "Grey"
-const hybridWhiteBlueFrameColor = "Hybrid White/Blue"
-const hybridWhiteBlackFrameColor = "Hybrid White/Black"
-const hybridRedWhiteFrameColor = "Hybrid Red/White"
-const hybridRedGreenFrameColor = "Hybrid Red/Green"
-const hybridGreenBlueFrameColor = "Hybrid Green/Blue"
-const hybridGreenWhiteFrameColor = "Hybrid Green/White"
-const hybridBlueBlackFrameColor = "Hybrid Blue/Black"
-const hybridBlueRedFrameColor = "Hybrid Blue/Red"
-const hybridBlackRedFrameColor = "Hybrid Black/Red"
-const hybridBlackGreenFrameColor = "Hybrid Black/Green"
-
-export const frames = [{ color: colorlessFrameColor, source: colorlessFrameImage},
-                       { color: whiteFrameColor, source: whiteFrameImage},
-                       { color: blueFrameColor, source: blueFrameImage},
-                       { color: blackFrameColor, source: blackFrameImage},
-                       { color: redFrameColor, source: redFrameImage},
-                       { color: greenFrameColor, source: greenFrameImage},
-                       { color: goldenFrameColor, source: goldenFrameImage},
-                       { color: greyFrameColor, source: greyFrameImage},
-                       { color: hybridWhiteBlueFrameColor, source: hybridWhiteBlueFrameImage},
-                       { color: hybridWhiteBlackFrameColor, source: hybridWhiteBlackFrameImage},
-                       { color: hybridRedWhiteFrameColor, source: hybridRedWhiteFrameImage},
-                       { color: hybridRedGreenFrameColor, source: hybridRedGreenFrameImage},
-                       { color: hybridGreenBlueFrameColor, source: hybridGreenBlueFrameImage},
-                       { color: hybridGreenWhiteFrameColor, source: hybridGreenWhiteFrameImage},
-                       { color: hybridBlueBlackFrameColor, source: hybridBlueBlackFrameImage},
-                       { color: hybridBlueRedFrameColor, source: hybridBlueRedFrameImage},
-                       { color: hybridBlackRedFrameColor, source: hybridBlackRedFrameImage},
-                       { color: hybridBlackGreenFrameColor, source: hybridBlackGreenFrameImage}]
+export const frames = { "Colorless": colorlessFrameImage,
+                        "White": whiteFrameImage,
+                        "Blue": blueFrameImage,
+                        "Black": blackFrameImage,
+                        "Red": redFrameImage,
+                        "Green": greenFrameImage,
+                        "Golden": goldenFrameImage,
+                        "Grey": greyFrameImage,
+                        "Hybrid White/Blue": hybridWhiteBlueFrameImage,
+                        "Hybrid White/Black": hybridWhiteBlackFrameImage,
+                        "Hybrid Red/White": hybridRedWhiteFrameImage,
+                        "Hybrid Red/Green": hybridRedGreenFrameImage,
+                        "Hybrid Green/Blue": hybridGreenBlueFrameImage,
+                        "Hybrid Green/White": hybridGreenWhiteFrameImage,    
+                        "Hybrid Blue/Black": hybridBlueBlackFrameImage,
+                        "Hybrid Blue/Red": hybridBlueRedFrameImage,
+                        "Hybrid Black/Red": hybridBlackRedFrameImage,
+                        "Hybrid Black/Green": hybridBlackGreenFrameImage }
