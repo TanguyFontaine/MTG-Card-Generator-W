@@ -14,14 +14,14 @@ export function TypesSelection(props) {
             <Text>Select types :</Text>
             <CheckboxGroup name="types" setValue={(value) => props.setTypes(value)}>
                 <HStack spacing={4}>
-                    <Checkbox value="creatrue" displayLabel="Creatrue" />
-                    <Checkbox value="artifact" displayLabel="Artifact" />
-                    <Checkbox value="enchantment" displayLabel="Enchantment" />
-                    <Checkbox value="planeswalker" displayLabel="Planeswalker" />
-                    <Checkbox value="instant" displayLabel="Instant" />
-                    <Checkbox value="sorcery" displayLabel="Sorcery" />
-                    <Checkbox value="land" displayLabel="Land" />
-                    <Checkbox value="tribal" displayLabel="Tribal" />
+                    <Checkbox value="Creature" displayLabel="Creature" />
+                    <Checkbox value="Artifact" displayLabel="Artifact" />
+                    <Checkbox value="Enchantment" displayLabel="Enchantment" />
+                    <Checkbox value="Planeswalker" displayLabel="Planeswalker" />
+                    <Checkbox value="Instant" displayLabel="Instant" />
+                    <Checkbox value="Sorcery" displayLabel="Sorcery" />
+                    <Checkbox value="Land" displayLabel="Land" />
+                    <Checkbox value="Tribal" displayLabel="Tribal" />
                 </HStack>
             </CheckboxGroup>
          </HStack>

@@ -14,10 +14,10 @@ export function SuperTypesSelection(props) {
             <Text>Select super types :</Text>
             <CheckboxGroup name="superTypes" setValue={(value) => props.setSuperTypes(value)}>
                 <HStack spacing={4}>
-                    <Checkbox value="legendary" displayLabel="Legendary" />
-                    <Checkbox value="snow" displayLabel="Snow" />
-                    <Checkbox value="basic" displayLabel="Basic" />
-                    <Checkbox value="token" displayLabel="Token" />
+                    <Checkbox value="Legendary" displayLabel="Legendary" />
+                    <Checkbox value="Snow" displayLabel="Snow" />
+                    <Checkbox value="Basic" displayLabel="Basic" />
+                    <Checkbox value="Token" displayLabel="Token" />
                 </HStack>
             </CheckboxGroup>
          </HStack>
