@@ -26,7 +26,8 @@ export function UiPanel(props) {
                 <TypesSelection setTypes={(value) => props.setTypes(value)}/>
                 <SuperTypesSelection setSuperTypes={(value) => props.setSuperTypes(value)}/>
                 <SubTypes setSubTypes={(value) => props.setSubTypes(value)}/>
-                <ManaCost></ManaCost>
+                <ManaCost setManaCost={(value) => props.setManaCost(value)} manaCost={props.manaCost} 
+                          setColorlessManaAmount={(value) => props.setColorlessManaAmount(value)} colorlessManaAmount={props.colorlessManaAmount}/>
                 <CardFrameSelection setCardFrame={(value) => props.setCardFrame(value)}/>
                 <SpellDescription setSpellDescription={(value) => props.setSpellDescription(value)}/>
                 <FlavorText setFlavorText={(value) => props.setFlavorText(value)}/>

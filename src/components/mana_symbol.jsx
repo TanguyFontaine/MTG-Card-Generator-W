@@ -6,10 +6,6 @@ export function ManaSymbol(props) {
 
     let classValue = "ms ms-" + symbol + " ms-cost "
     
-    //if (props.clNumber) {
-     //   classValue = classValue + "ms-" + props.clNumber + " "
-    //}
-    
     if (props.shadow) {
         classValue = classValue + "ms-shadow"
     }

@@ -35,8 +35,9 @@ function CardGenerator() {
 
     const [cardFrameColor, setCardFrame] = useState("")
 
-    // To be completed later
-    const [manaSymbols, setManaSymbols] = useState([])
+    const [manaCost, setManaCost] = useState([])
+    // Easier to handle colorless mana on its own
+    const [colorlessManaAmount, setColorlessManaAmount] = useState(0)
 
     const [spellDescription, setSpellDescription] = useState("")
 
@@ -57,6 +58,8 @@ function CardGenerator() {
                          setTypes={(types) => setTypes(types)}
                          setSuperTypes={(superTypes) => setSuperTypes(superTypes)}
                          setSubTypes={(subTypes) => setSubTypes(subTypes)}
+                         setManaCost={(manaCost) => setManaCost(manaCost)} manaCost={manaCost}
+                         setColorlessManaAmount={(colorlessManaAmount) => setColorlessManaAmount(colorlessManaAmount)} colorlessManaAmount={colorlessManaAmount}
                          setCardFrame={(cardFrame) => setCardFrame(cardFrame)}
                          setSpellDescription={(spellDescription) => setSpellDescription(spellDescription)}
                          setFlavorText={(flavorText) => setFlavorText(flavorText)}
@@ -68,7 +71,9 @@ function CardGenerator() {
                          cardName={cardName} 
                          types={types} 
                          superTypes={superTypes} 
-                         subTypes={subTypes} 
+                         subTypes={subTypes}
+                         manaCost={manaCost}
+                         colorlessManaAmount={colorlessManaAmount}
                          cardFrameColor={cardFrameColor} 
                          spellDescription={spellDescription}
                          flavorText={flavorText}

@@ -10,33 +10,28 @@ import { symbols } from "../ressources/symbols"
 /***************************************************************/
 
 export function ManaCost(props) {
-    let [colorlessAmount, setColorlessAmount] = useState(0)
-    let [manaCostSymbols, setManaCostSymbols] =  useState([])
+    const setManaCostFunction = props.setManaCost
+    const manaCost = props.manaCost
 
-    const displayableManaCost = manaCostSymbols.map((symbol) => <Box><ManaSymbol symbol={symbol} shadow={false}/></Box>);
+    const setColorlessManaAmount = props.setColorlessManaAmount
+    const colorlessManaAmount = props.colorlessManaAmount
 
     function resetValues() {
-        setManaCostSymbols([])
-        setColorlessAmount(0)
+        setManaCostFunction([])
+        setColorlessManaAmount(0)
     }
 
     return (
         <VStack spacing={2}>
             <HStack spacing={5}>
                 <Text>Mana cost :</Text>
-                <Box as="button" fontSize={30} onClick={() => setColorlessAmount(colorlessAmount + 1)}><ManaSymbol symbol={0} shadow={true}/></Box>
-                <Box as="button" fontSize={30} onClick={() => setManaCostSymbols(manaCostSymbols.concat(symbols.White))}><ManaSymbol symbol={symbols.White} shadow={true}/></Box>
-                <Box as="button" fontSize={30} onClick={() => setManaCostSymbols(manaCostSymbols.concat(symbols.Blue))}><ManaSymbol symbol={symbols.Blue} shadow={true}/></Box>
-                <Box as="button" fontSize={30} onClick={() => setManaCostSymbols(manaCostSymbols.concat(symbols.Black))}><ManaSymbol symbol={symbols.Black} shadow={true}/></Box>
-                <Box as="button" fontSize={30} onClick={() => setManaCostSymbols(manaCostSymbols.concat(symbols.Red))}><ManaSymbol symbol={symbols.Red} shadow={true}/></Box>
-                <Box as="button" fontSize={30} onClick={() => setManaCostSymbols(manaCostSymbols.concat(symbols.Green))}><ManaSymbol symbol={symbols.Green} shadow={true}/></Box>
+                <Box as="button" fontSize={30} onClick={() => setColorlessManaAmount(colorlessManaAmount + 1)}><ManaSymbol symbol={0} shadow={true}/></Box>
+                <Box as="button" fontSize={30} onClick={() => setManaCostFunction(manaCost.concat(symbols.White))}><ManaSymbol symbol={symbols.White} shadow={true}/></Box>
+                <Box as="button" fontSize={30} onClick={() => setManaCostFunction(manaCost.concat(symbols.Blue))}><ManaSymbol symbol={symbols.Blue} shadow={true}/></Box>
+                <Box as="button" fontSize={30} onClick={() => setManaCostFunction(manaCost.concat(symbols.Black))}><ManaSymbol symbol={symbols.Black} shadow={true}/></Box>
+                <Box as="button" fontSize={30} onClick={() => setManaCostFunction(manaCost.concat(symbols.Red))}><ManaSymbol symbol={symbols.Red} shadow={true}/></Box>
+                <Box as="button" fontSize={30} onClick={() => setManaCostFunction(manaCost.concat(symbols.Green))}><ManaSymbol symbol={symbols.Green} shadow={true}/></Box>
                 <Button onClick={() => resetValues()}>Clear</Button>
-            </HStack>
-            <HStack spacing={1}>
-                {colorlessAmount > 0 ? <Box><ManaSymbol symbol={colorlessAmount} shadow={false}/></Box> : <Box />}
-                <HStack spacing={1}> 
-                    {displayableManaCost}
-                </HStack>
             </HStack>
          </VStack>
     );
