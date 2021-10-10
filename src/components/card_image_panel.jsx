@@ -7,6 +7,8 @@ import { Text } from "../style_components/text"
 import { frames } from "../ressources/frames"
 import { ManaSymbol } from "./mana_symbol"
 
+import logo from "../ressources/logo_mini.png" 
+
 /***************************************************************/
 
 function fileExtensionIsValid(imageFileName) {
@@ -68,11 +70,11 @@ export function CardImagePanel(props) {
     const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
 
     const displayableManaCost = manaCost.map((symbol) => <Box><ManaSymbol symbol={symbol} shadow={true}/></Box>);
-    
+
     // Formula to display the mana cost at the right place
     // 96.8 is hard coded pos of the 1st mana symbol, 2.48 is the size of mana symbol with fontSize(35) 
     // we do not forget the colorless mana that is not the mana cost list
-    const manaCostLeftPos = 96.8 - (manaCost.length + (colorlessManaAmount > 0 ? 1 : 0)) * 2.48 + "%"
+    const manaCostLeftPos = 96.5 - (manaCost.length + (colorlessManaAmount > 0 ? 1 : 0)) * 2.48 + "%"
 
     const style = useStyleConfig("CardImagePanel")
 
@@ -80,20 +82,8 @@ export function CardImagePanel(props) {
         <Box __css={style} bg="blue.800">
             <Box name="cardFrame">
                 <Image mt={3} ml={3} src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)}/>
-                <Text pos="absolute" top="8.7%" left="54.5%" fontSize={38}>{name}</Text>
-            </Box>
-            <Box name="other information">
-                <Text>Card name : {name} </Text>
-                <HStack spacing={2}>
-                    <Text>types :</Text>
-                    {typesItems}
-                </HStack>
-                <HStack spacing={2}>
-                    <Text>super types :</Text>
-                    {superTypesItems}
-                </HStack>
-                <Text>Sub types : {subTypes} </Text>
-                <Box name="manaCost" pos="absolute" top="8.5%" left={manaCostLeftPos} fontSize={35}>
+                <Text pos="absolute" top="8.2%" left="54.5%" fontSize={48}>{name}</Text>
+                <Box name="manaCost" pos="absolute" top="8.7%" left={manaCostLeftPos} fontSize={35}>
                     <HStack spacing={1}>
                         {colorlessManaAmount > 0 ? <Box><ManaSymbol symbol={colorlessManaAmount} shadow={true}/></Box> : <Box />}
                         <HStack spacing={1}> 
@@ -101,7 +91,14 @@ export function CardImagePanel(props) {
                         </HStack>
                     </HStack>
                 </Box>
-                <Text>Card frame : {selectedCardFrame} </Text>
+                <HStack fontSize={42} pos="absolute" top="82.6%" left="54.5%" spacing={2}>
+                    {superTypesItems}
+                    {typesItems}
+                    <Text>{subTypes}</Text>
+                </HStack>
+                <Image pos="absolute" top="82.1%" left="93.5%" src={logo}/>
+            </Box>
+            <Box name="other information">
                 <Text>Abilities : {spellDescription} </Text>
                 <Text>Flavor text : {flavorText} </Text>
                 <Text>Power : {power} </Text>
