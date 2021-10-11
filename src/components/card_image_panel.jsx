@@ -39,7 +39,7 @@ function retrieveCorrespondingFrameImage(frameColor, cardPower, cardToughness) {
         frameIndex = 1
     }
     
-    // By default take the =olorless frame
+    // By default take the colorless frame
     let frameImage = frames["Colorless"][frameIndex]
 
     if (isDefined(frameColor) && frameColor !== "") {
@@ -76,6 +76,8 @@ export function CardImagePanel(props) {
     // we do not forget the colorless mana that is not the mana cost list
     const manaCostLeftPos = 96.5 - (manaCost.length + (colorlessManaAmount > 0 ? 1 : 0)) * 2.48 + "%"
 
+    const powerLeftPos = 92.7 - ((power.length + toughness.length) / 2) + "%"
+
     const style = useStyleConfig("CardImagePanel")
 
     return (
@@ -91,18 +93,22 @@ export function CardImagePanel(props) {
                         </HStack>
                     </HStack>
                 </Box>
-                <HStack fontSize={42} pos="absolute" top="82.6%" left="54.5%" spacing={2}>
+                <HStack fontSize={38} pos="absolute" top="82.6%" left="54.5%" spacing={2}>
                     {superTypesItems}
                     {typesItems}
                     <Text>{subTypes}</Text>
                 </HStack>
                 <Image pos="absolute" top="82.1%" left="93.5%" src={logo}/>
+                <HStack fontSize={45} pos="absolute" top="129%" left={powerLeftPos} spacing={1}>
+                    <Text>{power} </Text>
+                    {power !== "" || toughness !== "" ? <Text>/</Text> : <Text/>}
+                    <Text>{toughness} </Text>
+                </HStack>
             </Box>
             <Box name="other information">
                 <Text>Abilities : {spellDescription} </Text>
                 <Text>Flavor text : {flavorText} </Text>
-                <Text>Power : {power} </Text>
-                <Text>Toughness : {toughness} </Text>
+
                 <Text>Loyalty : {loyalty} </Text>
                 <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent}></DisplayImage>
             </Box>
