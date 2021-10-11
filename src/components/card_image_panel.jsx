@@ -22,14 +22,23 @@ function fileExtensionIsValid(imageFileName) {
 function DisplayImage(props) {
     const imageFileName = props.imageFileName
     const imageFileContent = props.imageFileContent
-
+    const imageCentering = props.imageCentering
+    
     // Do not display the error panel while an image has not been selected
     if (imageFileName === "" || fileExtensionIsValid(imageFileName)) {
         return (
-            <Image alt={imageFileName} src={imageFileContent}></Image>
+            <Box height="594px" width="810px" position="absolute" top="16.75%" left="54.08%">
+                <Image boxSize="inherit" objectPosition={imageCentering} objectFit="cover" alt={imageFileName} src={imageFileContent}></Image>
+            </Box>
         );
     }
-    return (<div>Invalid image file : supported extensions are png, jpg, jpeg, gif, webp</div>);
+    return (
+        <Text position="absolute" top="40%" left="63%" fontSize={24} width="28%" color="white" noOfLines={2}>
+            Invalid image file, supported extensions are : 
+            <br />
+            png, jpg, jpeg, gif, webp
+        </Text>
+    );
 }
 
 function retrieveCorrespondingFrameImage(frameColor, cardPower, cardToughness) {
@@ -54,6 +63,7 @@ export function CardImagePanel(props) {
     const name = props.cardName
     const imageFileContent = props.imageFile.content
     const imageFileName = props.imageFile.name
+    const imageCentering = props.imageCentering
     const types = props.types
     const superTypes = props.superTypes
     const subTypes = props.subTypes
@@ -82,35 +92,34 @@ export function CardImagePanel(props) {
 
     return (
         <Box __css={style} bg="blue.800">
-            <Box name="cardFrame">
-                <Image mt={3} ml={3} src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)}/>
-                <Text pos="absolute" top="8.2%" left="54.5%" fontSize={48}>{name}</Text>
-                <Box name="manaCost" pos="absolute" top="8.7%" left={manaCostLeftPos} fontSize={35}>
-                    <HStack spacing={1}>
-                        {colorlessManaAmount > 0 ? <Box><ManaSymbol symbol={colorlessManaAmount} shadow={true}/></Box> : <Box />}
-                        <HStack spacing={1}> 
-                            {displayableManaCost}
-                        </HStack>
+            <Image mt={3} ml={3} src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)}/>
+            <Text pos="absolute" top="8.2%" left="54.5%" fontSize={48}>{name}</Text>
+            <Box name="manaCost" pos="absolute" top="8.7%" left={manaCostLeftPos} fontSize={35}>
+                <HStack spacing={1}>
+                    {colorlessManaAmount > 0 ? <Box><ManaSymbol symbol={colorlessManaAmount} shadow={true}/></Box> : <Box />}
+                    <HStack spacing={1}> 
+                        {displayableManaCost}
                     </HStack>
-                </Box>
-                <HStack fontSize={38} pos="absolute" top="82.6%" left="54.5%" spacing={2}>
-                    {superTypesItems}
-                    {typesItems}
-                    <Text>{subTypes}</Text>
-                </HStack>
-                <Image pos="absolute" top="82.1%" left="93.5%" src={logo}/>
-                <HStack fontSize={45} pos="absolute" top="129%" left={powerLeftPos} spacing={1}>
-                    <Text>{power} </Text>
-                    {power !== "" || toughness !== "" ? <Text>/</Text> : <Text/>}
-                    <Text>{toughness} </Text>
                 </HStack>
             </Box>
+            <HStack fontSize={38} pos="absolute" top="82.6%" left="54.5%" spacing={2}>
+                {superTypesItems}
+                {typesItems}
+                <Text>{subTypes}</Text>
+            </HStack>
+            <Image pos="absolute" top="82.1%" left="93.5%" src={logo}/>
+            <HStack fontSize={45} pos="absolute" top="129%" left={powerLeftPos} spacing={1}>
+                <Text>{power} </Text>
+                {power !== "" || toughness !== "" ? <Text>/</Text> : <Text/>}
+                <Text>{toughness} </Text>
+            </HStack>
+
+            <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering}></DisplayImage>
             <Box name="other information">
                 <Text>Abilities : {spellDescription} </Text>
                 <Text>Flavor text : {flavorText} </Text>
 
                 <Text>Loyalty : {loyalty} </Text>
-                <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent}></DisplayImage>
             </Box>
         </Box>
     );

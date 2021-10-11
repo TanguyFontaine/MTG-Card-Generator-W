@@ -3,6 +3,7 @@ import { Box, VStack, Stack, Grid, useStyleConfig } from "@chakra-ui/react"
 /**************************************************** */
 
 import { ImageSelector } from "./image_selector"
+import { ImageCentering } from "./image_centering"
 import { CardName } from "./card_name"
 import { TypesSelection } from "./types_selection"
 import { SuperTypesSelection } from "./super_types_selection"
@@ -34,6 +35,7 @@ export function UiPanel(props) {
                 <PowerToughness setPower={(value) => props.setPower(value)} setToughness={(value) => props.setToughness(value)}/>
                 <Loyalty setLoyalty={(value) => props.setLoyalty(value)}/>
                 <ImageSelector setImageFileFunction={(file) => props.setImageFileFunction(file)} selectedImageFileName={props.selectedImageFileName}/>
+                <ImageCentering setImageCentering={(value) => props.setImageCentering(value)}/>
             </Grid>
         </Box>
     );

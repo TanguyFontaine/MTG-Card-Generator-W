@@ -24,6 +24,7 @@ function CardGenerator() {
         name: "",
         content: ""
     })
+    const [imageCentering, setImageCentering] = useState("center") 
 
     const [cardName, setCardName] = useState("")
 
@@ -65,7 +66,8 @@ function CardGenerator() {
                          setFlavorText={(flavorText) => setFlavorText(flavorText)}
                          setPower={(power) => setPower(power)}
                          setToughness={(toughness) => setToughness(toughness)}
-                         setLoyalty={(loyalty) => setLoyalty(loyalty)}/>
+                         setLoyalty={(loyalty) => setLoyalty(loyalty)}
+                         setImageCentering={(imageCentering) => setImageCentering(imageCentering)}/>
                 <CardImagePanel 
                          imageFile={imageFile} 
                          cardName={cardName} 
@@ -79,7 +81,8 @@ function CardGenerator() {
                          flavorText={flavorText}
                          power={power}
                          toughness={toughness}
-                         loyalty={loyalty}/>
+                         loyalty={loyalty}
+                         imageCentering={imageCentering}/>
             </SimpleGrid>
         </ChakraProvider>
     );
