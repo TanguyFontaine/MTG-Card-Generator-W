@@ -4,9 +4,8 @@ import { Box, HStack } from "@chakra-ui/react"
 /***************************************************************/
 
 import { Button } from "../style_components/button"
-
-
 /***************************************************************/
+
 export function ImageSelector(props) {
 
     const setImageFileFunction = props.setImageFileFunction;

@@ -47,7 +47,10 @@ export const symbols = {
 
     Energy: "e",
     Saga: "saga",
-    
+
+    Inifity: "infinity",
+    Half: "1-2",
+
     LoyaltyUp: "loyalty-up",
     LoyaltyZero: "loyalty-zero",
     LoyaltyDown: "loyalty-down",

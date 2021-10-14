@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, VStack, Stack, Grid, useStyleConfig } from "@chakra-ui/react"
-/**************************************************** */
+import { Box, Grid, useStyleConfig } from "@chakra-ui/react"
+/***************************************************************/
 
 import { ImageSelector } from "./image_selector"
 import { ImageCentering } from "./image_centering"
@@ -13,16 +13,18 @@ import { CardFrameSelection } from "./card_frame_selection"
 import { SpellDescription } from "./spell_description"
 import { FlavorText } from "./flavor_text"
 import { PowerToughness } from "./power_and_toughness"
-import { Loyalty } from "./loyalty"
-
 /***************************************************************/
+
 export function UiPanel(props) {
 
     const style = useStyleConfig("UiPanel")
 
+
+    //<Loyalty setLoyalty={(value) => props.setLoyalty(value)}/>
+
     return (
         <Box __css={style} >
-            <Grid mt="7%" mx="5%" gap={6}>
+            <Grid mt="7%" mx="5%" gap="2em">
                 <CardName setCardName={(value) => props.setCardName(value)}/>
                 <TypesSelection setTypes={(value) => props.setTypes(value)}/>
                 <SuperTypesSelection setSuperTypes={(value) => props.setSuperTypes(value)}/>
@@ -30,10 +32,9 @@ export function UiPanel(props) {
                 <ManaCost setManaCost={(value) => props.setManaCost(value)} manaCost={props.manaCost} 
                           setColorlessManaAmount={(value) => props.setColorlessManaAmount(value)} colorlessManaAmount={props.colorlessManaAmount}/>
                 <CardFrameSelection setCardFrame={(value) => props.setCardFrame(value)}/>
-                <SpellDescription setSpellDescription={(value) => props.setSpellDescription(value)}/>
+                <SpellDescription setSpellDescription={(value) => props.setSpellDescription(value)} spellDescription={props.spellDescription}/>
                 <FlavorText setFlavorText={(value) => props.setFlavorText(value)}/>
                 <PowerToughness setPower={(value) => props.setPower(value)} setToughness={(value) => props.setToughness(value)}/>
-                <Loyalty setLoyalty={(value) => props.setLoyalty(value)}/>
                 <ImageSelector setImageFileFunction={(file) => props.setImageFileFunction(file)} selectedImageFileName={props.selectedImageFileName}/>
                 <ImageCentering setImageCentering={(value) => props.setImageCentering(value)}/>
             </Grid>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Textarea as ChakraTextarea, Text}  from "@chakra-ui/react"
-
+import React from 'react';
+import { Textarea as ChakraTextarea}  from "@chakra-ui/react"
 /***************************************************************/
+
 export function Textarea(props) {
     let setValue = props.setValue
 

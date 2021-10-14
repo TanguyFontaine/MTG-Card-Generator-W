@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckboxGroup as ChakraCheckboxGroup}  from "@chakra-ui/react"
-
 /***************************************************************/
+
 export function CheckboxGroup(props) {
     let setValue = props.setValue
 

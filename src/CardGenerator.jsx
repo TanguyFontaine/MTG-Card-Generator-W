@@ -37,8 +37,8 @@ function CardGenerator() {
     const [cardFrameColor, setCardFrame] = useState("")
 
     const [manaCost, setManaCost] = useState([])
-    // Easier to handle colorless mana on its own
-    const [colorlessManaAmount, setColorlessManaAmount] = useState(0)
+    // Easier to handle colorless mana on its own. Begin at -1 to display 0 mana artifacts
+    const [colorlessManaAmount, setColorlessManaAmount] = useState(-1)
 
     const [spellDescription, setSpellDescription] = useState("")
 
@@ -62,7 +62,7 @@ function CardGenerator() {
                          setManaCost={(manaCost) => setManaCost(manaCost)} manaCost={manaCost}
                          setColorlessManaAmount={(colorlessManaAmount) => setColorlessManaAmount(colorlessManaAmount)} colorlessManaAmount={colorlessManaAmount}
                          setCardFrame={(cardFrame) => setCardFrame(cardFrame)}
-                         setSpellDescription={(spellDescription) => setSpellDescription(spellDescription)}
+                         setSpellDescription={(spellDescription) => setSpellDescription(spellDescription)} spellDescription={spellDescription}
                          setFlavorText={(flavorText) => setFlavorText(flavorText)}
                          setPower={(power) => setPower(power)}
                          setToughness={(toughness) => setToughness(toughness)}

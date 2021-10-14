@@ -1,6 +1,6 @@
 import React from 'react';
 import { HStack } from "@chakra-ui/react"
-/**************************************************** */
+/***************************************************************/
 
 import { Text } from "../style_components/text"
 import { Select } from "../style_components/select" 

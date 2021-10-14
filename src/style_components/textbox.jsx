@@ -1,7 +1,7 @@
 import React from 'react';
-import { Input as ChakraTextbox, Text}  from "@chakra-ui/react"
-
+import { Input as ChakraTextbox}  from "@chakra-ui/react"
 /***************************************************************/
+
 export function Textbox(props) {
     //let value = props.value       TODO check why we should pass the value until here only to set value={value}.
     let setValue = props.setValue

@@ -1,13 +1,12 @@
 import React from 'react';
 import { HStack } from "@chakra-ui/react"
-/**************************************************** */
+/***************************************************************/
 
 import { Checkbox } from "../style_components/checkbox"
 import { CheckboxGroup } from "../style_components/checkbox_group"
 import { Text } from "../style_components/text"
-
-
 /***************************************************************/
+
 export function SuperTypesSelection(props) {
     return (
         <HStack spacing={2}>

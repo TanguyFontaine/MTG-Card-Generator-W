@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, HStack } from "@chakra-ui/react"
-/**************************************************** */
+import { HStack } from "@chakra-ui/react"
+/***************************************************************/
 
 import { Text } from "../style_components/text"
 import { Textbox } from "../style_components/textbox"
-
 /***************************************************************/
+
 export function CardName(props) {
     return (
         <HStack spacing={2}>

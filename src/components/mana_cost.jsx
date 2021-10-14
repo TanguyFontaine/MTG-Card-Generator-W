@@ -1,45 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, VStack, HStack, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel } from "@chakra-ui/react"
 /***************************************************************/
 
 import { Button } from "../style_components/button"
 import { Text } from "../style_components/text"
-import { ManaSymbol } from "./mana_symbol"
+import { SymbolButton } from "./symbol_button"
 import { symbols } from "../ressources/symbols"
-
 /***************************************************************/
-
-function ManaSymbolElement(props) {
-    return (
-        <Box as="button" onClick={() => props.setManaCost(props.manaCost.concat(props.symbol))} {...props}>
-            <ManaSymbol symbol={props.symbol} shadow={true}/>
-        </Box>
-    );
-}
 
 export function ManaCost(props) {
 
-    const setManaCostFunction = props.setManaCost
-    const manaCost = props.manaCost
-
-    const setColorlessManaAmount = props.setColorlessManaAmount
-    const colorlessManaAmount = props.colorlessManaAmount
+    function setManaCostFunction(symbol)
+    {
+        props.setManaCost(props.manaCost.concat(symbol))
+    } 
+    
+    function setColorlessManaAmount(colorlessManaAmount)
+    {
+        props.setColorlessManaAmount(colorlessManaAmount + 1)
+    } 
 
     function resetValues() {
-        setManaCostFunction([])
-        setColorlessManaAmount(0)
+        props.setManaCost([])
+        props.setColorlessManaAmount(-1)
     }
 
     return (
         <VStack spacing={2}>
             <HStack spacing={5}>
                 <Text>Mana cost :</Text>
-                <Box as="button" fontSize={30} onClick={() => setColorlessManaAmount(colorlessManaAmount + 1)}><ManaSymbol symbol={0} shadow={true}/></Box>
-                <ManaSymbolElement symbol={symbols.White} fontSize={30} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                <ManaSymbolElement symbol={symbols.Blue} fontSize={30} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                <ManaSymbolElement symbol={symbols.Black} fontSize={30} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                <ManaSymbolElement symbol={symbols.Red} fontSize={30} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                <ManaSymbolElement symbol={symbols.Green} fontSize={30} manaCost={props.manaCost} setManaCost={props.setManaCost} />
+                <SymbolButton symbol={"0"} fontSize={30} setValue={() => setColorlessManaAmount(props.colorlessManaAmount)} />
+                <SymbolButton symbol={symbols.White} fontSize={30} setValue={() => setManaCostFunction(symbols.White)} />
+                <SymbolButton symbol={symbols.Blue} fontSize={30} setValue={() => setManaCostFunction(symbols.Blue)} />
+                <SymbolButton symbol={symbols.Black} fontSize={30} setValue={() => setManaCostFunction(symbols.Black)} />
+                <SymbolButton symbol={symbols.Red} fontSize={30} setValue={() => setManaCostFunction(symbols.Red)} />
+                <SymbolButton symbol={symbols.Green} fontSize={30} setValue={() => setManaCostFunction(symbols.Green)} />
                 
                 <Button onClick={() => resetValues()}>Clear</Button>
 
@@ -49,7 +44,7 @@ export function ManaCost(props) {
                     <h2>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
-                                More symbols
+                                More mana symbols
                             </Box>
                         <AccordionIcon />
                         </AccordionButton>
@@ -57,41 +52,43 @@ export function ManaCost(props) {
                     <AccordionPanel pb={4}>
                         <VStack spacing={1}>
                             <HStack spacing={2}>
-                                <ManaSymbolElement symbol={symbols.Colorless} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridWU} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridWB} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridRW} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridRG} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridGU} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridGW} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridUB} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridUR} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridBR} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.HybridBG} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
+                                <SymbolButton symbol={symbols.Colorless} setValue={() => setManaCostFunction(symbols.Colorless)} />
+                                <SymbolButton symbol={symbols.HybridWU} setValue={() => setManaCostFunction(symbols.HybridWU)} />
+                                <SymbolButton symbol={symbols.HybridWB} setValue={() => setManaCostFunction(symbols.HybridWB)} />
+                                <SymbolButton symbol={symbols.HybridRW} setValue={() => setManaCostFunction(symbols.HybridRW)} />
+                                <SymbolButton symbol={symbols.HybridRG} setValue={() => setManaCostFunction(symbols.HybridRG)} />
+                                <SymbolButton symbol={symbols.HybridGU} setValue={() => setManaCostFunction(symbols.HybridGU)} />
+                                <SymbolButton symbol={symbols.HybridGW} setValue={() => setManaCostFunction(symbols.HybridGW)} />
+                                <SymbolButton symbol={symbols.HybridUB} setValue={() => setManaCostFunction(symbols.HybridUB)} />
+                                <SymbolButton symbol={symbols.HybridUR} setValue={() => setManaCostFunction(symbols.HybridUR)} />
+                                <SymbolButton symbol={symbols.HybridBR} setValue={() => setManaCostFunction(symbols.HybridBR)} />
+                                <SymbolButton symbol={symbols.HybridBG} setValue={() => setManaCostFunction(symbols.HybridBG)} />
                             </HStack>
                             <HStack spacing={2}>
-                                <ManaSymbolElement symbol={symbols.TWhite} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.TBlue} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.TBlack} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.TRed} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.TGreen} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
+                                <SymbolButton symbol={symbols.TWhite} setValue={() => setManaCostFunction(symbols.TWhite)} />
+                                <SymbolButton symbol={symbols.TBlue} setValue={() => setManaCostFunction(symbols.TBlue)} />
+                                <SymbolButton symbol={symbols.TBlack} setValue={() => setManaCostFunction(symbols.TBlack)} />
+                                <SymbolButton symbol={symbols.TRed} setValue={() => setManaCostFunction(symbols.TRed)} />
+                                <SymbolButton symbol={symbols.TGreen} setValue={() => setManaCostFunction(symbols.TGreen)} />
 
-                                <ManaSymbolElement symbol={symbols.PhyColorless} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.PhyWhite} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.PhyBlue} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.PhyBlack} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.PhyRed} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.PhyGreen} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
+                                <SymbolButton symbol={symbols.PhyColorless} setValue={() => setManaCostFunction(symbols.PhyColorless)} />
+                                <SymbolButton symbol={symbols.PhyWhite} setValue={() => setManaCostFunction(symbols.PhyWhite)} />
+                                <SymbolButton symbol={symbols.PhyBlue} setValue={() => setManaCostFunction(symbols.PhyBlue)} />
+                                <SymbolButton symbol={symbols.PhyBlack} setValue={() => setManaCostFunction(symbols.PhyBlack)} />
+                                <SymbolButton symbol={symbols.PhyRed} setValue={() => setManaCostFunction(symbols.PhyRed)} />
+                                <SymbolButton symbol={symbols.PhyGreen} setValue={() => setManaCostFunction(symbols.PhyGreen)} />
                             </HStack>
                             <HStack>
-                                <ManaSymbolElement symbol={symbols.Snow} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
+                                <SymbolButton symbol={symbols.XColorless} setValue={() => setManaCostFunction(symbols.XColorless)} />
+                                <SymbolButton symbol={symbols.XWhite} setValue={() => setManaCostFunction(symbols.XWhite)} />
+                                <SymbolButton symbol={symbols.XBlue} setValue={() => setManaCostFunction(symbols.XBlue)} />
+                                <SymbolButton symbol={symbols.XBlack} setValue={() => setManaCostFunction(symbols.XBlack)} />
+                                <SymbolButton symbol={symbols.XRed} setValue={() => setManaCostFunction(symbols.XRed)} />
+                                <SymbolButton symbol={symbols.XGreen} setValue={() => setManaCostFunction(symbols.XGreen)} />
 
-                                <ManaSymbolElement symbol={symbols.XColorless} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.XWhite} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.XBlue} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.XBlack} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.XRed} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
-                                <ManaSymbolElement symbol={symbols.XGreen} fontSize={20} manaCost={props.manaCost} setManaCost={props.setManaCost} />
+                                <SymbolButton symbol={symbols.Snow} setValue={() => setManaCostFunction(symbols.Snow)} />
+                                <SymbolButton symbol={symbols.Inifity} setValue={() => setManaCostFunction(symbols.Inifity)} />
+                                <SymbolButton symbol={symbols.Half} setValue={() => setManaCostFunction(symbols.Half)} />
                             </HStack>
                         </VStack>
                     </AccordionPanel>
