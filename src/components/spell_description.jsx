@@ -16,7 +16,7 @@ export function SpellDescription(props) {
         <Grid gap={4}>
             <HStack spacing={2}>
                 <Text>Abilities :</Text>
-                <Textarea setValue={(value) => props.setSpellDescription(value)} placeholder="Enter the abilities or the description of your spell :"/>
+                <Textarea width={775} setValue={(value) => props.setSpellDescription(value)} placeholder="Enter the abilities or the description of your spell :"/>
             </HStack>
 
             <Accordion allowToggle>

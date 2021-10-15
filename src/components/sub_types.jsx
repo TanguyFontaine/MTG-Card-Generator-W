@@ -10,7 +10,7 @@ export function SubTypes(props) {
     return (
         <HStack spacing={2}>
             <Text>Sub types :</Text>
-            <Textbox setValue={(subTypes) => props.setSubTypes(subTypes)} placeholder="Enter the sub types of your card here."/>
+            <Textbox width={765} setValue={(subTypes) => props.setSubTypes(subTypes)} placeholder="Enter the sub types of your card here."/>
          </HStack>
     );
 }

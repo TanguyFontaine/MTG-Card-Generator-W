@@ -14,7 +14,7 @@ export function CardFrameSelection(props) {
     return (
         <HStack spacing={2}>
             <Text>Card frame :</Text>
-            <Select options={frameColors} setValue={(value) => props.setCardFrame(value)} placeholder="Select the frame of your card." />
+            <Select width={756} options={frameColors} setValue={(value) => props.setCardFrame(value)} placeholder="Select the frame of your card." />
          </HStack>
     );
 }

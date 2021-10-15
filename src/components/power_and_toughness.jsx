@@ -1,5 +1,5 @@
 import React from 'react';
-import { HStack } from "@chakra-ui/react"
+import { HStack, Box} from "@chakra-ui/react"
 /***************************************************************/
 
 import { Textbox } from "../style_components/textbox"
@@ -8,11 +8,12 @@ import { Text } from "../style_components/text"
 
 export function PowerToughness(props) {
     return (
-        <HStack spacing={2}>
+        <HStack spacing={3}>
             <Text>Power :</Text>
-            <Textbox setValue={(value) => props.setPower(value)} placeholder="Power"/>
+            <Textbox width={322} setValue={(value) => props.setPower(value)} placeholder="Power"/>
+            <Box width={30}/>
             <Text>Toughness :</Text>
-            <Textbox setValue={(value) => props.setToughness(value)} placeholder="Toughness"/>
+            <Textbox width={322} setValue={(value) => props.setToughness(value)} placeholder="Toughness"/>
          </HStack>
     );
 }

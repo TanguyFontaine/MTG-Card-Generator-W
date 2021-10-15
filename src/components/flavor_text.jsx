@@ -10,7 +10,7 @@ export function FlavorText(props) {
     return (
         <HStack spacing={2}>
             <Text>Flavor text :</Text>
-            <Textarea setValue={(value) => props.setFlavorText(value)} placeholder="Enter the flavor text :"/>
+            <Textarea width={761} setValue={(value) => props.setFlavorText(value)} placeholder="Enter the flavor text :"/>
          </HStack>
     );
 }

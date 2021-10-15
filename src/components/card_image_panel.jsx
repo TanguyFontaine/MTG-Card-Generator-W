@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Box, HStack, useStyleConfig } from "@chakra-ui/react"
+import { Image, Box, HStack, useStyleConfig, Center } from "@chakra-ui/react"
 import { isDefined } from '@chakra-ui/utils';
 /***************************************************************/
 
@@ -26,7 +26,7 @@ function DisplayImage(props) {
     // Do not display the error panel while an image has not been selected
     if (imageFileName === "" || fileExtensionIsValid(imageFileName)) {
         return (
-            <Box height="594px" width="810px" position="absolute" top="16.75%" left="54.08%">
+            <Box height="416px" width="566px" position="absolute" top="10.82%" left="62.38%">
                 <Image boxSize="inherit" objectPosition={imageCentering} objectFit="cover" alt={imageFileName} src={imageFileContent}></Image>
             </Box>
         );
@@ -71,7 +71,7 @@ function transformIntoElements(spellDescription) {
         if (rightBraceSplit.length === 2) {
             // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
             const symbolCode = rightBraceSplit[0]
-            const displayableSymbol = (symbolCode === "e") ? <Symbol symbolOnly={true} symbol={symbolCode}/> : <Symbol symbol={symbolCode}/>
+            const displayableSymbol = (symbolCode === "e") ? <Symbol symbolOnly={true} symbol={symbolCode}/> : <Symbol font-s   ize="small" symbol={symbolCode}/>
             displayableElements = displayableElements.concat(displayableSymbol)
             displayableElements = displayableElements.concat(rightBraceSplit[1])
         }
@@ -109,9 +109,9 @@ export function CardImagePanel(props) {
     // Formula to display the mana cost at the right place
     // 96.8 is hard coded pos of the 1st mana symbol, 2.48 is the size of mana symbol with fontSize(35) 
     // we do not forget the colorless mana that is not the mana cost list
-    const manaCostLeftPos = 96.5 - (manaCost.length + (colorlessManaAmount > -1 ? 1 : 0)) * 2.48 + "%"
+    const manaCostLeftPos = 92 - (manaCost.length + (colorlessManaAmount > -1 ? 1 : 0)) * 1.76 + "%"
 
-    const powerLeftPos = 92.7 - ((power.length + toughness.length) / 2) + "%"
+    const powerLeftPos = 89.2 - ((power.length + toughness.length) / 2) + "%"
 
     const displayableSpellDescription = transformIntoElements(spellDescription)
 
@@ -119,9 +119,12 @@ export function CardImagePanel(props) {
 
     return (
         <Box __css={style} sx={{wordSpacing: "0.2em"}} bg="blue.800">
-            <Image mt={3} ml={3} src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)}/>
-            <Text pos="absolute" top="8.2%" left="54.5%" fontSize={48}>{name}</Text>
-            <Box name="manaCost" pos="absolute" top="8.7%" left={manaCostLeftPos} fontSize={35}>
+            <Box position="relative" left="20%" height="937px" width="656px">
+                <Image boxSize="inherit" objectFit="fit" src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)}/>
+            </Box>
+            <Text pos="absolute" top="4.8%" left="62.5%" fontSize={32}>{name}</Text>
+
+            <Box name="manaCost" pos="absolute" top="5.1%" left={manaCostLeftPos} fontSize={24}>
                 <HStack spacing={1}>
                     {colorlessManaAmount > -1 ? <Box><Symbol symbol={colorlessManaAmount} shadow={true}/></Box> : <Box />}
                     <HStack spacing={1}> 
@@ -129,27 +132,29 @@ export function CardImagePanel(props) {
                     </HStack>
                 </HStack>
             </Box>
-            <HStack fontSize={38} pos="absolute" top="82.6%" left="54.5%" spacing="0.3em">
+
+            <HStack fontSize={28} pos="absolute" top="56.7%" left="62.5%" spacing="0.3em">
                 {superTypesItems}
                 {typesItems}
                 <Text>{subTypes}</Text>
             </HStack>
-            <Image pos="absolute" top="82.1%" left="93.5%" src={logo}/>
+            <Image boxSize="44px" pos="absolute" top="56.2%" left="89.7%" src={logo}/>
             
-            <Box sx={{wordSpacing: "0.2em"}}>
-                <Text fontSize={26} whiteSpace="pre-line" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="92.1%" left="55%" width="41%" >{displayableSpellDescription}</Text>
+            <Box lineHeight="1.4em" sx={{wordSpacing: "0.2em"}}>
+                <Text fontSize={22} whiteSpace="pre-line" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="63.5%" left="63%" width="28.5%" >{displayableSpellDescription}</Text>
             </Box>   
 
-            <HStack fontSize={45} pos="absolute" top="129%" left={powerLeftPos} spacing={1}>
+            <HStack fontSize={34} pos="absolute" top="89%" left={powerLeftPos} spacing={1}>
                 <Text>{power} </Text>
                 {power !== "" || toughness !== "" ? <Text>/</Text> : <Text/>}
                 <Text>{toughness} </Text>
             </HStack>
 
+            <Box lineHeight="1.3em" sx={{wordSpacing: "0.2em"}}>
+                <Text as="i" fontSize={21} whiteSpace="pre-line" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="76%" left="63%" width="28.5%" >{flavorText}</Text>
+            </Box>   
+
             <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering}></DisplayImage>
-            <Box name="other information">
-                <Text>Flavor text : {flavorText} </Text>
-            </Box>
         </Box>
     );
 }

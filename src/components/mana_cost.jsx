@@ -29,12 +29,12 @@ export function ManaCost(props) {
         <VStack spacing={2}>
             <HStack spacing={5}>
                 <Text>Mana cost :</Text>
-                <SymbolButton symbol={"0"} fontSize={30} setValue={() => setColorlessManaAmount(props.colorlessManaAmount)} />
-                <SymbolButton symbol={symbols.White} fontSize={30} setValue={() => setManaCostFunction(symbols.White)} />
-                <SymbolButton symbol={symbols.Blue} fontSize={30} setValue={() => setManaCostFunction(symbols.Blue)} />
-                <SymbolButton symbol={symbols.Black} fontSize={30} setValue={() => setManaCostFunction(symbols.Black)} />
-                <SymbolButton symbol={symbols.Red} fontSize={30} setValue={() => setManaCostFunction(symbols.Red)} />
-                <SymbolButton symbol={symbols.Green} fontSize={30} setValue={() => setManaCostFunction(symbols.Green)} />
+                <SymbolButton symbol={"0"} fontSize={25} setValue={() => setColorlessManaAmount(props.colorlessManaAmount)} />
+                <SymbolButton symbol={symbols.White} fontSize={25} setValue={() => setManaCostFunction(symbols.White)} />
+                <SymbolButton symbol={symbols.Blue} fontSize={25} setValue={() => setManaCostFunction(symbols.Blue)} />
+                <SymbolButton symbol={symbols.Black} fontSize={25} setValue={() => setManaCostFunction(symbols.Black)} />
+                <SymbolButton symbol={symbols.Red} fontSize={25} setValue={() => setManaCostFunction(symbols.Red)} />
+                <SymbolButton symbol={symbols.Green} fontSize={25} setValue={() => setManaCostFunction(symbols.Green)} />
                 
                 <Button onClick={() => resetValues()}>Clear</Button>
 
