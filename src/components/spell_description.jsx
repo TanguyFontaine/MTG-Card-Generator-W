@@ -6,6 +6,7 @@ import { Textarea } from "../style_components/textarea"
 import { Text } from "../style_components/text"
 import { SymbolButton } from "./symbol_button"
 import { symbols } from "../ressources/symbols"
+import { FontSizeControler } from "./font_size_controler"
 /***************************************************************/
 
 export function SpellDescription(props) {
@@ -16,14 +17,15 @@ export function SpellDescription(props) {
         <Grid gap={4}>
             <HStack spacing={2}>
                 <Text>Abilities :</Text>
-                <Textarea width={775} setValue={(value) => props.setSpellDescription(value)} placeholder="Enter the abilities or the description of your spell :"/>
+                <Textarea width={640} setValue={(value) => props.setSpellDescription(value)} placeholder="Enter the abilities or the description of your spell :"/>
+                <FontSizeControler setValue={props.setSpellFontSize} value={props.spellFontSize}/>
             </HStack>
 
             <Accordion allowToggle>
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
-                            <Box flex="1" textAlign="left">
+                            <Box fontSize={14} flex="1" textAlign="left">
                                 Symbol codes (add the following code between [ ] to display the symbol) : {selectedSymbol}
                             </Box>
                         <AccordionIcon />

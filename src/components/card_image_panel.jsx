@@ -87,18 +87,23 @@ function transformIntoElements(spellDescription) {
 export function CardImagePanel(props) {
 
     const name = props.cardName
+    const nameFontSize = props.nameFontSize
     const imageFileContent = props.imageFile.content
     const imageFileName = props.imageFile.name
     const imageCentering = props.imageCentering
     const types = props.types
     const superTypes = props.superTypes
     const subTypes = props.subTypes
+    const typesFontSize = props.typesFontSize
     const manaCost = props.manaCost
     const colorlessManaAmount = props.colorlessManaAmount
     const spellDescription = props.spellDescription
+    const spellFontSize = props.spellFontSize
     const flavorText = props.flavorText
+    const flavorTextFontSize = props.flavorTextFontSize
     const power = props.power
     const toughness = props.toughness
+    const ptFontSize  = props.ptFontSize
     const selectedCardFrame = props.cardFrameColor
 
     const typesItems = types.map((type) => <Text>{type}</Text>);
@@ -106,12 +111,24 @@ export function CardImagePanel(props) {
 
     const displayableManaCost = manaCost.map((symbol) => <Box><Symbol symbol={symbol} shadow={true}/></Box>);
 
-    // Formula to display the mana cost at the right place
+
+    // Formulas to display values at the rigths position 
+    
+    //the mana cost at the right place
     // 96.8 is hard coded pos of the 1st mana symbol, 2.48 is the size of mana symbol with fontSize(35) 
     // we do not forget the colorless mana that is not the mana cost list
     const manaCostLeftPos = 92 - (manaCost.length + (colorlessManaAmount > -1 ? 1 : 0)) * 1.76 + "%"
 
-    const powerLeftPos = 89.2 - ((power.length + toughness.length) / 2) + "%"
+    // adjust the power toughness position depending on the length of both values and the font size
+    const powerLeftPos = 89.2 - ((power.length + toughness.length) / (68 / ptFontSize)) + "%"
+    const powerTopPos = 89 + (3.4 - ptFontSize * 0.1) + "%"
+
+    // adjust the name height pos depending on the font size 
+    // result = baseTopValue + ((defaultFontSize / 10) - (fontSize / 10))
+    const nameTopPos = 4.8 + (3.2 - nameFontSize * 0.1) + "%"
+    const typesTopPos = 56.7 + (2.8 - typesFontSize * 0.1) + "%"
+    const spellDescriptionLineHeight = 1.44 + (spellFontSize * 0.1 - 2.2) + "em"
+    const flavorTextLineHeight = 1.34 + (flavorTextFontSize * 0.1 - 2.1) + "em"
 
     const displayableSpellDescription = transformIntoElements(spellDescription)
 
@@ -122,7 +139,7 @@ export function CardImagePanel(props) {
             <Box position="relative" left="20%" height="937px" width="656px">
                 <Image boxSize="inherit" objectFit="fit" src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)}/>
             </Box>
-            <Text pos="absolute" top="4.8%" left="62.5%" fontSize={32}>{name}</Text>
+            <Text pos="absolute" top={nameTopPos} left="62.5%" fontSize={nameFontSize}>{name}</Text>
 
             <Box name="manaCost" pos="absolute" top="5.1%" left={manaCostLeftPos} fontSize={24}>
                 <HStack spacing={1}>
@@ -133,25 +150,25 @@ export function CardImagePanel(props) {
                 </HStack>
             </Box>
 
-            <HStack fontSize={28} pos="absolute" top="56.7%" left="62.5%" spacing="0.3em">
+            <HStack fontSize={typesFontSize} pos="absolute" top={typesTopPos} left="62.5%" spacing="0.3em">
                 {superTypesItems}
                 {typesItems}
                 <Text>{subTypes}</Text>
             </HStack>
             <Image boxSize="44px" pos="absolute" top="56.2%" left="89.7%" src={logo}/>
             
-            <Box lineHeight="1.4em" sx={{wordSpacing: "0.2em"}}>
-                <Text fontSize={22} whiteSpace="pre-line" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="63.5%" left="63%" width="28.5%" >{displayableSpellDescription}</Text>
+            <Box lineHeight={spellDescriptionLineHeight} sx={{wordSpacing: "0.2em"}}>
+                <Text fontSize={spellFontSize} whiteSpace="pre-line" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="63.5%" left="63%" width="28.5%" >{displayableSpellDescription}</Text>
             </Box>   
 
-            <HStack fontSize={34} pos="absolute" top="89%" left={powerLeftPos} spacing={1}>
+            <HStack fontSize={ptFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1}>
                 <Text>{power} </Text>
                 {power !== "" || toughness !== "" ? <Text>/</Text> : <Text/>}
                 <Text>{toughness} </Text>
             </HStack>
 
-            <Box lineHeight="1.3em" sx={{wordSpacing: "0.2em"}}>
-                <Text as="i" fontSize={21} whiteSpace="pre-line" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="76%" left="63%" width="28.5%" >{flavorText}</Text>
+            <Box lineHeight={flavorTextLineHeight} sx={{wordSpacing: "0.2em"}}>
+                <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-line" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="76%" left="63%" width="28.5%" >{flavorText}</Text>
             </Box>   
 
             <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering}></DisplayImage>

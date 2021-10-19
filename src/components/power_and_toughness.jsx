@@ -4,16 +4,18 @@ import { HStack, Box} from "@chakra-ui/react"
 
 import { Textbox } from "../style_components/textbox"
 import { Text } from "../style_components/text"
+import { FontSizeControler } from "./font_size_controler"
 /***************************************************************/
 
 export function PowerToughness(props) {
     return (
         <HStack spacing={3}>
             <Text>Power :</Text>
-            <Textbox width={322} setValue={(value) => props.setPower(value)} placeholder="Power"/>
+            <Textbox width={252} setValue={(value) => props.setPower(value)} placeholder="Power"/>
             <Box width={30}/>
             <Text>Toughness :</Text>
-            <Textbox width={322} setValue={(value) => props.setToughness(value)} placeholder="Toughness"/>
+            <Textbox width={252} setValue={(value) => props.setToughness(value)} placeholder="Toughness"/>
+            <FontSizeControler setValue={props.setPTFontSize} value={props.ptFontSize}/>
          </HStack>
     );
 }
