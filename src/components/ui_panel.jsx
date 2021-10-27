@@ -12,17 +12,17 @@ import { CardFrameSelection } from "./card_frame_selection"
 import { SpellDescription } from "./spell_description"
 import { FlavorText } from "./flavor_text"
 import { PowerToughness } from "./power_and_toughness"
+import { SaveImageButton } from "./save_image_button"
 /***************************************************************/
 
 export function UiPanel(props) {
 
     const style = useStyleConfig("UiPanel")
 
-
     //<Loyalty setLoyalty={props.setLoyalty}/>
 
     return (
-        <Box __css={style} >
+        <Box w="960px" __css={style}>
             <Grid mt="3%" mx="5%" gap="1.5em">
                 <CardName setCardName={props.setCardName} setNameFontSize={props.setNameFontSize} nameFontSize={props.nameFontSize}/>
                 <TypesSelection setTypes={props.setTypes}/>
@@ -36,6 +36,7 @@ export function UiPanel(props) {
                 <FlavorText setFlavorText={props.setFlavorText} setFlavorTextFontSize={props.setFlavorTextFontSize} flavorTextFontSize={props.flavorTextFontSize}/>
                 <PowerToughness setPower={props.setPower} setToughness={props.setToughness} setPTFontSize={props.setPTFontSize} ptFontSize={props.ptFontSize}/>
                 <ImageSelector setImageFileFunction={props.setImageFileFunction} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering}/>
+                <SaveImageButton cardImageRef={props.cardImageRef} />
             </Grid>
         </Box>
     );

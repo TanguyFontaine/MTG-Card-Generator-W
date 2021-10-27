@@ -84,7 +84,7 @@ function transformIntoElements(spellDescription) {
 }
 
 
-export function CardImagePanel(props) {
+export const CardImagePanel = React.forwardRef((props, ref) => {
 
     const name = props.cardName
     const nameFontSize = props.nameFontSize
@@ -135,7 +135,7 @@ export function CardImagePanel(props) {
     const style = useStyleConfig("CardImagePanel")
 
     return (
-        <Box __css={style} sx={{wordSpacing: "0.2em"}} bg="blue.800">
+        <Box ref={ref} __css={style} sx={{wordSpacing: "0.2em"}} bg="blue.800">
             <Box position="relative" left="20%" height="937px" width="656px">
                 <Image boxSize="inherit" objectFit="fit" src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)}/>
             </Box>
@@ -174,4 +174,4 @@ export function CardImagePanel(props) {
             <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering}></DisplayImage>
         </Box>
     );
-}
+})

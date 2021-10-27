@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 // 1. import `ChakraProvider` component to have chakra work correctly
 import { ChakraProvider } from "@chakra-ui/react"
 import { SimpleGrid, useControllableState } from "@chakra-ui/react"
@@ -19,6 +19,8 @@ import { CardImagePanel } from "./components/card_image_panel"
 
 /***************************************************************/
 function CardGenerator() {
+
+    const cardImageRef = useRef();
 
     const [imageFile, setImageFile] = useState({
         name: "",
@@ -55,7 +57,7 @@ function CardGenerator() {
 
     return (
         <ChakraProvider theme={theme} >
-            <SimpleGrid columns={2} h="100vh" w="100%">
+            <SimpleGrid columns={2} h="937" w="1920">
                 <UiPanel setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
                          setImageFileFunction={setImageFile} selectedImageFileName={imageFile.name}
                          setTypes={setTypes}
@@ -68,8 +70,9 @@ function CardGenerator() {
                          setFlavorText={setFlavorText} setFlavorTextFontSize={setFlavorTextFontSize} flavorTextFontSize={flavorTextFontSize}
                          setPower={setPower} setToughness={setToughness} setPTFontSize={setPTFontSize} ptFontSize={ptFontSize}
                          setLoyalty={setLoyalty}
-                         setImageCentering={setImageCentering}/>
-                <CardImagePanel 
+                         setImageCentering={setImageCentering}
+                         cardImageRef={cardImageRef}/>
+                <CardImagePanel
                          imageFile={imageFile} 
                          cardName={cardName} nameFontSize={nameFontSize}
                          types={types} 
@@ -82,7 +85,8 @@ function CardGenerator() {
                          flavorText={flavorText} flavorTextFontSize={flavorTextFontSize}
                          power={power} toughness={toughness} ptFontSize={ptFontSize}
                          loyalty={loyalty}
-                         imageCentering={imageCentering}/>
+                         imageCentering={imageCentering}
+                         ref={cardImageRef}/>
             </SimpleGrid>
         </ChakraProvider>
     );
