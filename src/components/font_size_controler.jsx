@@ -11,11 +11,11 @@ export function FontSizeControler(props) {
 
     return (
       <div>
-        <Button ml="12px" onClick={() => setValue(value + 1)}>+</Button>
+        <Button ml="12px" onClick={() => setValue(value - 1)}>-</Button>
         <Box as="span" mx="12px">
           {value}
         </Box>
-        <Button onClick={() => setValue(value - 1)}>-</Button>
+        <Button onClick={() => setValue(value + 1)}>+</Button>
       </div>
     )
   }

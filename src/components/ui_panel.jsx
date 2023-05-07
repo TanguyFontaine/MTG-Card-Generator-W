@@ -31,7 +31,7 @@ export function UiPanel(props) {
                 <ManaCost setManaCost={props.setManaCost} manaCost={props.manaCost} 
                           setColorlessManaAmount={props.setColorlessManaAmount} colorlessManaAmount={props.colorlessManaAmount}/>
                 <CardFrameSelection setCardFrame={props.setCardFrame}/>
-                <SpellDescription setSpellDescription={props.setSpellDescription} spellDescription={props.spellDescription} 
+                <SpellDescription setSpellDescription={props.setSpellDescription} 
                                   setSpellFontSize={props.setSpellFontSize} spellFontSize={props.spellFontSize}/>
                 <FlavorText setFlavorText={props.setFlavorText} setFlavorTextFontSize={props.setFlavorTextFontSize} flavorTextFontSize={props.flavorTextFontSize}/>
                 <PowerToughness setPower={props.setPower} setToughness={props.setToughness} setPTFontSize={props.setPTFontSize} ptFontSize={props.ptFontSize}/>

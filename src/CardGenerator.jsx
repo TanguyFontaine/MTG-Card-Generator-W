@@ -64,7 +64,7 @@ function CardGenerator() {
                          setManaCost={setManaCost} manaCost={manaCost}
                          setColorlessManaAmount={setColorlessManaAmount} colorlessManaAmount={colorlessManaAmount}
                          setCardFrame={setCardFrame}
-                         setSpellDescription={setSpellDescription} spellDescription={spellDescription} setSpellFontSize={setSpellFontSize} spellFontSize={spellFontSize}
+                         setSpellDescription={setSpellDescription} setSpellFontSize={setSpellFontSize} spellFontSize={spellFontSize}
                          setFlavorText={setFlavorText} setFlavorTextFontSize={setFlavorTextFontSize} flavorTextFontSize={flavorTextFontSize}
                          setPower={setPower} setToughness={setToughness} setPTFontSize={setPTFontSize} ptFontSize={ptFontSize}
                          setLoyalty={setLoyalty}
