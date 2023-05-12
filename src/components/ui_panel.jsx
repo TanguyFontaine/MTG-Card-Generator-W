@@ -22,7 +22,7 @@ export function UiPanel(props) {
     //<Loyalty setLoyalty={props.setLoyalty}/>
 
     return (
-        <Box __css={style} >
+        <Box __css={style} w="100%">
             <Grid mt="3%" mx="5%" gap="1.5em">
                 <CardName setCardName={props.setCardName} setNameFontSize={props.setNameFontSize} nameFontSize={props.nameFontSize}/>
                 <TypesSelection setTypes={props.setTypes}/>
@@ -35,7 +35,7 @@ export function UiPanel(props) {
                                   setSpellFontSize={props.setSpellFontSize} spellFontSize={props.spellFontSize}/>
                 <FlavorText setFlavorText={props.setFlavorText} setFlavorTextFontSize={props.setFlavorTextFontSize} flavorTextFontSize={props.flavorTextFontSize}/>
                 <PowerToughness setPower={props.setPower} setToughness={props.setToughness} setPTFontSize={props.setPTFontSize} ptFontSize={props.ptFontSize}/>
-                <ImageSelector setImageFileFunction={props.setImageFileFunction} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering}/>
+                <ImageSelector setImageFileFunction={props.setImageFileFunction} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering}/> 
             </Grid>
         </Box>
     );

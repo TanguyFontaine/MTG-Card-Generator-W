@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // 1. import `ChakraProvider` component to have chakra work correctly
 import { ChakraProvider } from "@chakra-ui/react"
-import { SimpleGrid, useControllableState } from "@chakra-ui/react"
+import { SimpleGrid, Box, useControllableState } from "@chakra-ui/react"
 
 import "@fontsource/eb-garamond/400.css"
 import "@fontsource/eb-garamond/500.css"
@@ -55,7 +55,7 @@ function CardGenerator() {
 
     return (
         <ChakraProvider theme={theme} >
-            <SimpleGrid columns={2} h="100vh" w="100%">
+            <Box display={{ md: 'flex' }} columns={2} h="100vh" w="100%">
                 <UiPanel setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
                          setImageFileFunction={setImageFile} selectedImageFileName={imageFile.name}
                          setTypes={setTypes}
@@ -83,7 +83,7 @@ function CardGenerator() {
                          power={power} toughness={toughness} ptFontSize={ptFontSize}
                          loyalty={loyalty}
                          imageCentering={imageCentering}/>
-            </SimpleGrid>
+            </Box>
         </ChakraProvider>
     );
 }

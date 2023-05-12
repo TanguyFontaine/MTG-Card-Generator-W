@@ -22,9 +22,9 @@ export function SpellDescription(props) {
 
     return (
         <Grid gap={4}>
-            <HStack spacing={2}>
+            <HStack spacing='auto'>
                 <Text>Abilities :</Text>
-                <Textarea width={640}
+                <Textarea width="75%"
                           inputValue={inputValue} setInputValue={setInputValue}
                           setValue={(value) => props.setSpellDescription(value)} 
                           placeholder="Enter the abilities or the description of your spell :"/>

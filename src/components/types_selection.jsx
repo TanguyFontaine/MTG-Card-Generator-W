@@ -9,8 +9,8 @@ import { Text } from "../style_components/text"
 
 export function TypesSelection(props) {
     return (
-        <HStack spacing={2}>
-            <Text>Select types :</Text>
+        <HStack spacing={3.5}>
+            <Text>Types :</Text>
             <CheckboxGroup name="types" setValue={(value) => props.setTypes(value)}>
                 <HStack spacing={4}>
                     <Checkbox value="Creature" displayLabel="Creature" />

@@ -12,9 +12,9 @@ export function FlavorText(props) {
     const [inputValue, setInputValue] = useState("");
 
     return (
-        <HStack spacing={2}>
+        <HStack spacing='auto'>
             <Text>Flavor text :</Text>
-            <Textarea width={625} 
+            <Textarea width="73%" 
                       inputValue={inputValue} setInputValue={setInputValue} 
                       setValue={(value) => props.setFlavorText(value)} 
                       placeholder="Enter the flavor text :"/>

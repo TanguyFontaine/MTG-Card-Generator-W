@@ -14,9 +14,7 @@ export function ImageSelector(props) {
 
     const [openFileSelector, { filesContent, loading, errors }] = useFilePicker({
         readAs: 'DataURL',
-        // multiple: true,
         limitFilesConfig: { max: 1 },
-        // minFileSize: 0.1, // in megabytes
     });
 
     if (loading) {
@@ -37,9 +35,8 @@ export function ImageSelector(props) {
     ));
 
     return (
-        <HStack spacing={4}>
+        <HStack spacing='auto'>
             <Button mr="30px" colorScheme="blue" onClick={() => openFileSelector()}>Select image file </Button>
-            <Box display="none" p={2}>{selectedImageFileName}</Box>
             <ImageCentering setImageCentering={props.setImageCentering}/>
         </HStack>
     );
