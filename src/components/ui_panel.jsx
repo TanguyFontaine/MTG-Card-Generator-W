@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, VStack, useStyleConfig } from "@chakra-ui/react"
+import { Box, Grid, useStyleConfig } from "@chakra-ui/react"
 /***************************************************************/
 
 import { ImageSelector } from "./image_selector"

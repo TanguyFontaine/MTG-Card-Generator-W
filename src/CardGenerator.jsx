@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // 1. import `ChakraProvider` component to have chakra work correctly
 import { ChakraProvider } from "@chakra-ui/react"
-import { SimpleGrid, Box, useControllableState } from "@chakra-ui/react"
+import { Box, useControllableState } from "@chakra-ui/react"
 
 import "@fontsource/eb-garamond/400.css"
 import "@fontsource/eb-garamond/500.css"

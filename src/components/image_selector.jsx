@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFilePicker } from 'use-file-picker';
-import { Box, HStack } from "@chakra-ui/react"
+import { HStack } from "@chakra-ui/react"
 /***************************************************************/
 
 import { Button } from "../style_components/button"
@@ -10,7 +10,6 @@ import { ImageCentering } from "./image_centering"
 export function ImageSelector(props) {
 
     const setImageFileFunction = props.setImageFileFunction;
-    const selectedImageFileName = props.selectedImageFileName;
 
     const [openFileSelector, { filesContent, loading, errors }] = useFilePicker({
         readAs: 'DataURL',

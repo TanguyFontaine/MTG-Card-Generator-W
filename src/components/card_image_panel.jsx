@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Box, HStack, useStyleConfig, Center } from "@chakra-ui/react"
+import { Image, Box, HStack, useStyleConfig } from "@chakra-ui/react"
 import { isDefined } from '@chakra-ui/utils';
 /***************************************************************/
 
