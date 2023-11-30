@@ -23,7 +23,7 @@ export function SpellDescription(props) {
     return (
         <Grid gap={4}>
             <HStack spacing='auto'>
-                <Text>Abilities :</Text>
+                <Text>Abilities:</Text>
                 <Textarea width="75%"
                           inputValue={inputValue} setInputValue={setInputValue}
                           setValue={(value) => props.setSpellDescription(value)} 

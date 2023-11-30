@@ -10,7 +10,7 @@ import { FontSizeControler } from "./font_size_controler"
 export function SubTypes(props) {
     return (
         <HStack spacing='auto'>
-            <Text>Sub types :</Text>
+            <Text>Sub types:</Text>
             <Textbox width="72%" setValue={(subTypes) => props.setSubTypes(subTypes)} placeholder="Enter the sub types of your card here."/>
             <FontSizeControler setValue={props.setTypesFontSize} value={props.typesFontSize}/>
          </HStack>

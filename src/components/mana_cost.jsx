@@ -28,7 +28,7 @@ export function ManaCost(props) {
     return (
         <VStack spacing={2}>
             <HStack spacing={5}>
-                <Text>Mana cost :</Text>
+                <Text>Mana cost:</Text>
                 <SymbolButton symbol={"0"} fontSize={25} setValue={() => setColorlessManaAmount(props.colorlessManaAmount)} />
                 <SymbolButton symbol={symbols.White} fontSize={25} setValue={() => setManaCostFunction(symbols.White)} />
                 <SymbolButton symbol={symbols.Blue} fontSize={25} setValue={() => setManaCostFunction(symbols.Blue)} />

@@ -10,7 +10,7 @@ import { Text } from "../style_components/text"
 export function SuperTypesSelection(props) {
     return (
         <HStack spacing={2}>
-            <Text>Super types :</Text>
+            <Text>Super types:</Text>
             <CheckboxGroup name="superTypes" setValue={(value) => props.setSuperTypes(value)}>
                 <HStack spacing={4}>
                     <Checkbox value="Legendary" displayLabel="Legendary" />

@@ -10,7 +10,7 @@ import { FontSizeControler } from "./font_size_controler"
 export function CardName(props) {
     return (
         <HStack spacing='auto'>
-            <Text>Name :</Text>
+            <Text>Name:</Text>
             <Textbox w="75%" setValue={(value) => props.setCardName(value)} placeholder="Enter the name of your card here."/>
             <FontSizeControler setValue={props.setNameFontSize} value={props.nameFontSize}/>
          </HStack>

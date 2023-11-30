@@ -10,10 +10,10 @@ import { FontSizeControler } from "./font_size_controler"
 export function PowerToughness(props) {
     return (
         <HStack spacing='auto'>
-            <Text>Power :</Text>
+            <Text>Power:</Text>
             <Textbox width={252} setValue={(value) => props.setPower(value)} placeholder="Power"/>
             <Box width={30}/>
-            <Text>Toughness :</Text>
+            <Text>Toughness:</Text>
             <Textbox width={252} setValue={(value) => props.setToughness(value)} placeholder="Toughness"/>
             <FontSizeControler setValue={props.setPTFontSize} value={props.ptFontSize}/>
          </HStack>

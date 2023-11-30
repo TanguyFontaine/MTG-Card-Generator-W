@@ -71,7 +71,7 @@ function transformIntoElements(spellDescription, spellFontSize) {
         if (rightBraceSplit.length === 2) {
             // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
             const symbolCode = rightBraceSplit[0]
-            const displayableSymbol = (symbolCode === "e") ? <Symbol symbolOnly={true} symbol={symbolCode}/> : <Symbol fontSize="big" symbol={symbolCode}/>
+            const displayableSymbol = (symbolCode === "e") ? <Symbol symbolOnly={true} symbol={symbolCode}/> : <Symbol symbol={symbolCode}/>
             displayableElements = displayableElements.concat(displayableSymbol)
             displayableElements = displayableElements.concat(rightBraceSplit[1])
         }
@@ -159,8 +159,8 @@ export function CardImagePanel(props) {
                 </HStack>
                 <Image boxSize="44px" pos="absolute" top="56.2%" left="87%" src={logo}/>
                 
-                <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{wordSpacing: "0.2em"}}>
-                    <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="64.5%" left="8.5%" width="84%" >{displayableSpellDescription}</Text>
+                <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{wordSpacing: "0.12em"}}>
+                    <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="64.5%" left="8.5%" width="84%" >{displayableSpellDescription}</Text>
                 </Box>   
 
                 <HStack fontSize={ptFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1}>
@@ -169,8 +169,8 @@ export function CardImagePanel(props) {
                     <Text>{toughness} </Text>
                 </HStack>
 
-                <Box lineHeight={flavorTextLineHeight} sx={{wordSpacing: "0.2em"}}>
-                    <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={400} pos="absolute" top="76%" left="8.5%" width="82%" >{flavorText}</Text>
+                <Box lineHeight={flavorTextLineHeight} sx={{wordSpacing: "0.12em"}}>
+                    <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="76%" left="8.5%" width="82%" >{flavorText}</Text>
                 </Box>
             </Box>
         </Box>
