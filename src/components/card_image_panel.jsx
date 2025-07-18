@@ -60,7 +60,7 @@ function retrieveCorrespondingFrameImage(frameColor, cardPower, cardToughness) {
 // Take the spell descrition in param. It is a string whith the descritpion and encoded symbols
 // example : [Tap] : add [g]
 // returns a list of SymbolEments and Strings to be displayed
-function transformIntoElements(spellDescription, spellFontSize) {
+function createDisplayableSymbols(spellDescription, spellFontSize) {
     const leftBracketSplit = spellDescription.split('[');
 
     let displayableElements = []
@@ -83,6 +83,17 @@ function transformIntoElements(spellDescription, spellFontSize) {
     }
 
     return (displayableElements);
+}
+
+// Splits the description into lines and applies custom line height
+// Each line is split into displayable elements (symbols and text)
+// Returns an array of spans, each span representing a line of the description
+function transformIntoDisplayableElements(spellDescription, spellFontSize) {
+  return spellDescription.split('\n').map((line, idx) =>
+    line.trim() === ''
+      ? <span key={idx} style={{ display: 'block', height: '0.4em' }} />
+      : <span key={idx}>{createDisplayableSymbols(line, spellFontSize)}</span>
+  );
 }
 
 
@@ -132,7 +143,7 @@ export function CardImagePanel(props) {
     const spellDescriptionLineHeight = (2 + ((spellFontSize * 0.04) - 2)) + "em"
     const flavorTextLineHeight = 1.34 + (flavorTextFontSize * 0.1 - 2.1) + "em"
 
-    const displayableSpellDescription = transformIntoElements(spellDescription, spellFontSize)
+    const displayableSpellDescription = transformIntoDisplayableElements(spellDescription, spellFontSize)
 
     const style = useStyleConfig("CardImagePanel")
 
