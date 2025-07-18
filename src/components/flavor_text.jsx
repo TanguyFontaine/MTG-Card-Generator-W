@@ -8,14 +8,12 @@ import { FontSizeControler } from "./font_size_controler"
 /***************************************************************/
 
 export function FlavorText(props) {
-
-    const [inputValue, setInputValue] = useState("");
-
+    // The flavor text is a string, it can contain any character
     return (
         <HStack spacing='auto'>
             <Text>Flavor text:</Text>
             <Textarea width="73%" 
-                      inputValue={inputValue} setInputValue={setInputValue} 
+                      inputValue={props.flavorText} setInputValue={props.setFlavorText} 
                       setValue={(value) => props.setFlavorText(value)} 
                       placeholder="Enter the flavor text :"/>
             <FontSizeControler setValue={props.setFlavorTextFontSize} value={props.flavorTextFontSize}/>

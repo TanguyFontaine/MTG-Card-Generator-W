@@ -56,19 +56,23 @@ function CardGenerator() {
     return (
         <ChakraProvider theme={theme} >
             <Box display={{ md: 'flex' }} columns={2} h="100vh" w="100%">
-                <UiPanel setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
-                         setImageFileFunction={setImageFile} selectedImageFileName={imageFile.name}
-                         setTypes={setTypes}
-                         setSuperTypes={setSuperTypes} setTypesFontSize={setTypesFontSize} typesFontSize={typesFontSize}
-                         setSubTypes={setSubTypes}
-                         setManaCost={setManaCost} manaCost={manaCost}
-                         setColorlessManaAmount={setColorlessManaAmount} colorlessManaAmount={colorlessManaAmount}
-                         setCardFrame={setCardFrame}
-                         setSpellDescription={setSpellDescription} setSpellFontSize={setSpellFontSize} spellFontSize={spellFontSize}
-                         setFlavorText={setFlavorText} setFlavorTextFontSize={setFlavorTextFontSize} flavorTextFontSize={flavorTextFontSize}
-                         setPower={setPower} setToughness={setToughness} setPTFontSize={setPTFontSize} ptFontSize={ptFontSize}
-                         setLoyalty={setLoyalty}
-                         setImageCentering={setImageCentering}/>
+                <UiPanel 
+                    cardName={cardName} setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
+                    setImageFileFunction={setImageFile} selectedImageFileName={imageFile.name}
+                    types={types} setTypes={setTypes}
+                    superTypes={superTypes} setSuperTypes={setSuperTypes} typesFontSize={typesFontSize} setTypesFontSize={setTypesFontSize}
+                    subTypes={subTypes} setSubTypes={setSubTypes}
+                    manaCost={manaCost} setManaCost={setManaCost}
+                    colorlessManaAmount={colorlessManaAmount} setColorlessManaAmount={setColorlessManaAmount}
+                    cardFrameColor={cardFrameColor} setCardFrame={setCardFrame}
+                    spellDescription={spellDescription} setSpellDescription={setSpellDescription} spellFontSize={spellFontSize} setSpellFontSize={setSpellFontSize}
+                    flavorText={flavorText} setFlavorText={setFlavorText} flavorTextFontSize={flavorTextFontSize} setFlavorTextFontSize={setFlavorTextFontSize}
+                    power={power} setPower={setPower}
+                    toughness={toughness} setToughness={setToughness}
+                    ptFontSize={ptFontSize} setPTFontSize={setPTFontSize}
+                    loyalty={loyalty} setLoyalty={setLoyalty}
+                    setImageCentering={setImageCentering}
+                />
                 <CardImagePanel 
                          imageFile={imageFile} 
                          cardName={cardName} nameFontSize={nameFontSize}

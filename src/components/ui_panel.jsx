@@ -24,17 +24,17 @@ export function UiPanel(props) {
     return (
         <Box __css={style} w="100%">
             <Grid mt="3%" mx="5%" gap="1.5em">
-                <CardName setCardName={props.setCardName} setNameFontSize={props.setNameFontSize} nameFontSize={props.nameFontSize}/>
-                <TypesSelection setTypes={props.setTypes}/>
-                <SuperTypesSelection setSuperTypes={props.setSuperTypes}/>
-                <SubTypes setSubTypes={props.setSubTypes} setTypesFontSize={props.setTypesFontSize} typesFontSize={props.typesFontSize}/>
-                <ManaCost setManaCost={props.setManaCost} manaCost={props.manaCost} 
-                          setColorlessManaAmount={props.setColorlessManaAmount} colorlessManaAmount={props.colorlessManaAmount}/>
-                <CardFrameSelection setCardFrame={props.setCardFrame}/>
-                <SpellDescription setSpellDescription={props.setSpellDescription} 
-                                  setSpellFontSize={props.setSpellFontSize} spellFontSize={props.spellFontSize}/>
-                <FlavorText setFlavorText={props.setFlavorText} setFlavorTextFontSize={props.setFlavorTextFontSize} flavorTextFontSize={props.flavorTextFontSize}/>
-                <PowerToughness setPower={props.setPower} setToughness={props.setToughness} setPTFontSize={props.setPTFontSize} ptFontSize={props.ptFontSize}/>
+                <CardName cardName={props.cardName} setCardName={props.setCardName} setNameFontSize={props.setNameFontSize} nameFontSize={props.nameFontSize}/>
+                <TypesSelection types={props.types} setTypes={props.setTypes}/>
+                <SuperTypesSelection superTypes={props.superTypes} setSuperTypes={props.setSuperTypes}/>
+                <SubTypes subTypes={props.subTypes} setSubTypes={props.setSubTypes} setTypesFontSize={props.setTypesFontSize} typesFontSize={props.typesFontSize}/>
+                <ManaCost manaCost={props.manaCost} setManaCost={props.setManaCost} 
+                          colorlessManaAmount={props.colorlessManaAmount} setColorlessManaAmount={props.setColorlessManaAmount}/>
+                <CardFrameSelection cardFrameColor={props.cardFrameColor} setCardFrame={props.setCardFrame}/>
+                <SpellDescription spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription} 
+                                  spellFontSize={props.spellFontSize} setSpellFontSize={props.setSpellFontSize}/>
+                <FlavorText flavorText={props.flavorText} setFlavorText={props.setFlavorText} flavorTextFontSize={props.flavorTextFontSize} setFlavorTextFontSize={props.setFlavorTextFontSize}/>
+                <PowerToughness power={props.power} setPower={props.setPower} toughness={props.toughness} setToughness={props.setToughness} ptFontSize={props.ptFontSize} setPTFontSize={props.setPTFontSize}/>
                 <ImageSelector setImageFileFunction={props.setImageFileFunction} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering}/> 
             </Grid>
         </Box>

@@ -11,12 +11,9 @@ import { FontSizeControler } from "./font_size_controler"
 
 export function SpellDescription(props) {
 
-    const [inputValue, setInputValue] = useState("");
-
     function addSymbolToTextbox(symbol)
     {
-        let newInputValue = inputValue.concat("[" + symbol + "]")
-        setInputValue(newInputValue);
+        let newInputValue = props.spellDescription.concat("[" + symbol + "]")
         props.setSpellDescription(newInputValue);
     } 
 
@@ -25,7 +22,7 @@ export function SpellDescription(props) {
             <HStack spacing='auto'>
                 <Text>Abilities:</Text>
                 <Textarea width="75%"
-                          inputValue={inputValue} setInputValue={setInputValue}
+                          inputValue={props.spellDescription} setInputValue={props.setSpellDescription}
                           setValue={(value) => props.setSpellDescription(value)} 
                           placeholder="Enter the abilities or the description of your spell :"/>
                 <FontSizeControler setValue={props.setSpellFontSize} value={props.spellFontSize}/>

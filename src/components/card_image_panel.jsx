@@ -61,22 +61,22 @@ function retrieveCorrespondingFrameImage(frameColor, cardPower, cardToughness) {
 // example : [Tap] : add [g]
 // returns a list of SymbolEments and Strings to be displayed
 function transformIntoElements(spellDescription, spellFontSize) {
-    const leftBraceSplit = spellDescription.split('[');
+    const leftBracketSplit = spellDescription.split('[');
 
     let displayableElements = []
-    for	(let i = 0; i < leftBraceSplit.length; i++)
+    for	(let i = 0; i < leftBracketSplit.length; i++)
     {
-        const rightBraceSplit = leftBraceSplit[i].split(']')
+        const rightBracketSplit = leftBracketSplit[i].split(']')
         
-        if (rightBraceSplit.length === 2) {
+        if (rightBracketSplit.length === 2) {
             // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
-            const symbolCode = rightBraceSplit[0]
+            const symbolCode = rightBracketSplit[0]
             const displayableSymbol = (symbolCode === "e") ? <Symbol symbolOnly={true} symbol={symbolCode}/> : <Symbol symbol={symbolCode}/>
             displayableElements = displayableElements.concat(displayableSymbol)
-            displayableElements = displayableElements.concat(rightBraceSplit[1])
+            displayableElements = displayableElements.concat(rightBracketSplit[1])
         }
         else {
-            displayableElements = displayableElements.concat(rightBraceSplit)
+            displayableElements = displayableElements.concat(rightBracketSplit)
         }
     }
 

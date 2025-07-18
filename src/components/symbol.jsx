@@ -13,6 +13,6 @@ export function Symbol(props) {
     }
 
     return (
-        <i class={classValue}/>
+        <i fontSize={2} class={classValue}/>
     );
 }
