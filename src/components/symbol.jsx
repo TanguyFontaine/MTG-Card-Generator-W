@@ -1,7 +1,7 @@
 import React from 'react';
 /***************************************************************/
 
-export function Symbol(props) {
+export function Symbol({ fontSize, ...props }) {
     let classValue = "ms ms-" + props.symbol
 
     if (!props.symbolOnly) {
@@ -13,6 +13,6 @@ export function Symbol(props) {
     }
 
     return (
-        <i fontSize={2} class={classValue}/>
+        <i style={{ fontSize: fontSize, ...props.style }} class={classValue} />
     );
 }

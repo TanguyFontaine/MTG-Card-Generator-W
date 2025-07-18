@@ -71,7 +71,9 @@ function transformIntoElements(spellDescription, spellFontSize) {
         if (rightBracketSplit.length === 2) {
             // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
             const symbolCode = rightBracketSplit[0]
-            const displayableSymbol = (symbolCode === "e") ? <Symbol symbolOnly={true} symbol={symbolCode}/> : <Symbol symbol={symbolCode}/>
+            const displayableSymbol = (symbolCode === "e") ? 
+                                      <Symbol symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 4} style={{ position: "relative", top: "-2px" }}/> : 
+                                      <Symbol symbol={symbolCode} fontSize={spellFontSize - 8} style={{ position: "relative", top: "-3px" }}/>
             displayableElements = displayableElements.concat(displayableSymbol)
             displayableElements = displayableElements.concat(rightBracketSplit[1])
         }

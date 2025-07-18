@@ -17,8 +17,7 @@ import { PowerToughness } from "./power_and_toughness"
 export function UiPanel(props) {
 
     const style = useStyleConfig("UiPanel")
-
-
+    
     //<Loyalty setLoyalty={props.setLoyalty}/>
 
     return (
