@@ -89,10 +89,16 @@ function createDisplayableSymbols(spellDescription, spellFontSize) {
 // Each line is split into displayable elements (symbols and text)
 // Returns an array of spans, each span representing a line of the description
 function transformIntoDisplayableElements(spellDescription, spellFontSize) {
+
+  // React requires that each element in an array has a unique key prop, here we use the line index as a key
   return spellDescription.split('\n').map((line, idx) =>
     line.trim() === ''
-      ? <span key={idx} style={{ display: 'block', height: '0.4em' }} />
-      : <span key={idx}>{createDisplayableSymbols(line, spellFontSize)}</span>
+      ? <span key={idx} style={{ display: 'block', height: '0.4em' }} /> 
+      : <span key={idx} style={{ display: 'block' }}>{createDisplayableSymbols(line, spellFontSize)}</span>
+
+      // display: 'block' ensures that each line is treated as a separate block element
+      // keeping line returns from the original description.
+      // Without this, all lines would be displayed in a single line as span elements are inline by default.
   );
 }
 
