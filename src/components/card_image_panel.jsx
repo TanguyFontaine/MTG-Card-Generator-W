@@ -7,6 +7,7 @@ import { Text } from "../style_components/text"
 import { frames } from "../ressources/frames"
 import { Symbol } from "./symbol"
 
+import { symbols } from "../ressources/symbols"
 import logo from "../ressources/logo_mini.png" 
 /***************************************************************/
 
@@ -71,7 +72,7 @@ function createDisplayableSymbols(spellDescription, spellFontSize) {
         if (rightBracketSplit.length === 2) {
             // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
             const symbolCode = rightBracketSplit[0]
-            const displayableSymbol = (symbolCode === "e") ? 
+            const displayableSymbol = (symbolCode === symbols.Energy) ?
                                       <Symbol symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 4} style={{ position: "relative", top: "-2px" }}/> : 
                                       <Symbol symbol={symbolCode} fontSize={spellFontSize - 8} style={{ position: "relative", top: "-3px" }}/>
             displayableElements = displayableElements.concat(displayableSymbol)
@@ -93,12 +94,8 @@ function transformIntoDisplayableElements(spellDescription, spellFontSize) {
   // React requires that each element in an array has a unique key prop, here we use the line index as a key
   return spellDescription.split('\n').map((line, idx) =>
     line.trim() === ''
-      ? <span key={idx} style={{ display: 'block', height: '0.4em' }} /> 
-      : <span key={idx} style={{ display: 'block' }}>{createDisplayableSymbols(line, spellFontSize)}</span>
-
-      // display: 'block' ensures that each line is treated as a separate block element
-      // keeping line returns from the original description.
-      // Without this, all lines would be displayed in a single line as span elements are inline by default.
+      ? <Box key={idx} style={{height: '0.4em' }} /> 
+      : <Box key={idx}>{createDisplayableSymbols(line, spellFontSize)}</Box>
   );
 }
 
