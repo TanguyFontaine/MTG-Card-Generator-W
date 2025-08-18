@@ -59,6 +59,7 @@ function CardGenerator() {
                 <UiPanel 
                     cardName={cardName} setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
                     setImageFileFunction={setImageFile} selectedImageFileName={imageFile.name}
+                    imageFile={imageFile}
                     types={types} setTypes={setTypes}
                     superTypes={superTypes} setSuperTypes={setSuperTypes} typesFontSize={typesFontSize} setTypesFontSize={setTypesFontSize}
                     subTypes={subTypes} setSubTypes={setSubTypes}

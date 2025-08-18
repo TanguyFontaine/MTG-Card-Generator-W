@@ -3,6 +3,7 @@ import { Box, Grid, useStyleConfig } from "@chakra-ui/react"
 /***************************************************************/
 
 import { ImageSelector } from "./image_selector"
+import { SaveCardButton } from "./save_card_button"
 import { CardName } from "./card_name"
 import { TypesSelection } from "./types_selection"
 import { SuperTypesSelection } from "./super_types_selection"
@@ -35,6 +36,20 @@ export function UiPanel(props) {
                 <FlavorText flavorText={props.flavorText} setFlavorText={props.setFlavorText} flavorTextFontSize={props.flavorTextFontSize} setFlavorTextFontSize={props.setFlavorTextFontSize}/>
                 <PowerToughness power={props.power} setPower={props.setPower} toughness={props.toughness} setToughness={props.setToughness} ptFontSize={props.ptFontSize} setPTFontSize={props.setPTFontSize}/>
                 <ImageSelector setImageFileFunction={props.setImageFileFunction} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering}/> 
+                <SaveCardButton 
+                    cardName={props.cardName}
+                    cardDescription={props.spellDescription}
+                    cardType={props.types}
+                    cardSubTypes={props.subTypes}
+                    cardSuperTypes={props.superTypes}
+                    manaCost={props.manaCost}
+                    colorlessManaAmount={props.colorlessManaAmount}
+                    flavorText={props.flavorText}
+                    power={props.power}
+                    toughness={props.toughness}
+                    cardFrameColor={props.cardFrameColor}
+                    imageFile={props.imageFile}
+                />
             </Grid>
         </Box>
     );
