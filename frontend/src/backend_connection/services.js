@@ -72,7 +72,7 @@ const CardService = {
   // TODO: check if update and delete methods are needed + implement on backend side if so.
 
   // Update an existing card
-  /*async updateCard(cardId, cardData)
+  async updateCard(cardId, cardData)
   {
     try
     {
@@ -93,6 +93,7 @@ const CardService = {
     }
   },
 
+  /*
   // Delete a card
   async deleteCard(cardId)
   {

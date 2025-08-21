@@ -20,14 +20,16 @@ import { CardImagePanel } from "./components/card_image_panel"
 /***************************************************************/
 function CardGenerator() {
 
+    const [cardId, setCardId] = useState(null);
+
+    const [cardName, setCardName] = useState("")
+    const [nameFontSize, setNameFontSize] = useControllableState({ defaultValue: 32 })
+
     const [imageFile, setImageFile] = useState({
         name: "",
         content: ""
     })
     const [imageCentering, setImageCentering] = useState("center") 
-
-    const [cardName, setCardName] = useState("")
-    const [nameFontSize, setNameFontSize] = useControllableState({ defaultValue: 32 })
 
     const [types, setTypes] = useState([])
     const [superTypes, setSuperTypes] = useState([])
@@ -56,7 +58,8 @@ function CardGenerator() {
     return (
         <ChakraProvider theme={theme} >
             <Box display={{ md: 'flex' }} columns={2} h="100vh" w="100%">
-                <UiPanel 
+                <UiPanel
+                    cardId={cardId} setCardId={setCardId}
                     cardName={cardName} setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
                     setImageFileFunction={setImageFile} selectedImageFileName={imageFile.name}
                     imageFile={imageFile}

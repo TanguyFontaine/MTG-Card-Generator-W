@@ -34,15 +34,48 @@ app.get(ROUTES.CARDS_TABLE_URL, async (req, response) => {
 // TODO: Put this in a separate file in a write folder, or a db folder with read and write queries
 // Route to insert a card
 app.post(ROUTES.CARDS_TABLE_URL, async (req, res) => {
-  const { name, spellDescription } = req.body;
-  console.log('Received POST request with data:', { name, spellDescription });
+  console.log('Received POST request with data:', req.body);
 
-  try
-  {
-    const result = await dbConnectionPool.query(
-      'INSERT INTO Cards (name, spelldescription) VALUES ($1, $2) RETURNING *',
-      [name, spellDescription]
+  try {
+    // Create Card instance from request data
+    const cardData = req.body;
+    const card = new Card(
+      0, // id will be auto-generated
+      cardData.name || "",
+      cardData.manaCost || "",
+      cardData.type || "",
+      cardData.spellDescription || "",
+      cardData.flavorText || "",
+      cardData.frame || "",
+      cardData.imageUrl || ""
     );
+
+    // Validate the card data
+    const validation = card.validate();
+    if (!validation.isValid)
+    {
+      return res.status(400).json({ 
+        error: "Validation failed", 
+        details: validation.errors 
+      });
+    }
+
+    // Insert into database with all fields
+    const result = await dbConnectionPool.query(
+      `INSERT INTO Cards (name, manacost, type, spelldescription, flavortext, cardframe, imageurl)
+       VALUES ($1, $2, $3, $4, $5, $6, $7) 
+      RETURNING *`,
+      [
+        card.name,
+        card.manaCost,
+        card.type,
+        card.spellDescription,
+        card.flavorText,
+        card.frame,
+        card.imageUrl
+      ]
+    );
+    
     console.log('Card saved successfully:', result.rows[0]);
     res.status(201).json(result.rows[0]);
   }
@@ -53,27 +86,67 @@ app.post(ROUTES.CARDS_TABLE_URL, async (req, res) => {
   }
 });
 
-/*************************************************************************
-app.post(ROUTES.CARDS_TABLE_URL, async (req, res) => {
-  const { card } = req.body; // Assuming card is an object of type Card, what am i doing ?
-  try
-  {
+// Route to update an existing card
+app.put(ROUTES.CARD_BY_ID_URL(':id'), async (req, res) => {
+  const cardId = req.params.id;
+  console.log('Received PUT request for card ID:', cardId, 'with data:', req.body);
 
-    console.log('Saving card data 2'); // For debugging
-
-    // Just insert name and description for now, but can be extended to other fields
-    const result = await dbConnectionPool.query(
-      'INSERT INTO Cards (name, description) VALUES ($1, $2) RETURNING *',
-      [card.name, card.spellDescription] 
+  try {
+    // Create Card instance for validation (with existing id)
+    const cardData = req.body;
+    const card = new Card(
+      cardId,
+      cardData.name || "",
+      cardData.manaCost || "",
+      cardData.type || "",
+      cardData.spellDescription || "",
+      cardData.flavorText || "",
+      cardData.frame || "",
+      cardData.imageUrl || ""
     );
-    res.status(201).json(result.rows[0]);
+
+    // Validate the card data
+    const validation = card.validate();
+    if (!validation.isValid)
+    {
+      return res.status(400).json({ 
+        error: "Validation failed", 
+        details: validation.errors 
+      });
+    }
+
+    // Update in database with all fields
+    const result = await dbConnectionPool.query(
+      `UPDATE Cards SET 
+        name = $2, manacost = $3, type = $4, spellDescription = $5, 
+        flavortext = $6, cardframe = $7, imageurl = $8
+      WHERE id = $1 RETURNING *`,
+      [
+        cardId,
+        card.name,
+        card.manaCost,
+        card.type,
+        card.spellDescription,
+        card.flavorText,
+        card.frame,
+        card.imageUrl
+      ]
+    );
+    
+    if (result.rows.length === 0)
+    {
+      return res.status(404).json({ error: 'Card not found' });
+    }
+    
+    console.log('Card updated successfully:', result.rows[0]);
+    res.json(result.rows[0]);
   }
   catch (err)
   {
+    console.error('Error updating card:', err);
     res.status(500).json({ error: err.message });
   }
 });
-/*************************************************************************/
 
 // Start the server
 app.listen(port, () => {

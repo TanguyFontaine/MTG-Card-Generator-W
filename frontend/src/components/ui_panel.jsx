@@ -3,7 +3,7 @@ import { Box, Grid, useStyleConfig } from "@chakra-ui/react"
 /***************************************************************/
 
 import { ImageSelector } from "./image_selector"
-import { SaveCardButton } from "./save_card_button"
+import { CardSavingUI } from "./card_saving_ui"
 import { CardName } from "./card_name"
 import { TypesSelection } from "./types_selection"
 import { SuperTypesSelection } from "./super_types_selection"
@@ -36,19 +36,21 @@ export function UiPanel(props) {
                 <FlavorText flavorText={props.flavorText} setFlavorText={props.setFlavorText} flavorTextFontSize={props.flavorTextFontSize} setFlavorTextFontSize={props.setFlavorTextFontSize}/>
                 <PowerToughness power={props.power} setPower={props.setPower} toughness={props.toughness} setToughness={props.setToughness} ptFontSize={props.ptFontSize} setPTFontSize={props.setPTFontSize}/>
                 <ImageSelector setImageFileFunction={props.setImageFileFunction} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering}/> 
-                <SaveCardButton 
-                    cardName={props.cardName}
-                    cardDescription={props.spellDescription}
-                    cardType={props.types}
-                    cardSubTypes={props.subTypes}
-                    cardSuperTypes={props.superTypes}
-                    manaCost={props.manaCost}
-                    colorlessManaAmount={props.colorlessManaAmount}
-                    flavorText={props.flavorText}
-                    power={props.power}
-                    toughness={props.toughness}
-                    cardFrameColor={props.cardFrameColor}
-                    imageFile={props.imageFile}
+                <CardSavingUI
+                    cardId={props.cardId} setCardId={props.setCardId}
+                    cardName={props.cardName} setCardName={props.setCardName}
+                    spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription}
+                    types={props.types} setTypes={props.setTypes}
+                    subTypes={props.subTypes} setSubTypes={props.setSubTypes}
+                    superTypes={props.superTypes} setSuperTypes={props.setSuperTypes}
+                    manaCost={props.manaCost} setManaCost={props.setManaCost}
+                    colorlessManaAmount={props.colorlessManaAmount} setColorlessManaAmount={props.setColorlessManaAmount}
+                    flavorText={props.flavorText} setFlavorText={props.setFlavorText}
+                    power={props.power} setPower={props.setPower}
+                    toughness={props.toughness} setToughness={props.setToughness}
+                    loyalty={props.loyalty} setLoyalty={props.setLoyalty}
+                    cardFrameColor={props.cardFrameColor} setCardFrame={props.setCardFrame}
+                    imageFile={props.imageFile} setImageFile={props.setImageFileFunction}
                 />
             </Grid>
         </Box>
