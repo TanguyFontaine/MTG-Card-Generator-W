@@ -1,18 +1,18 @@
 import React from 'react';
 /***************************************************************/
 
-export function Symbol({ fontSize, ...props }) {
-    let classValue = "ms ms-" + props.symbol
+export function Symbol({ fontSize, symbolOnly, symbol, shadow, style, ...otherProps }) {
+    let classValue = "ms ms-" + symbol
 
-    if (!props.symbolOnly) {
+    if (!symbolOnly) {
         classValue = classValue + " ms-cost"
     }
     
-    if (props.shadow) {
+    if (shadow) {
         classValue = classValue + " ms-shadow"
     }
 
     return (
-        <i style={{ fontSize: fontSize, ...props.style }} class={classValue} />
+        <i style={{ fontSize: fontSize, ...style }} className={classValue} />
     );
 }

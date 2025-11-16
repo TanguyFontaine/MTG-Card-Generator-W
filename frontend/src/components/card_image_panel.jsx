@@ -6,9 +6,11 @@ import { isDefined } from '@chakra-ui/utils';
 import { Text } from "../style_components/text"
 import { frames } from "../ressources/frames"
 import { Symbol } from "./symbol"
+import { TextLine } from "./text_line"
 
 import { symbols } from "../ressources/symbols"
 import logo from "../ressources/logo_mini.png" 
+
 /***************************************************************/
 
 function fileExtensionIsValid(imageFileName) {
@@ -65,20 +67,23 @@ function createDisplayableSymbols(spellDescription, spellFontSize) {
     const leftBracketSplit = spellDescription.split('[');
 
     let displayableElements = []
+    let elementIndex = 0; // Counter for unique keys
     for	(let i = 0; i < leftBracketSplit.length; i++)
     {
         const rightBracketSplit = leftBracketSplit[i].split(']')
         
-        if (rightBracketSplit.length === 2) {
+        if (rightBracketSplit.length === 2) 
+        {
             // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
             const symbolCode = rightBracketSplit[0]
             const displayableSymbol = (symbolCode === symbols.Energy) ?
-                                      <Symbol symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 4} style={{ position: "relative", top: "-2px" }}/> : 
-                                      <Symbol symbol={symbolCode} fontSize={spellFontSize - 8} style={{ position: "relative", top: "-3px" }}/>
+                                      <Symbol key={`symbol-${elementIndex++}`} symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 4} style={{ position: "relative", top: "-2px" }}/> : 
+                                      <Symbol key={`symbol-${elementIndex++}`} symbol={symbolCode} fontSize={spellFontSize - 8} style={{ position: "relative", top: "-3px" }}/>
             displayableElements = displayableElements.concat(displayableSymbol)
             displayableElements = displayableElements.concat(rightBracketSplit[1])
         }
-        else {
+        else
+        {
             displayableElements = displayableElements.concat(rightBracketSplit)
         }
     }
@@ -88,14 +93,14 @@ function createDisplayableSymbols(spellDescription, spellFontSize) {
 
 // Splits the description into lines and applies custom line height
 // Each line is split into displayable elements (symbols and text)
-// Returns an array of spans, each span representing a line of the description
+// Returns an array of TextLine components, each representing a line of the description
 function transformIntoDisplayableElements(spellDescription, spellFontSize) {
 
   // React requires that each element in an array has a unique key prop, here we use the line index as a key
   return spellDescription.split('\n').map((line, idx) =>
     line.trim() === ''
-      ? <Box key={idx} style={{height: '0.4em' }} /> 
-      : <Box key={idx}>{createDisplayableSymbols(line, spellFontSize)}</Box>
+      ? <TextLine key={idx} isEmpty={true} /> 
+      : <TextLine key={idx}>{createDisplayableSymbols(line, spellFontSize)}</TextLine>
   );
 }
 
@@ -121,11 +126,12 @@ export function CardImagePanel(props) {
     const toughness = props.toughness
     const ptFontSize  = props.ptFontSize
     const selectedCardFrame = props.cardFrameColor
+    console.log('CardImagePanel received frame:', selectedCardFrame);
 
-    const typesItems = types.map((type) => <Text>{type}</Text>);
-    const superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
+    const typesItems = types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
+    const superTypesItems = superTypes.map((superType, index) => <Text key={`supertype-${index}`}>{superType}</Text>);
 
-    const displayableManaCost = manaCost.map((symbol) => <Box><Symbol symbol={symbol} shadow={true}/></Box>);
+    const displayableManaCost = manaCost.map((symbol, index) => <Box key={`mana-${index}`}><Symbol symbol={symbol} shadow={true}/></Box>);
 
 
     // Formulas to display values at the rigths position 

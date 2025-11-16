@@ -3,12 +3,12 @@ import { Checkbox as ChakraCheckbox}  from "@chakra-ui/react"
 /***************************************************************/
 
 export function Checkbox(props) {
-    let displayLabel = props.displayLabel
+    const { displayLabel, ...otherProps } = props;
 
     return (
     <>
       <ChakraCheckbox
-        {...props}
+        {...otherProps}
       >
       {displayLabel}
       </ChakraCheckbox>

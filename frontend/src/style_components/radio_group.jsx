@@ -3,7 +3,7 @@ import { RadioGroup as ChakraRadioGroup}  from "@chakra-ui/react"
 /***************************************************************/
 
 export function RadioGroup(props) {
-    let setValue = props.setValue
+    const { setValue, ...otherProps } = props;
 
     // for radiogroup, the onChange method seems to trigger when the values List (list of all cehckbox checked) is changed 
     let handleInputChange = (values) => {
@@ -14,7 +14,7 @@ export function RadioGroup(props) {
     <>
       <ChakraRadioGroup
         onChange={handleInputChange}
-        {...props}
+        {...otherProps}
       />
     </>
   );

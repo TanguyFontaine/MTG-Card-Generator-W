@@ -3,10 +3,8 @@ import { Select as ChakraSelect}  from "@chakra-ui/react"
 /***************************************************************/
 
 export function Select(props) {
-    let setValue = props.setValue
-
-    const options = props.options
-    const optionItems = options.map((option) => <option value={option}>{option}</option>);
+    const { setValue, options, ...otherProps } = props;
+    const optionItems = options.map((option) => <option key={option} value={option}>{option}</option>);
 
     let handleInputChange = (e) => {
         let inputValue = e.target.value
@@ -15,7 +13,7 @@ export function Select(props) {
 
     return (
     <>
-      <ChakraSelect onChange={handleInputChange} {...props}> 
+      <ChakraSelect onChange={handleInputChange} {...otherProps}> 
           {optionItems}
       </ChakraSelect>
     </>

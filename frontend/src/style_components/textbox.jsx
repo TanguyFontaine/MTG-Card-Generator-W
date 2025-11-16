@@ -3,7 +3,7 @@ import { Input as ChakraTextbox}  from "@chakra-ui/react"
 /***************************************************************/
 
 export function Textbox(props) {
-    let setValue = props.setValue
+    const { setValue, ...otherProps } = props;
 
     let handleInputChange = (e) => {
       let inputValue = e.target.value
@@ -15,7 +15,7 @@ export function Textbox(props) {
       <ChakraTextbox 
         onChange={handleInputChange}
         size="sm"
-        {...props}
+        {...otherProps}
       />
     </>
   );

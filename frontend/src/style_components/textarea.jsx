@@ -3,10 +3,7 @@ import { Textarea as ChakraTextarea}  from "@chakra-ui/react"
 /***************************************************************/
 
 export function Textarea(props) {
-    let setValue = props.setValue
-
-    let inputValue = props.inputValue
-    let setInputValue = props.setInputValue
+    const { setValue, inputValue, setInputValue, ...otherProps } = props;
 
     let handleInputChange = (e) => {
       let textAreaValue = e.target.value
@@ -20,7 +17,7 @@ export function Textarea(props) {
         onChange={handleInputChange}
         value={inputValue}
         size="sm"
-        {...props}
+        {...otherProps}
       />
     </>
   );

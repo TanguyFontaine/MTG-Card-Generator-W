@@ -3,12 +3,12 @@ import { Radio as ChakraRadio}  from "@chakra-ui/react"
 /***************************************************************/
 
 export function Radio(props) {
-    let displayLabel = props.displayLabel
+    const { displayLabel, ...otherProps } = props;
 
     return (
     <>
       <ChakraRadio
-        {...props}
+        {...otherProps}
       >
       {displayLabel}
       </ChakraRadio>

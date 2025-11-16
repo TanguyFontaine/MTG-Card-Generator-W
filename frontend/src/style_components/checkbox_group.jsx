@@ -3,7 +3,7 @@ import { CheckboxGroup as ChakraCheckboxGroup}  from "@chakra-ui/react"
 /***************************************************************/
 
 export function CheckboxGroup(props) {
-    let setValue = props.setValue
+    const { setValue, ...otherProps } = props;
 
     // for checkboxgroup, the onChange method seems to trigger when the values List (list of all cehckbox checked) is changed 
     let handleInputChange = (values) => {
@@ -14,7 +14,7 @@ export function CheckboxGroup(props) {
     <>
       <ChakraCheckboxGroup
         onChange={handleInputChange}
-        {...props}
+        {...otherProps}
       />
     </>
   );

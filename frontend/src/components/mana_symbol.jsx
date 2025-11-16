@@ -15,6 +15,6 @@ export function ManaSymbol(props) {
     }
 
     return (
-        <i class={classValue}/>
+        <i className={classValue}/>
     );
 }
