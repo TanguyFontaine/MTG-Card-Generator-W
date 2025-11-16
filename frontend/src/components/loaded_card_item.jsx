@@ -22,23 +22,30 @@ export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClo
       if (parentProps.setPower) parentProps.setPower(selectedCard.power || "");
       if (parentProps.setToughness) parentProps.setToughness(selectedCard.toughness || "");
       if (parentProps.setLoyalty) parentProps.setLoyalty(selectedCard.loyalty || "");
-      if (parentProps.setCardFrame) {
-        console.log('Setting card frame to:', selectedCard.cardframe);
-        parentProps.setCardFrame(selectedCard.cardframe || "");
-      }
+      if (parentProps.setCardFrame) parentProps.setCardFrame(selectedCard.cardframe || "");
       
       // Parse mana cost back to array if needed
-      if (parentProps.setManaCost && selectedCard.manacost)
+      if (parentProps.setManaCost)
       {
-        const manaCostArray = selectedCard.manacost.split('').filter(Boolean);
-        parentProps.setManaCost(manaCostArray);
+        if (selectedCard.manacost == null)
+            parentProps.setManaCost([]);
+        else
+        {
+            const manaCostArray = selectedCard.manacost.split('').filter(Boolean);
+            parentProps.setManaCost(manaCostArray);
+        }
       }
       
       // Parse type back to arrays if needed
-      if (selectedCard.type)
+      if (parentProps.setTypes)
       {
-        const typeWords = selectedCard.type.split(' ').filter(Boolean);
-        if (parentProps.setTypes) parentProps.setTypes(typeWords);
+        if (selectedCard.type == null)
+            parentProps.setTypes([]);
+        else
+        {
+            const fullType = selectedCard.type.split(' ').filter(Boolean);
+            parentProps.setTypes(fullType);
+        }
       }
       
       onClose(); // Close the modal after loading

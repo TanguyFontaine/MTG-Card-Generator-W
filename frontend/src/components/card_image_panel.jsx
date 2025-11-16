@@ -126,7 +126,6 @@ export function CardImagePanel(props) {
     const toughness = props.toughness
     const ptFontSize  = props.ptFontSize
     const selectedCardFrame = props.cardFrameColor
-    console.log('CardImagePanel received frame:', selectedCardFrame);
 
     const typesItems = types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
     const superTypesItems = superTypes.map((superType, index) => <Text key={`supertype-${index}`}>{superType}</Text>);
