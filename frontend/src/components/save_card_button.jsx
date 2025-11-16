@@ -20,18 +20,24 @@ export function SaveCardButton(props) {
     try 
     {
       // Debug: Log all props to see what we're receiving
+      /*
       console.log('All props:', props);
       console.log('cardName:', props.cardName);
       console.log('cardDescription:', props.cardDescription);
-      
+      */
+
       // Create comprehensive card data object
-      // TODO : Compute DB type
       // TODO : Include all relevant fields
       const cardData = {
         name: props.cardName || "",
         spellDescription: props.cardDescription || "",
         manaCost: Array.isArray(props.manaCost) ? props.manaCost.join("") : (props.manaCost || ""),
-        type: Array.isArray(props.cardType) ? props.cardType.join(" ") : (props.cardType || ""),
+        type: 
+        [
+          ...(Array.isArray(props.cardSuperTypes) ? props.cardSuperTypes : []),
+          ...(Array.isArray(props.cardType) ? props.cardType : []),
+          props.cardSubTypes || ""
+        ].filter(Boolean).join(" "),
         flavorText: props.flavorText || "",
         frame: props.cardFrameColor || "",
         imageUrl: props.imageFile?.name || ""
