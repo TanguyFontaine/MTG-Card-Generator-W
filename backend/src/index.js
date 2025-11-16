@@ -21,12 +21,35 @@ app.use(express.json());
 app.get(ROUTES.CARDS_TABLE_URL, async (req, response) => {
   try
   {
-    const query = 'SELECT * FROM' + cardsTableName + ';';
+    const query = 'SELECT * FROM ' + cardsTableName + ';';
     const result = await dbConnectionPool.query(query);
     response.json(result.rows);
   } 
   catch (err)
   {
+    response.status(500).json({ error: err.message });
+  }
+});
+
+// Route to get a specific card by ID
+app.get(ROUTES.CARD_BY_ID_URL(':id'), async (req, response) => {
+  try 
+  {
+    const cardId = req.params.id;
+    
+    const query = 'SELECT * FROM ' + cardsTableName + ' WHERE id = $1;';
+    const result = await dbConnectionPool.query(query, [cardId]);
+    
+    if (result.rows.length === 0) 
+    {
+      return response.status(404).json({ error: 'Card not found' });
+    }
+    
+    response.json(result.rows[0]);
+  } 
+  catch (err)
+  {
+    console.error('Error fetching card by ID:', err);
     response.status(500).json({ error: err.message });
   }
 });

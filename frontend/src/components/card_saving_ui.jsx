@@ -42,7 +42,22 @@ export function CardSavingUI(props) {
                 setCardFrame={props.setCardFrame}
                 setImageFile={props.setImageFile}
             />
-            <LoadCardButton cardName={props.cardName} cardDescription={props.cardDescription} />
+            <LoadCardButton 
+                setCardId={props.setCardId}
+                setCardName={props.setCardName}
+                setSpellDescription={props.setSpellDescription}
+                setTypes={props.setTypes}
+                setSuperTypes={props.setSuperTypes}
+                setSubTypes={props.setSubTypes}
+                setManaCost={props.setManaCost}
+                setColorlessManaAmount={props.setColorlessManaAmount}
+                setFlavorText={props.setFlavorText}
+                setPower={props.setPower}
+                setToughness={props.setToughness}
+                setLoyalty={props.setLoyalty}
+                setCardFrame={props.setCardFrame}
+                setImageFile={props.setImageFile}
+            />
         </HStack>
     );
 }
