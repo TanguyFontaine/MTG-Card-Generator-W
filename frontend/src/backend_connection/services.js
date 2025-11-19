@@ -1,11 +1,25 @@
 import { API_CONFIG, ROUTES } from '../../../shared/routes';
 
-function assertResponseOK(response)
+async function handleResponse(response)
 {
   if (!response.ok)
   {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    let errorMessage = `HTTP error! status: ${response.status}`;
+    
+    try 
+    {
+      const errorData = await response.json();
+      if (errorData.error) {
+        errorMessage = errorData.error;
+      }
+    }
+    catch (e) // If we can't parse the error response, use the default message
+    {}
+    
+    throw new Error(errorMessage);
   }
+  
+  return response;
 }
 
 // Card Service - handles all card-related API calls
@@ -20,8 +34,7 @@ const CardService = {
       // No need to define options: GET is the default method for 'fetch'
       // no body is needed for GET requests
 
-      assertResponseOK(response);
-
+      await handleResponse(response);
       return await response.json();
     } 
     catch (error) 
@@ -36,8 +49,7 @@ const CardService = {
     try
     {
       const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARD_BY_ID_URL(cardId)}`);
-      assertResponseOK(response);
-    
+      await handleResponse(response);
       return await response.json();
     }
     catch (error)
@@ -57,8 +69,8 @@ const CardService = {
         headers: {'Content-Type': 'application/json',},
         body: JSON.stringify(cardData)
       });
-      
-      assertResponseOK(response);
+
+      await handleResponse(response);
       return await response.json();
     }
     catch (error)
@@ -82,8 +94,7 @@ const CardService = {
         body: JSON.stringify(cardData)
       });
       
-      assertResponseOK(response);
-      
+      await handleResponse(response);
       return await response.json();
     }
     catch (error)

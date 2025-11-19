@@ -77,8 +77,9 @@ app.post(ROUTES.CARDS_TABLE_URL, async (req, res) => {
     const validation = card.validate();
     if (!validation.isValid)
     {
+      const errorMessage = `Validation failed: ${validation.errors.join(', ')}`;
       return res.status(400).json({ 
-        error: "Validation failed", 
+        error: errorMessage, 
         details: validation.errors 
       });
     }
@@ -132,8 +133,9 @@ app.put(ROUTES.CARD_BY_ID_URL(':id'), async (req, res) => {
     const validation = card.validate();
     if (!validation.isValid)
     {
+      const errorMessage = `Validation failed: ${validation.errors.join(', ')}`;
       return res.status(400).json({ 
-        error: "Validation failed", 
+        error: errorMessage, 
         details: validation.errors 
       });
     }
