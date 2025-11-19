@@ -6,6 +6,33 @@ import { Text } from "../style_components/text"
 import CardService from "../backend_connection/services"
 /***************************************************************/
 
+// Saves mana cost in DB in square bracket format: [3][w][u] to preserve multi-character symbols
+function convertManaCostToString(manaCostArray, colorlessManaAmount) 
+{
+  console.assert(Array.isArray(manaCostArray), 'manaCostArray should always be an array, got:', typeof manaCostArray, manaCostArray);
+  
+  let fullManaCost = "";
+
+  // Add colorless mana amount first if it exists
+  if (colorlessManaAmount !== undefined && colorlessManaAmount > -1)
+  {
+    fullManaCost += `[${colorlessManaAmount}]`;
+  }
+  // Add colored mana symbols (manaCostArray should always be an array)
+  manaCostArray.forEach(symbol => { fullManaCost += `[${symbol}]`; });
+  
+  return fullManaCost;
+}
+
+function convertTypeToString(superTypesArray, typesArray, subTypesString)
+{
+  return [
+    ...(Array.isArray(superTypesArray) ? superTypesArray : []),
+    ...(Array.isArray(typesArray) ? typesArray : []),
+    subTypesString || ""
+  ].filter(Boolean).join(" ");
+}
+
 export function SaveCardButton(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
@@ -31,13 +58,8 @@ export function SaveCardButton(props) {
       const cardData = {
         name: props.cardName || "",
         spellDescription: props.cardDescription || "",
-        manaCost: Array.isArray(props.manaCost) ? props.manaCost.join("") : (props.manaCost || ""),
-        type: 
-        [
-          ...(Array.isArray(props.cardSuperTypes) ? props.cardSuperTypes : []),
-          ...(Array.isArray(props.cardType) ? props.cardType : []),
-          props.cardSubTypes || ""
-        ].filter(Boolean).join(" "),
+        manaCost: convertManaCostToString(props.manaCost, props.colorlessManaAmount),
+        type: convertTypeToString(props.cardSuperTypes, props.cardType, props.cardSubTypes),
         flavorText: props.flavorText || "",
         frame: props.cardFrameColor || "",
         imageUrl: props.imageFile?.name || ""

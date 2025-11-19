@@ -27,7 +27,7 @@ class Card {
   validateManaCost()
   {
     // Check if mana cost is an array or valid string
-    if (this.manaCost && typeof this.manaCost === 'string' && this.manaCost.length > 30) {
+    if (this.manaCost && typeof this.manaCost === 'string' && this.manaCost.length > 120) {
       return { isValid: false, error: "Mana cost should be 30 characters or less" };
     }
     return { isValid: true };

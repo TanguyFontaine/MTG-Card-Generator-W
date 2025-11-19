@@ -4,6 +4,43 @@
 import { Button } from "../style_components/button"
 import CardService from "../backend_connection/services"
 
+function removeBrackets(stringSymbol)
+{
+    return stringSymbol.slice(1, -1);
+}
+
+function setManaCostFromString(manaCostString, setManaCost, setColorlessManaAmount)
+{
+    if (manaCostString == null || manaCostString === "")
+    {
+        setManaCost([]);
+        setColorlessManaAmount(-1);
+        return;
+    }
+    const bracketMatch = manaCostString.match(/\[([^\]]*)\]/g); // regex to find all [symbol] occurrences
+    console.assert(bracketMatch, 'Invalid mana cost string format, got:', manaCostString, 'expected format like [3][w][u]');
+
+    let colorlessMana = -1;
+    const manaCostArray = [];
+    
+    bracketMatch.forEach(bracketedSymbol => {
+        const manaSymbol = removeBrackets(bracketedSymbol);
+        
+        // Check if it's a number (colorless mana)
+        if (/^\d+$/.test(manaSymbol) && colorlessMana === -1) 
+        {
+            colorlessMana = parseInt(manaSymbol);
+        } 
+        else
+        {
+            manaCostArray.push(manaSymbol);
+        }
+    });
+    
+    setColorlessManaAmount(colorlessMana);
+    setManaCost(manaCostArray);
+}
+
 export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClose }) {
 
   const handleSelectCard = async () => {
@@ -23,17 +60,9 @@ export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClo
       if (parentProps.setToughness) parentProps.setToughness(selectedCard.toughness || "");
       if (parentProps.setLoyalty) parentProps.setLoyalty(selectedCard.loyalty || "");
       if (parentProps.setCardFrame) parentProps.setCardFrame(selectedCard.cardframe || "");
-      
-      // Parse mana cost back to array if needed
-      if (parentProps.setManaCost)
+      if (parentProps.setManaCost && parentProps.setColorlessManaAmount)
       {
-        if (selectedCard.manacost == null)
-            parentProps.setManaCost([]);
-        else
-        {
-            const manaCostArray = selectedCard.manacost.split('').filter(Boolean);
-            parentProps.setManaCost(manaCostArray);
-        }
+        setManaCostFromString(selectedCard.manacost, parentProps.setManaCost, parentProps.setColorlessManaAmount);
       }
       
       // Parse type back to arrays if needed
