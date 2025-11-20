@@ -16,6 +16,7 @@ import "mana-font"
 import theme from "./theme"
 import { UiPanel } from "./components/ui_panel"
 import { CardImagePanel } from "./components/card_image_panel"
+import { ManaCostObj } from "./classes/mana_cost"
 
 /***************************************************************/
 function CardGenerator() {
@@ -38,9 +39,7 @@ function CardGenerator() {
 
     const [cardFrameColor, setCardFrame] = useState("")
 
-    const [manaCost, setManaCost] = useState([])
-    // Easier to handle colorless mana on its own. Begin at -1 to display 0 mana artifacts
-    const [colorlessManaAmount, setColorlessManaAmount] = useState(-1)
+    const [manaCost, setManaCost] = useState(ManaCostObj.empty())
 
     const [spellDescription, setSpellDescription] = useState("")
     const [spellFontSize, setSpellFontSize] = useControllableState({ defaultValue: 22 })
@@ -67,7 +66,6 @@ function CardGenerator() {
                     superTypes={superTypes} setSuperTypes={setSuperTypes} typesFontSize={typesFontSize} setTypesFontSize={setTypesFontSize}
                     subTypes={subTypes} setSubTypes={setSubTypes}
                     manaCost={manaCost} setManaCost={setManaCost}
-                    colorlessManaAmount={colorlessManaAmount} setColorlessManaAmount={setColorlessManaAmount}
                     cardFrameColor={cardFrameColor} setCardFrame={setCardFrame}
                     spellDescription={spellDescription} setSpellDescription={setSpellDescription} spellFontSize={spellFontSize} setSpellFontSize={setSpellFontSize}
                     flavorText={flavorText} setFlavorText={setFlavorText} flavorTextFontSize={flavorTextFontSize} setFlavorTextFontSize={setFlavorTextFontSize}
@@ -84,7 +82,6 @@ function CardGenerator() {
                          superTypes={superTypes} 
                          subTypes={subTypes} typesFontSize={typesFontSize}
                          manaCost={manaCost}
-                         colorlessManaAmount={colorlessManaAmount}
                          cardFrameColor={cardFrameColor} 
                          spellDescription={spellDescription} spellFontSize={spellFontSize}
                          flavorText={flavorText} flavorTextFontSize={flavorTextFontSize}

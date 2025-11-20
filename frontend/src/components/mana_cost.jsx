@@ -6,30 +6,33 @@ import { Button } from "../style_components/button"
 import { Text } from "../style_components/text"
 import { SymbolButton } from "./symbol_button"
 import { symbols } from "../ressources/symbols"
+import { ManaCostObj } from "../classes/mana_cost"
 /***************************************************************/
 
 export function ManaCost(props) {
 
     function setManaCostFunction(symbol)
     {
-        props.setManaCost(props.manaCost.concat(symbol))
+        const newManaCost = props.manaCost.addSymbol(symbol);
+        props.setManaCost(newManaCost);
     } 
     
-    function setColorlessManaAmount(colorlessManaAmount)
+    function setColorlessManaAmount(currentColorlessAmount)
     {
-        props.setColorlessManaAmount(colorlessManaAmount + 1)
+        const newManaCost = props.manaCost.setColorlessAmount(currentColorlessAmount + 1);
+        props.setManaCost(newManaCost);
     } 
 
-    function resetValues() {
-        props.setManaCost([])
-        props.setColorlessManaAmount(-1)
+    function resetValues()
+    {
+        props.setManaCost(ManaCostObj.empty());
     }
 
     return (
         <VStack spacing={2}>
             <HStack spacing={5}>
                 <Text>Mana cost:</Text>
-                <SymbolButton symbol={"0"} fontSize={25} setValue={() => setColorlessManaAmount(props.colorlessManaAmount)} />
+                <SymbolButton symbol={"0"} fontSize={25} setValue={() => setColorlessManaAmount(props.manaCost.colorlessAmount)} />
                 <SymbolButton symbol={symbols.White} fontSize={25} setValue={() => setManaCostFunction(symbols.White)} />
                 <SymbolButton symbol={symbols.Blue} fontSize={25} setValue={() => setManaCostFunction(symbols.Blue)} />
                 <SymbolButton symbol={symbols.Black} fontSize={25} setValue={() => setManaCostFunction(symbols.Black)} />

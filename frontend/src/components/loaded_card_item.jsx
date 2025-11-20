@@ -3,43 +3,7 @@
 
 import { Button } from "../style_components/button"
 import CardService from "../backend_connection/services"
-
-function removeBrackets(stringSymbol)
-{
-    return stringSymbol.slice(1, -1);
-}
-
-function setManaCostFromString(manaCostString, setManaCost, setColorlessManaAmount)
-{
-    if (manaCostString == null || manaCostString === "")
-    {
-        setManaCost([]);
-        setColorlessManaAmount(-1);
-        return;
-    }
-    const bracketMatch = manaCostString.match(/\[([^\]]*)\]/g); // regex to find all [symbol] occurrences
-    console.assert(bracketMatch, 'Invalid mana cost string format, got:', manaCostString, 'expected format like [3][w][u]');
-
-    let colorlessMana = -1;
-    const manaCostArray = [];
-    
-    bracketMatch.forEach(bracketedSymbol => {
-        const manaSymbol = removeBrackets(bracketedSymbol);
-        
-        // Check if it's a number (colorless mana)
-        if (/^\d+$/.test(manaSymbol) && colorlessMana === -1) 
-        {
-            colorlessMana = parseInt(manaSymbol);
-        } 
-        else
-        {
-            manaCostArray.push(manaSymbol);
-        }
-    });
-    
-    setColorlessManaAmount(colorlessMana);
-    setManaCost(manaCostArray);
-}
+import { ManaCostObj } from "../classes/mana_cost"
 
 export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClose }) {
 
@@ -60,21 +24,34 @@ export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClo
       if (parentProps.setToughness) parentProps.setToughness(selectedCard.toughness || "");
       if (parentProps.setLoyalty) parentProps.setLoyalty(selectedCard.loyalty || "");
       if (parentProps.setCardFrame) parentProps.setCardFrame(selectedCard.cardframe || "");
-      if (parentProps.setManaCost && parentProps.setColorlessManaAmount)
-      {
-        setManaCostFromString(selectedCard.manacost, parentProps.setManaCost, parentProps.setColorlessManaAmount);
-      }
-      
+      if (parentProps.setManaCost) parentProps.setManaCost(ManaCostObj.fromString(selectedCard.manacost));
+
       // Parse type back to arrays if needed
-      if (parentProps.setTypes)
-      {
-        if (selectedCard.type == null)
-            parentProps.setTypes([]);
-        else
-        {
-            const fullType = selectedCard.type.split(' ').filter(Boolean);
-            parentProps.setTypes(fullType);
-        }
+      if (selectedCard.type) {
+        const fullTypeString = selectedCard.type.trim();
+        const typeWords = fullTypeString.split(' ').filter(Boolean);
+        
+        // Define known super types and regular types
+        const knownSuperTypes = ['Legendary', 'Snow', 'Basic', 'Token'];
+        const knownTypes = ['Creature', 'Artifact', 'Enchantment', 'Planeswalker', 'Instant', 'Sorcery', 'Land', 'Tribal'];
+        
+        // Separate super types, regular types, and subtypes
+        const superTypes = typeWords.filter(type => knownSuperTypes.includes(type));
+        const regularTypes = typeWords.filter(type => knownTypes.includes(type));
+        const remainingWords = typeWords.filter(type => 
+          !knownSuperTypes.includes(type) && !knownTypes.includes(type)
+        );
+        const subTypes = remainingWords.join(' ');
+        
+        // Set the separated types
+        if (parentProps.setSuperTypes) parentProps.setSuperTypes(superTypes);
+        if (parentProps.setTypes) parentProps.setTypes(regularTypes);
+        if (parentProps.setSubTypes) parentProps.setSubTypes(subTypes);
+      } else {
+        // Reset all type fields if no type data
+        if (parentProps.setSuperTypes) parentProps.setSuperTypes([]);
+        if (parentProps.setTypes) parentProps.setTypes([]);
+        if (parentProps.setSubTypes) parentProps.setSubTypes("");
       }
       
       onClose(); // Close the modal after loading

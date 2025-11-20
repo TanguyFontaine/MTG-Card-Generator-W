@@ -130,7 +130,7 @@ export function CardImagePanel(props) {
     const typesItems = types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
     const superTypesItems = superTypes.map((superType, index) => <Text key={`supertype-${index}`}>{superType}</Text>);
 
-    const displayableManaCost = manaCost.map((symbol, index) => <Box key={`mana-${index}`}><Symbol symbol={symbol} shadow={true}/></Box>);
+    const displayableManaCost = manaCost.otherManaSymbols.map((symbol, index) => <Box key={`mana-${index}`}><Symbol symbol={symbol} shadow={true}/></Box>);
 
 
     // Formulas to display values at the rigths position 
@@ -138,7 +138,7 @@ export function CardImagePanel(props) {
     //the mana cost at the right place
     // 96.8 is hard coded pos of the 1st mana symbol, 5.12 is the size of mana symbol with fontSize(24) 
     // we do not forget the colorless mana that is not the mana cost list
-    const manaCostLeftPos = 93.5 - (manaCost.length + (colorlessManaAmount > -1 ? 1 : 0)) * 5.12 + "%"
+    const manaCostLeftPos = 93.5 - (manaCost.otherManaSymbols.length + (manaCost.colorlessAmount > -1 ? 1 : 0)) * 5.12 + "%"
 
     // adjust the power toughness position depending on the length of both values and the font size
     const powerLeftPos = 84.35 - ((power.length + toughness.length) / (35 / ptFontSize)) + "%"
@@ -166,7 +166,7 @@ export function CardImagePanel(props) {
 
                 <Box name="manaCost" pos="absolute" top="5.1%" left={manaCostLeftPos} fontSize={24}>
                     <HStack spacing={1}>
-                        {colorlessManaAmount > -1 ? <Box><Symbol symbol={colorlessManaAmount} shadow={true}/></Box> : <Box />}
+                        {manaCost.colorlessAmount > -1 ? <Box><Symbol symbol={manaCost.colorlessAmount} shadow={true}/></Box> : <Box />}
                         <HStack spacing={1}> 
                             {displayableManaCost}
                         </HStack>

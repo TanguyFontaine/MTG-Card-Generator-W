@@ -28,8 +28,7 @@ export function UiPanel(props) {
                 <TypesSelection types={props.types} setTypes={props.setTypes}/>
                 <SuperTypesSelection superTypes={props.superTypes} setSuperTypes={props.setSuperTypes}/>
                 <SubTypes subTypes={props.subTypes} setSubTypes={props.setSubTypes} setTypesFontSize={props.setTypesFontSize} typesFontSize={props.typesFontSize}/>
-                <ManaCost manaCost={props.manaCost} setManaCost={props.setManaCost} 
-                          colorlessManaAmount={props.colorlessManaAmount} setColorlessManaAmount={props.setColorlessManaAmount}/>
+                <ManaCost manaCost={props.manaCost} setManaCost={props.setManaCost} />
                 <CardFrameSelection cardFrameColor={props.cardFrameColor} setCardFrame={props.setCardFrame}/>
                 <SpellDescription spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription} 
                                   spellFontSize={props.spellFontSize} setSpellFontSize={props.setSpellFontSize}/>
@@ -44,7 +43,6 @@ export function UiPanel(props) {
                     subTypes={props.subTypes} setSubTypes={props.setSubTypes}
                     superTypes={props.superTypes} setSuperTypes={props.setSuperTypes}
                     manaCost={props.manaCost} setManaCost={props.setManaCost}
-                    colorlessManaAmount={props.colorlessManaAmount} setColorlessManaAmount={props.setColorlessManaAmount}
                     flavorText={props.flavorText} setFlavorText={props.setFlavorText}
                     power={props.power} setPower={props.setPower}
                     toughness={props.toughness} setToughness={props.setToughness}

@@ -25,17 +25,19 @@ async function handleResponse(response)
 // Card Service - handles all card-related API calls
 const CardService = {
 
-  // Get all cards
+  // Get all cards sorted by ID ascending
   async getAllCards()
   {
     try
     {
       const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARDS_TABLE_URL}`);
+      await handleResponse(response);
       // No need to define options: GET is the default method for 'fetch'
       // no body is needed for GET requests
 
-      await handleResponse(response);
-      return await response.json();
+      let cards = await response.json();
+      cards.sort((a, b) => a.id - b.id);
+      return cards;
     } 
     catch (error) 
     {

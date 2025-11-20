@@ -20,7 +20,6 @@ export function CardSavingUI(props) {
                 cardSubTypes={props.subTypes}
                 cardSuperTypes={props.superTypes}
                 manaCost={props.manaCost}
-                colorlessManaAmount={props.colorlessManaAmount}
                 flavorText={props.flavorText}
                 power={props.power}
                 toughness={props.toughness}
@@ -34,7 +33,6 @@ export function CardSavingUI(props) {
                 setSuperTypes={props.setSuperTypes}
                 setSubTypes={props.setSubTypes}
                 setManaCost={props.setManaCost}
-                setColorlessManaAmount={props.setColorlessManaAmount}
                 setFlavorText={props.setFlavorText}
                 setPower={props.setPower}
                 setToughness={props.setToughness}
@@ -50,7 +48,6 @@ export function CardSavingUI(props) {
                 setSuperTypes={props.setSuperTypes}
                 setSubTypes={props.setSubTypes}
                 setManaCost={props.setManaCost}
-                setColorlessManaAmount={props.setColorlessManaAmount}
                 setFlavorText={props.setFlavorText}
                 setPower={props.setPower}
                 setToughness={props.setToughness}

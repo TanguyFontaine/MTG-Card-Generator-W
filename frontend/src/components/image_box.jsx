@@ -122,8 +122,8 @@ export const ImageBox = React.forwardRef((props, ref) => {
         superTypesItems = superTypes.map((superTypes) => <Text>{superTypes}</Text>);
     }
     if (isDefined(manaCost)) {
-        displayableManaCost = manaCost.map((symbol) => <Box><Symbol symbol={symbol} shadow={true}/></Box>);
-        manaCostLength = manaCost.length
+        displayableManaCost = manaCost.otherManaSymbols.map((symbol) => <Box><Symbol symbol={symbol} shadow={true}/></Box>);
+        manaCostLength = manaCost.otherManaSymbols.length
     }
     if (isDefined(power)) {powerLength = power.length}
     if (isDefined(toughness)) {toughnessLength = toughness.length}
@@ -133,7 +133,7 @@ export const ImageBox = React.forwardRef((props, ref) => {
     //the mana cost at the right place
     // 96.8 is hard coded pos of the 1st mana symbol, 2.48 is the size of mana symbol with fontSize(35) 
     // we do not forget the colorless mana that is not the mana cost list
-    const manaCostLeftPos = 92 - (manaCostLength + (colorlessManaAmount > -1 ? 1 : 0)) * 1.76 + "%"
+    const manaCostLeftPos = 92 - (manaCostLength + (manaCost.colorlessAmount > -1 ? 1 : 0)) * 1.76 + "%"
 
     // adjust the power toughness position depending on the length of both values and the font size
     const powerLeftPos = 89.2 - ((powerLength + toughnessLength) / (68 / ptFontSize)) + "%"
@@ -157,7 +157,7 @@ export const ImageBox = React.forwardRef((props, ref) => {
 
         <Box name="manaCost" pos="absolute" top="5.1%" left={manaCostLeftPos} fontSize={24}>
             <HStack spacing={1}>
-                {colorlessManaAmount > -1 ? <Box><Symbol symbol={colorlessManaAmount} shadow={true}/></Box> : <Box />}
+                {manaCost.colorlessAmount > -1 ? <Box><Symbol symbol={manaCost.colorlessAmount} shadow={true}/></Box> : <Box />}
                 <HStack spacing={1}> 
                     {displayableManaCost}
                 </HStack>
