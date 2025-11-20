@@ -11,7 +11,12 @@ export function CardName(props) {
     return (
         <HStack spacing='auto'>
             <Text>Name:</Text>
-            <Textbox w="75%" setValue={(value) => props.setCardName(value)} placeholder="Enter the name of your card here."/>
+            <Textbox
+                w="75%" 
+                value={props.cardName} 
+                setValue={(value) => props.setCardName(value)} 
+                placeholder="Enter the name of your card here."
+            />
             <FontSizeControler setValue={props.setNameFontSize} value={props.nameFontSize}/>
          </HStack>
     );
