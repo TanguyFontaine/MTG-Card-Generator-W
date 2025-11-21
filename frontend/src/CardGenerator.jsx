@@ -17,6 +17,7 @@ import theme from "./theme"
 import { UiPanel } from "./components/ui_panel"
 import { CardImagePanel } from "./components/card_image_panel"
 import { ManaCostObj } from "./classes/mana_cost"
+import { CardTypeObj } from "./classes/card_type"
 
 /***************************************************************/
 function CardGenerator() {
@@ -32,14 +33,12 @@ function CardGenerator() {
     })
     const [imageCentering, setImageCentering] = useState("center") 
 
-    const [types, setTypes] = useState([])
-    const [superTypes, setSuperTypes] = useState([])
-    const [subTypes, setSubTypes] = useState("")
+    const [cardType, setCardType] = useState(CardTypeObj.newEmpty())
     const [typesFontSize, setTypesFontSize] = useControllableState({ defaultValue: 28 })
 
     const [cardFrameColor, setCardFrame] = useState("")
 
-    const [manaCost, setManaCost] = useState(ManaCostObj.empty())
+    const [manaCost, setManaCost] = useState(ManaCostObj.newEmpty())
 
     const [spellDescription, setSpellDescription] = useState("")
     const [spellFontSize, setSpellFontSize] = useControllableState({ defaultValue: 22 })
@@ -62,9 +61,7 @@ function CardGenerator() {
                     cardName={cardName} setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
                     setImageFileFunction={setImageFile} selectedImageFileName={imageFile.name}
                     imageFile={imageFile}
-                    types={types} setTypes={setTypes}
-                    superTypes={superTypes} setSuperTypes={setSuperTypes} typesFontSize={typesFontSize} setTypesFontSize={setTypesFontSize}
-                    subTypes={subTypes} setSubTypes={setSubTypes}
+                    cardType={cardType} setCardType={setCardType} typesFontSize={typesFontSize} setTypesFontSize={setTypesFontSize}
                     manaCost={manaCost} setManaCost={setManaCost}
                     cardFrameColor={cardFrameColor} setCardFrame={setCardFrame}
                     spellDescription={spellDescription} setSpellDescription={setSpellDescription} spellFontSize={spellFontSize} setSpellFontSize={setSpellFontSize}
@@ -78,9 +75,7 @@ function CardGenerator() {
                 <CardImagePanel 
                          imageFile={imageFile} 
                          cardName={cardName} nameFontSize={nameFontSize}
-                         types={types} 
-                         superTypes={superTypes} 
-                         subTypes={subTypes} typesFontSize={typesFontSize}
+                         cardType={cardType} typesFontSize={typesFontSize}
                          manaCost={manaCost}
                          cardFrameColor={cardFrameColor} 
                          spellDescription={spellDescription} spellFontSize={spellFontSize}

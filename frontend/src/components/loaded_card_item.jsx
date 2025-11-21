@@ -4,6 +4,7 @@
 import { Button } from "../style_components/button"
 import CardService from "../backend_connection/services"
 import { ManaCostObj } from "../classes/mana_cost"
+import { CardTypeObj, SUPER_TYPES, CARD_TYPES } from "../classes/card_type"
 
 export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClose }) {
 
@@ -25,34 +26,7 @@ export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClo
       if (parentProps.setLoyalty) parentProps.setLoyalty(selectedCard.loyalty || "");
       if (parentProps.setCardFrame) parentProps.setCardFrame(selectedCard.cardframe || "");
       if (parentProps.setManaCost) parentProps.setManaCost(ManaCostObj.fromString(selectedCard.manacost));
-
-      // Parse type back to arrays if needed
-      if (selectedCard.type) {
-        const fullTypeString = selectedCard.type.trim();
-        const typeWords = fullTypeString.split(' ').filter(Boolean);
-        
-        // Define known super types and regular types
-        const knownSuperTypes = ['Legendary', 'Snow', 'Basic', 'Token'];
-        const knownTypes = ['Creature', 'Artifact', 'Enchantment', 'Planeswalker', 'Instant', 'Sorcery', 'Land', 'Tribal'];
-        
-        // Separate super types, regular types, and subtypes
-        const superTypes = typeWords.filter(type => knownSuperTypes.includes(type));
-        const regularTypes = typeWords.filter(type => knownTypes.includes(type));
-        const remainingWords = typeWords.filter(type => 
-          !knownSuperTypes.includes(type) && !knownTypes.includes(type)
-        );
-        const subTypes = remainingWords.join(' ');
-        
-        // Set the separated types
-        if (parentProps.setSuperTypes) parentProps.setSuperTypes(superTypes);
-        if (parentProps.setTypes) parentProps.setTypes(regularTypes);
-        if (parentProps.setSubTypes) parentProps.setSubTypes(subTypes);
-      } else {
-        // Reset all type fields if no type data
-        if (parentProps.setSuperTypes) parentProps.setSuperTypes([]);
-        if (parentProps.setTypes) parentProps.setTypes([]);
-        if (parentProps.setSubTypes) parentProps.setSubTypes("");
-      }
+      if (parentProps.setCardType) parentProps.setCardType(CardTypeObj.fromString(selectedCard.type));
       
       onClose(); // Close the modal after loading
       

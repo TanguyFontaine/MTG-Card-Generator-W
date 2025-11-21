@@ -4,6 +4,7 @@ import { useDisclosure , Modal, ModalContent, ModalHeader, ModalBody, ModalClose
 
 import { Button } from "../style_components/button"
 import { ManaCostObj } from "../classes/mana_cost";
+import { CardTypeObj } from "../classes/card_type";
 /***************************************************************/
 
 export function NewCardButton(props) {
@@ -17,12 +18,8 @@ export function NewCardButton(props) {
     
     props.setCardName("");
     props.setSpellDescription("");
-    props.setTypes([]);
-    props.setSuperTypes([]);
-    props.setSubTypes([]);
-    props.setSuperTypes([]);
-    props.setSubTypes([]);
-    props.setManaCost(new ManaCostObj());
+    props.setCardType(CardTypeObj.newEmpty());
+    props.setManaCost(ManaCostObj.newEmpty());
     props.setFlavorText("");
     props.setPower("");
     props.setToughness("");

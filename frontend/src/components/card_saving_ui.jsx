@@ -16,9 +16,7 @@ export function CardSavingUI(props) {
                 cardId={props.cardId} setCardId={props.setCardId}
                 cardName={props.cardName}
                 cardDescription={props.spellDescription}
-                cardType={props.types}
-                cardSubTypes={props.subTypes}
-                cardSuperTypes={props.superTypes}
+                cardType={props.cardType}
                 manaCost={props.manaCost}
                 flavorText={props.flavorText}
                 power={props.power}
@@ -29,9 +27,7 @@ export function CardSavingUI(props) {
                 setCardId={props.setCardId}
                 setCardName={props.setCardName}
                 setSpellDescription={props.setSpellDescription}
-                setTypes={props.setTypes}
-                setSuperTypes={props.setSuperTypes}
-                setSubTypes={props.setSubTypes}
+                setCardType={props.setCardType}
                 setManaCost={props.setManaCost}
                 setFlavorText={props.setFlavorText}
                 setPower={props.setPower}
@@ -44,9 +40,7 @@ export function CardSavingUI(props) {
                 setCardId={props.setCardId}
                 setCardName={props.setCardName}
                 setSpellDescription={props.setSpellDescription}
-                setTypes={props.setTypes}
-                setSuperTypes={props.setSuperTypes}
-                setSubTypes={props.setSubTypes}
+                setCardType={props.setCardType}
                 setManaCost={props.setManaCost}
                 setFlavorText={props.setFlavorText}
                 setPower={props.setPower}

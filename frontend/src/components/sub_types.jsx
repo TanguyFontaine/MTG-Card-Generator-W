@@ -7,11 +7,22 @@ import { Text } from "../style_components/text"
 import { FontSizeControler } from "./font_size_controler"
 /***************************************************************/
 
-export function SubTypes(props) {
+export function SubTypes(props)
+{
+    const handleSubTypesChange = (subTypes) => {
+        const newCardType = props.cardType.setSubTypes(subTypes);
+            props.setCardType(newCardType);
+    };
+
     return (
         <HStack spacing='auto'>
             <Text>Sub types:</Text>
-            <Textbox width="72%" setValue={(subTypes) => props.setSubTypes(subTypes)} placeholder="Enter the sub types of your card here."/>
+            <Textbox 
+                width="72%" 
+                value={props.cardType.subTypes}
+                setValue={handleSubTypesChange} 
+                placeholder="Enter the sub types of your card here."
+            />
             <FontSizeControler setValue={props.setTypesFontSize} value={props.typesFontSize}/>
          </HStack>
     );

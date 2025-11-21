@@ -25,7 +25,7 @@ export function ManaCost(props) {
 
     function resetValues()
     {
-        props.setManaCost(ManaCostObj.empty());
+        props.setManaCost(ManaCostObj.newEmpty());
     }
 
     return (

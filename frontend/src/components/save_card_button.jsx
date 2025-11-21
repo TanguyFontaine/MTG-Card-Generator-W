@@ -6,15 +6,6 @@ import { Text } from "../style_components/text"
 import CardService from "../backend_connection/services"
 /***************************************************************/
 
-function convertTypeToString(superTypesArray, typesArray, subTypesString)
-{
-  return [
-    ...(Array.isArray(superTypesArray) ? superTypesArray : []),
-    ...(Array.isArray(typesArray) ? typesArray : []),
-    subTypesString || ""
-  ].filter(Boolean).join(" ");
-}
-
 export function SaveCardButton(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +32,7 @@ export function SaveCardButton(props) {
         name: props.cardName || "",
         spellDescription: props.cardDescription || "",
         manaCost: props.manaCost.toString(),
-        type: convertTypeToString(props.cardSuperTypes, props.cardType, props.cardSubTypes),
+        type: props.cardType.toString(),
         flavorText: props.flavorText || "",
         frame: props.cardFrameColor || "",
         imageUrl: props.imageFile?.name || ""

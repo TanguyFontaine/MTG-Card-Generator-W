@@ -27,7 +27,7 @@ class ManaCostObj
         );
     }
 
-    static empty() 
+    static newEmpty() 
     {
         return new ManaCostObj(-1, []);
     }
@@ -49,12 +49,12 @@ class ManaCostObj
     static fromString(manaCostString)
     {
         if (!manaCostString || manaCostString === "") 
-            return ManaCostObj.empty();
+            return ManaCostObj.newEmpty();
         
         const bracketMatches = manaCostString.match(/\[([^\]]*)\]/g);
         if (!bracketMatches)
-            return ManaCostObj.empty();
-
+            return ManaCostObj.newEmpty();
+        
         let colorlessAmount = -1;
         const otherManaSymbols = [];
         

@@ -7,6 +7,7 @@ import { Text } from "../style_components/text"
 import { frames } from "../ressources/frames"
 import { Symbol } from "./symbol"
 import { TextLine } from "./text_line"
+import { CardTypeObj } from "../classes/card_type"
 
 import { symbols } from "../ressources/symbols"
 import logo from "../ressources/logo_mini.png" 
@@ -112,9 +113,7 @@ export function CardImagePanel(props) {
     const imageFileContent = props.imageFile.content
     const imageFileName = props.imageFile.name
     const imageCentering = props.imageCentering
-    const types = props.types
-    const superTypes = props.superTypes
-    const subTypes = props.subTypes
+    const cardType = props.cardType
     const typesFontSize = props.typesFontSize
     const manaCost = props.manaCost
     const colorlessManaAmount = props.colorlessManaAmount
@@ -127,8 +126,8 @@ export function CardImagePanel(props) {
     const ptFontSize  = props.ptFontSize
     const selectedCardFrame = props.cardFrameColor
 
-    const typesItems = types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
-    const superTypesItems = superTypes.map((superType, index) => <Text key={`supertype-${index}`}>{superType}</Text>);
+    const typesItems = cardType.types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
+    const superTypesItems = cardType.superTypes.map((superType, index) => <Text key={`supertype-${index}`}>{superType}</Text>);
 
     const displayableManaCost = manaCost.otherManaSymbols.map((symbol, index) => <Box key={`mana-${index}`}><Symbol symbol={symbol} shadow={true}/></Box>);
 
@@ -176,7 +175,7 @@ export function CardImagePanel(props) {
                 <HStack fontSize={typesFontSize} pos="absolute" top={typesTopPos} left="7%" spacing="0.3em">
                     {superTypesItems}
                     {typesItems}
-                    <Text>{subTypes}</Text> 
+                    <Text>{cardType.subTypes}</Text> 
                 </HStack>
                 <Image boxSize="44px" pos="absolute" top="56.2%" left="87%" src={logo}/>
                 

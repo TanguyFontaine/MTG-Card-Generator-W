@@ -25,9 +25,9 @@ export function UiPanel(props) {
         <Box __css={style} w="100%">
             <Grid mt="3%" mx="5%" gap="1.5em">
                 <CardName cardName={props.cardName} setCardName={props.setCardName} setNameFontSize={props.setNameFontSize} nameFontSize={props.nameFontSize}/>
-                <TypesSelection types={props.types} setTypes={props.setTypes}/>
-                <SuperTypesSelection superTypes={props.superTypes} setSuperTypes={props.setSuperTypes}/>
-                <SubTypes subTypes={props.subTypes} setSubTypes={props.setSubTypes} setTypesFontSize={props.setTypesFontSize} typesFontSize={props.typesFontSize}/>
+                <TypesSelection cardType={props.cardType} setCardType={props.setCardType}/>
+                <SuperTypesSelection cardType={props.cardType} setCardType={props.setCardType}/>
+                <SubTypes cardType={props.cardType} setCardType={props.setCardType} setTypesFontSize={props.setTypesFontSize} typesFontSize={props.typesFontSize}/>
                 <ManaCost manaCost={props.manaCost} setManaCost={props.setManaCost} />
                 <CardFrameSelection cardFrameColor={props.cardFrameColor} setCardFrame={props.setCardFrame}/>
                 <SpellDescription spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription} 
@@ -39,9 +39,7 @@ export function UiPanel(props) {
                     cardId={props.cardId} setCardId={props.setCardId}
                     cardName={props.cardName} setCardName={props.setCardName}
                     spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription}
-                    types={props.types} setTypes={props.setTypes}
-                    subTypes={props.subTypes} setSubTypes={props.setSubTypes}
-                    superTypes={props.superTypes} setSuperTypes={props.setSuperTypes}
+                    cardType={props.cardType} setCardType={props.setCardType}
                     manaCost={props.manaCost} setManaCost={props.setManaCost}
                     flavorText={props.flavorText} setFlavorText={props.setFlavorText}
                     power={props.power} setPower={props.setPower}
