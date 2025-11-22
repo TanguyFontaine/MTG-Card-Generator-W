@@ -1,12 +1,11 @@
-import { useDisclosure , Modal, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from "@chakra-ui/react"
+import { useDisclosure } from "@chakra-ui/react"
 import { useState } from "react"
 
 /***************************************************************/
 
 import { Button } from "../style_components/button"
-import { Text } from "../style_components/text"
 import CardService from "../backend_connection/services"
-import { LoadedCardItem } from "./loaded_card_item"
+import { LoadedCardsPanel } from "./loaded_cards_panel"
 /***************************************************************/
 
 export function LoadCardButton(props) {
@@ -24,13 +23,13 @@ export function LoadCardButton(props) {
     {
       const allCards = await CardService.getAllCards();
       setCards(allCards);
-      onOpen(); // Open the modal to show cards
+      onOpen(); // Open the loaded cards panel to show cards
     } 
     catch (error)
     {
       console.error('Failed to load cards:', error);
       setError(error.message);
-      onOpen(); // Open the modal to show error
+      onOpen(); // Open the loaded cards panel to show error
     }
     finally
     {
@@ -40,44 +39,19 @@ export function LoadCardButton(props) {
 
   return (
     <>
-      <Button 
-        w={134} 
-        colorScheme="blue"
-        isLoading={isLoading}
-        loadingText="Loading..."
-        onClick={handleLoadCards}
-      >
+      <Button w={134} colorScheme="blue" isLoading={isLoading} loadingText="Loading..." onClick={handleLoadCards}>
         Load Card
       </Button>
       
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
-        <ModalContent>
-          <ModalHeader>Select a card</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {
-              error ? 
-              ( <Text color="red.500">Failed to load cards: {error}</Text> ) : 
-              (
-                <>
-                  {
-                    cards.map(card => (
-                      <LoadedCardItem
-                        key={card.id}
-                        card={card}
-                        parentProps={props}
-                        onError={setError}
-                        setIsLoading={setIsLoading}
-                        onClose={onClose}
-                      />
-                    ))
-                  }
-                </>
-              )
-            }
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <LoadedCardsPanel
+        isOpen={isOpen}
+        onClose={onClose}
+        cards={cards}
+        error={error}
+        parentProps={props}
+        setError={setError}
+        setIsLoading={setIsLoading}
+      />
     </>
   );
 }
