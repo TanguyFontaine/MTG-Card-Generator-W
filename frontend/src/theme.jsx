@@ -20,10 +20,19 @@ const CardImagePanel = {
         color: "black",
     },
 }
+const Modal = {
+    baseStyle: {
+        dialog: {
+            fontFamily: "EB Garamond",
+            fontWeight: 500,
+        },
+    },
+}
 
 const components = {
     UiPanel,
     CardImagePanel,
+    Modal,
 }
 
 const theme = extendTheme({ config, components })
