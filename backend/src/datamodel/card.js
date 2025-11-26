@@ -1,7 +1,9 @@
 const cardsTableName = 'Cards';
 
 class Card {
-  constructor(id = 0, name = "", manaCost = "", type = "", spellDescription = "", flavorText = "", frame = "", imageUrl = "") {
+  constructor(id = 0, name = "", manaCost = "", type = "", spellDescription = "", flavorText = "", 
+              frame = "", imageUrl = "", power = "", toughness = "")
+  {
     this.id = id;
     this.name = name;
     this.manaCost = manaCost;
@@ -10,12 +12,14 @@ class Card {
     this.flavorText = flavorText;
     this.frame = frame;
     this.imageUrl = imageUrl;
+    this.power = power;
+    this.toughness = toughness;
   }
 
     // Validation Methods
   validateName()
   {
-    if (!this.name || this.name.trim().length === 0) {
+    if (this.name == null || this.name.trim().length === 0) {
       return { isValid: false, error: "Card name is required" };
     }
     if (this.name.length > 120) {
@@ -27,7 +31,7 @@ class Card {
   validateManaCost()
   {
     // Check if mana cost is an array or valid string
-    if (this.manaCost && typeof this.manaCost === 'string' && this.manaCost.length > 120) {
+    if (this.manaCost == null || typeof this.manaCost !== 'string' || this.manaCost.length > 120) {
       return { isValid: false, error: "Mana cost should be 30 characters or less" };
     }
     return { isValid: true };
@@ -36,35 +40,33 @@ class Card {
   validateFrame()
   {
     // Check if frame is a valid string
-    if (this.frame && typeof this.frame === 'string' && this.frame.length > 30) {
+    if (this.frame == null || typeof this.frame !== 'string' || this.frame.length > 30) {
       return { isValid: false, error: "Frame should be 30 characters or less" };
     }
     return { isValid: true };
   }
 
-  // validatePowerToughness() {
-  //   // Power and toughness should be numbers or valid strings like "X", "*"
-  //   const validPTPattern = /^(\d+|\*|X)$/;
-    
-  //   if (this.power && !validPTPattern.test(this.power)) {
-  //     return { isValid: false, error: "Power must be a number, *, or X" };
-  //   }
-  //   if (this.toughness && !validPTPattern.test(this.toughness)) {
-  //     return { isValid: false, error: "Toughness must be a number, *, or X" };
-  //   }
-  //   return { isValid: true };
-  // }
+  validatePowerToughness()
+  {  
+    if (this.power == null || typeof this.power !== 'string' || this.power.length > 10) {
+      return { isValid: false, error: "Power must be 10 characters or less" };
+    }
+    if (this.toughness == null || typeof this.toughness !== 'string' || this.toughness.length > 10) {
+      return { isValid: false, error: "Toughness must be 10 characters or less" };
+    }
+    return { isValid: true };
+  }
 
   validateImageUrl()
   {
-    if (this.imageUrl && this.imageUrl.length > 255) {
+    if (this.imageUrl == null || this.imageUrl.length > 255) {
       return { isValid: false, error: "Image URL is too long" };
     }
 
     // Validate URL format
     try
     {
-      if (this.imageUrl && !this.imageUrl.startsWith('data:') && !this.imageUrl.startsWith('http')) {
+      if (this.imageUrl.length > 0 && !this.imageUrl.startsWith('data:') && !this.imageUrl.startsWith('http')) {
         return { isValid: false, error: "Invalid image URL format" };
       }
     }
@@ -82,7 +84,8 @@ class Card {
       this.validateName(),
       this.validateManaCost(),
       this.validateFrame(),
-      this.validateImageUrl()
+      this.validateImageUrl(),
+      this.validatePowerToughness()
     ];
 
     const errors = validations.filter(v => !v.isValid).map(v => v.error);

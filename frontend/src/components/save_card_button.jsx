@@ -20,11 +20,9 @@ export function SaveCardButton(props) {
     try 
     {
       // Debug: Log all props to see what we're receiving
-      /*
+      
       console.log('All props:', props);
-      console.log('cardName:', props.cardName);
-      console.log('cardDescription:', props.cardDescription);
-      */
+      
 
       // Create comprehensive card data object
       // TODO : Include all relevant fields
@@ -35,7 +33,9 @@ export function SaveCardButton(props) {
         type: props.cardType.toString(),
         flavorText: props.flavorText || "",
         frame: props.cardFrameColor || "",
-        imageUrl: props.imageFile?.name || ""
+        imageUrl: props.imageFile?.name || "",
+        power: props.power || "",
+        toughness: props.toughness || ""
       };
 
       let savedCard;

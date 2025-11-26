@@ -4,7 +4,7 @@
 import { Button } from "../style_components/button"
 import CardService from "../backend_connection/services"
 import { ManaCostObj } from "../classes/mana_cost"
-import { CardTypeObj, SUPER_TYPES, CARD_TYPES } from "../classes/card_type"
+import { CardTypeObj } from "../classes/card_type"
 
 export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClose }) {
 
@@ -25,6 +25,8 @@ export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClo
       if (parentProps.setToughness) parentProps.setToughness(selectedCard.toughness || "");
       if (parentProps.setLoyalty) parentProps.setLoyalty(selectedCard.loyalty || "");
       if (parentProps.setCardFrame) parentProps.setCardFrame(selectedCard.cardframe || "");
+      if (parentProps.setPower) parentProps.setPower(selectedCard.power || "");
+      if (parentProps.setToughness) parentProps.setToughness(selectedCard.toughness || "");
       if (parentProps.setManaCost) parentProps.setManaCost(ManaCostObj.fromString(selectedCard.manacost));
       if (parentProps.setCardType) parentProps.setCardType(CardTypeObj.fromString(selectedCard.type));
       

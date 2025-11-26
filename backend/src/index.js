@@ -70,7 +70,9 @@ app.post(ROUTES.CARDS_TABLE_URL, async (req, res) => {
       cardData.spellDescription || "",
       cardData.flavorText || "",
       cardData.frame || "",
-      cardData.imageUrl || ""
+      cardData.imageUrl || "",
+      cardData.power || "",
+      cardData.toughness || ""
     );
 
     // Validate the card data
@@ -86,8 +88,8 @@ app.post(ROUTES.CARDS_TABLE_URL, async (req, res) => {
 
     // Insert into database with all fields
     const result = await dbConnectionPool.query(
-      `INSERT INTO Cards (name, manacost, type, spelldescription, flavortext, cardframe, imageurl)
-       VALUES ($1, $2, $3, $4, $5, $6, $7) 
+      `INSERT INTO Cards (name, manacost, type, spelldescription, flavortext, cardframe, imageurl, power, toughness)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) 
       RETURNING *`,
       [
         card.name,
@@ -96,7 +98,9 @@ app.post(ROUTES.CARDS_TABLE_URL, async (req, res) => {
         card.spellDescription,
         card.flavorText,
         card.frame,
-        card.imageUrl
+        card.imageUrl,
+        card.power,
+        card.toughness
       ]
     );
     
@@ -126,7 +130,9 @@ app.put(ROUTES.CARD_BY_ID_URL(':id'), async (req, res) => {
       cardData.spellDescription || "",
       cardData.flavorText || "",
       cardData.frame || "",
-      cardData.imageUrl || ""
+      cardData.imageUrl || "",
+      cardData.power || "",
+      cardData.toughness || ""
     );
 
     // Validate the card data
@@ -144,7 +150,7 @@ app.put(ROUTES.CARD_BY_ID_URL(':id'), async (req, res) => {
     const result = await dbConnectionPool.query(
       `UPDATE Cards SET 
         name = $2, manacost = $3, type = $4, spellDescription = $5, 
-        flavortext = $6, cardframe = $7, imageurl = $8
+        flavortext = $6, cardframe = $7, imageurl = $8, power = $9, toughness = $10
       WHERE id = $1 RETURNING *`,
       [
         cardId,
@@ -154,7 +160,9 @@ app.put(ROUTES.CARD_BY_ID_URL(':id'), async (req, res) => {
         card.spellDescription,
         card.flavorText,
         card.frame,
-        card.imageUrl
+        card.imageUrl,
+        card.power,
+        card.toughness
       ]
     );
     

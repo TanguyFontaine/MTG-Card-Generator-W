@@ -82,9 +82,6 @@ const CardService = {
     }
   },
 
-  
-  // TODO: check if update and delete methods are needed + implement on backend side if so.
-
   // Update an existing card
   async updateCard(cardId, cardData)
   {

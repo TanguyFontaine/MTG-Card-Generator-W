@@ -11,10 +11,10 @@ export function PowerToughness(props) {
     return (
         <HStack spacing='auto'>
             <Text>Power:</Text>
-            <Textbox width={252} setValue={(value) => props.setPower(value)} placeholder="Power"/>
+            <Textbox width={252} value={props.power} setValue={(value) => props.setPower(value)} placeholder="Power"/>
             <Box width={30}/>
             <Text>Toughness:</Text>
-            <Textbox width={252} setValue={(value) => props.setToughness(value)} placeholder="Toughness"/>
+            <Textbox width={252} value={props.toughness} setValue={(value) => props.setToughness(value)} placeholder="Toughness"/>
             <FontSizeControler setValue={props.setPTFontSize} value={props.ptFontSize}/>
          </HStack>
     );
