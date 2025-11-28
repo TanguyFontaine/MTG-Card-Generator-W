@@ -79,7 +79,8 @@ class Card {
   }
 
   // Master validation method
-  validate() {
+  validate()
+  {
     const validations = [
       this.validateName(),
       this.validateManaCost(),
