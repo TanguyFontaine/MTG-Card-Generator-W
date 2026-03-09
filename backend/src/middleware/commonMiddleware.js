@@ -13,6 +13,13 @@ export const corsMiddleware = cors({
  */
 export const errorHandler = (err, req, res, next) => {
   console.error('Unhandled error:', err);
+
+  // Handle payload too large error with a clear message
+  if (err.type === 'entity.too.large') {
+    return res.status(413).json({
+      error: 'Request body is too large. The maximum allowed size is 1 MB.'
+    });
+  }
   
   // Don't leak error details in production
   const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -30,7 +37,8 @@ export const requestLogger = (req, res, next) => {
   const timestamp = new Date().toISOString();
   console.log(`[${timestamp}] ${req.method} ${req.url}`);
   
-  if (req.body && Object.keys(req.body).length > 0) {
+  const isDevelopment = process.env.NODE_ENV !== 'production';
+  if (isDevelopment && req.body && Object.keys(req.body).length > 0) {
     console.log('Request body:', req.body);
   }
   
