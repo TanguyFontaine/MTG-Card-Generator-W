@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import { corsMiddleware, errorHandler, requestLogger } from './middleware/commonMiddleware.js';
 import cardReadRoutes from './routes/cardReadRoutes.js';

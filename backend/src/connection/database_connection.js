@@ -1,11 +1,11 @@
 import { Pool } from 'pg';
 
 const dbConnectionPool = new Pool({
-  user: 'postgres',           // your PostgreSQL username
-  host: 'localhost',          // or your server address
-  database: 'mtg-card-generator_DB', // your database name
-  password: 'Shanks_postgre',  // your PostgreSQL password
-  port: 5432,                 // default PostgreSQL port
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: parseInt(process.env.DB_PORT || '5432'),
 });
 
 export default dbConnectionPool;
