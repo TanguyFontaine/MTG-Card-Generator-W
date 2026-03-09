@@ -3,6 +3,7 @@ import express from 'express';
 import { corsMiddleware, errorHandler, requestLogger } from './middleware/commonMiddleware.js';
 import cardReadRoutes from './routes/cardReadRoutes.js';
 import cardWriteRoutes from './routes/cardWriteRoutes.js';
+import dbConnectionPool from './connection/database_connection.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -29,9 +30,25 @@ app.get('/health', (req, res) => {
 app.use(errorHandler);
 
 // Start the server
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`🚀 Card Generator API server listening at http://localhost:${port}`);
   console.log(`📊 Health check available at http://localhost:${port}/health`);
 });
+
+// Graceful shutdown: close the server and database pool on termination signals
+function shutdownServer(signal) {
+  console.log(`\n${signal} received. Shutting down.`);
+  server.close(() => {
+    console.log('HTTP server closed.');
+    dbConnectionPool.end(() => {
+      console.log('Database connection pool closed.');
+      process.exit(0);
+    });
+  });
+}
+
+// Catch termination signals for graceful shutdown
+process.on('SIGTERM', () => shutdownServer('SIGTERM'));
+process.on('SIGINT', () => shutdownServer('SIGINT'));
 
 export default app;
