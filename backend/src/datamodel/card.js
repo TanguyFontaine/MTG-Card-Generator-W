@@ -57,6 +57,22 @@ class Card {
     return { isValid: true };
   }
 
+  validateSpellDescription()
+  {
+    if (this.spellDescription == null || typeof this.spellDescription !== 'string' || this.spellDescription.length > 2000) {
+      return { isValid: false, error: "Spell description must be 2000 characters or less" };
+    }
+    return { isValid: true };
+  }
+
+  validateFlavorText()
+  {
+    if (this.flavorText == null || typeof this.flavorText !== 'string' || this.flavorText.length > 2000) {
+      return { isValid: false, error: "Flavor text must be 2000 characters or less" };
+    }
+    return { isValid: true };
+  }
+
   validateImageUrl()
   {
     if (this.imageUrl == null || this.imageUrl.length > 255) {
@@ -85,6 +101,8 @@ class Card {
       this.validateName(),
       this.validateManaCost(),
       this.validateFrame(),
+      this.validateSpellDescription(),
+      this.validateFlavorText(),
       this.validateImageUrl(),
       this.validatePowerToughness()
     ];
