@@ -14,7 +14,7 @@ export class CardReadController {
     catch (err)
     {
       console.error('Error fetching all cards:', err);
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: 'An internal server error occurred' });
     }
   }
 
@@ -37,7 +37,7 @@ export class CardReadController {
     catch (err)
     {
       console.error('Error fetching card by ID:', err);
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: 'An internal server error occurred' });
     }
   }
 }

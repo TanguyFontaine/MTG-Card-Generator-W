@@ -57,7 +57,7 @@ export class CardWriteController {
     catch (err)
     {
       console.error('Error saving card:', err);
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: 'An internal server error occurred' });
     }
   }
 
@@ -124,7 +124,7 @@ export class CardWriteController {
     catch (err)
     {
       console.error('Error updating card:', err);
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: 'An internal server error occurred' });
     }
   }
 
