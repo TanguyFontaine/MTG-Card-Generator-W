@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import { CardGenerator } from './CardGenerator';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders card generator UI', () => {
+  render(<CardGenerator />);
+  const nameLabel = screen.getByText(/Name:/i);
+  expect(nameLabel).toBeInTheDocument();
 });
