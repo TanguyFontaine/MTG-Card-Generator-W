@@ -96,7 +96,7 @@ export class CardWriteController {
       // Update in database with all fields
       const result = await dbConnectionPool.query(
         `UPDATE Cards SET 
-          name = $2, manacost = $3, type = $4, spellDescription = $5, 
+          name = $2, manacost = $3, type = $4, spelldescription = $5, 
           flavortext = $6, cardframe = $7, imageurl = $8, power = $9, toughness = $10
         WHERE id = $1 RETURNING *`,
         [
