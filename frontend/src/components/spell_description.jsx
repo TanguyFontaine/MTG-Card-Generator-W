@@ -15,15 +15,15 @@ export function SpellDescription(props) {
     {
         let newInputValue = props.spellDescription.concat("[" + symbol + "]")
         props.setSpellDescription(newInputValue);
-    } 
+    }
 
     return (
         <Grid gap={4}>
-            <HStack spacing='auto'>
+            <HStack w="100%" justify="space-between">
                 <Text>Abilities:</Text>
                 <Textarea width="75%"
                           inputValue={props.spellDescription} setInputValue={props.setSpellDescription}
-                          setValue={(value) => props.setSpellDescription(value)} 
+                          setValue={(value) => props.setSpellDescription(value)}
                           placeholder="Enter the abilities or the description of your spell :"/>
                 <FontSizeControler setValue={props.setSpellFontSize} value={props.spellFontSize}/>
             </HStack>

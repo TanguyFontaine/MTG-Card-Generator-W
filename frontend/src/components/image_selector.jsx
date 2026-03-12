@@ -37,7 +37,7 @@ export function ImageSelector(props) {
     }
 
     return (
-        <HStack spacing='auto'>
+        <HStack w="100%" justify="space-between">
             <Button mr="30px" colorScheme="blue" onClick={() => openFileSelector()}>Select image file </Button>
             <ImageCentering setImageCentering={props.setImageCentering}/>
         </HStack>

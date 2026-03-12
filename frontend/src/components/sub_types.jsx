@@ -15,12 +15,12 @@ export function SubTypes(props)
     };
 
     return (
-        <HStack spacing='auto'>
+        <HStack w="100%" justify="space-between">
             <Text>Sub types:</Text>
-            <Textbox 
-                width="72%" 
+            <Textbox
+                width="72%"
                 value={props.cardType.subTypes}
-                setValue={handleSubTypesChange} 
+                setValue={handleSubTypesChange}
                 placeholder="Enter the sub types of your card here."
             />
             <FontSizeControler setValue={props.setTypesFontSize} value={props.typesFontSize}/>

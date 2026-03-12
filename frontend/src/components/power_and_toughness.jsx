@@ -9,7 +9,7 @@ import { FontSizeControler } from "./font_size_controler"
 
 export function PowerToughness(props) {
     return (
-        <HStack spacing='auto'>
+        <HStack w="100%" justify="space-between">
             <Text>Power:</Text>
             <Textbox width={252} value={props.power} setValue={(value) => props.setPower(value)} placeholder="Power"/>
             <Box width={30}/>

@@ -9,9 +9,9 @@ import { NewCardButton } from "../components/new_card_button"
 /***************************************************************/
 
 export function CardSavingUI(props) {
-        
+
     return (
-        <HStack spacing='auto'>
+        <HStack w="100%" justify="space-between">
             <SaveCardButton
                 cardId={props.cardId} setCardId={props.setCardId}
                 cardName={props.cardName}
@@ -23,7 +23,7 @@ export function CardSavingUI(props) {
                 toughness={props.toughness}
                 cardFrameColor={props.cardFrameColor}
                 imageFile={props.imageFile} />
-            <NewCardButton 
+            <NewCardButton
                 setCardId={props.setCardId}
                 setCardName={props.setCardName}
                 setSpellDescription={props.setSpellDescription}
@@ -36,7 +36,7 @@ export function CardSavingUI(props) {
                 setCardFrame={props.setCardFrame}
                 setImageFile={props.setImageFile}
             />
-            <LoadCardButton 
+            <LoadCardButton
                 setCardId={props.setCardId}
                 setCardName={props.setCardName}
                 setSpellDescription={props.setSpellDescription}
