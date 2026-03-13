@@ -1,4 +1,4 @@
-export const CARDS_TABLE_NAME: string = "Cards";
+export const CARDS_TABLE_NAME: string = "cards";
 
 const MAX_NAME_LENGTH = 120;
 const MAX_MANA_COST_LENGTH = 120;

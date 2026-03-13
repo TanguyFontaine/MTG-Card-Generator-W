@@ -9,12 +9,12 @@ function buildCardFromRow(row: Record<string, unknown>): Card
    return new Card(
       row.id as number,
       row.name as string,
-      row.mana_cost as string,
+      row.manacost as string,
       row.type as string,
-      row.spell_description as string,
-      row.flavor_text as string,
-      row.frame as string,
-      row.image_url as string,
+      row.spelldescription as string,
+      row.flavortext as string,
+      row.cardframe as string,
+      row.imageurl as string,
       row.power as string,
       row.toughness as string,
    );
@@ -42,7 +42,7 @@ export class CardReadController
    {
       try
       {
-         const { cardId } = req.params;
+         const cardId = req.params.id;
          const selectQuery : string = `SELECT * FROM "${CARDS_TABLE_NAME}" WHERE id = $1`;
          const result = await dbConnectionPool.query(selectQuery, [cardId]);
 

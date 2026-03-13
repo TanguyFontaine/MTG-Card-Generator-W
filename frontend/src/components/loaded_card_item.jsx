@@ -10,27 +10,27 @@ export function LoadedCardItem({ card, parentProps, onError, setIsLoading, onClo
 
   const handleSelectCard = async () => {
     setIsLoading(true);
-    
-    try 
+
+    try
     {
       const selectedCard = await CardService.getCardById(card.id);
       console.log('Card loaded:', selectedCard);
-      
+
       // Update the parent component's state with the loaded card data
       if (parentProps.setCardId) parentProps.setCardId(selectedCard.id);
       if (parentProps.setCardName) parentProps.setCardName(selectedCard.name || "");
-      if (parentProps.setSpellDescription) parentProps.setSpellDescription(selectedCard.spelldescription || "");
-      if (parentProps.setFlavorText) parentProps.setFlavorText(selectedCard.flavortext || "");
+      if (parentProps.setSpellDescription) parentProps.setSpellDescription(selectedCard.spellDescription || "");
+      if (parentProps.setFlavorText) parentProps.setFlavorText(selectedCard.flavorText || "");
       if (parentProps.setPower) parentProps.setPower(selectedCard.power || "");
       if (parentProps.setToughness) parentProps.setToughness(selectedCard.toughness || "");
       if (parentProps.setLoyalty) parentProps.setLoyalty(selectedCard.loyalty || "");
-      if (parentProps.setCardFrame) parentProps.setCardFrame(selectedCard.cardframe || "");
-      if (parentProps.setManaCost) parentProps.setManaCost(ManaCostObj.fromString(selectedCard.manacost));
+      if (parentProps.setCardFrame) parentProps.setCardFrame(selectedCard.frame || "");
+      if (parentProps.setManaCost) parentProps.setManaCost(ManaCostObj.fromString(selectedCard.manaCost));
       if (parentProps.setCardType) parentProps.setCardType(CardTypeObj.fromString(selectedCard.type));
-      
+
       onClose(); // Close the modal after loading
-      
-    } 
+
+    }
     catch (error)
     {
       onError(`Failed to load card: ${error.message}`);
