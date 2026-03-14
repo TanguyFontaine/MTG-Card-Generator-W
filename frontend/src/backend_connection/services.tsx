@@ -33,13 +33,13 @@ const CardService = {
    {
       try
       {
+         // No need to define options for the fetch method: GET is the default method for 'fetch'
+         // no body is needed for GET requests
          const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARDS_TABLE_URL}`);
          await handleResponse(response);
-         // No need to define options: GET is the default method for 'fetch'
-         // no body is needed for GET requests
-
-         let receivedCards: Card[] = await response.json();
-         receivedCards.sort((a, b) => (a.id ?? 0) - (b.id ?? 0)); // sorted by ID in ascending order
+         
+         const receivedCards: Card[] = await response.json();
+         receivedCards.sort((a, b) => (a.id ?? 0) - (b.id ?? 0)); 
          return receivedCards;
       }
       catch (error)
@@ -49,7 +49,6 @@ const CardService = {
       }
    },
 
-   // Get a card by ID
    async getCardById(cardId: number): Promise<Card>
    {
       try
@@ -65,7 +64,6 @@ const CardService = {
       }
    },
 
-   // Save a new card
    async saveCard(cardToSend: Card): Promise<Card>
    {
       try
@@ -86,7 +84,6 @@ const CardService = {
       }
    },
 
-   // Update an existing card
    async updateCard(cardId: number, cardToSend: Card): Promise<Card>
    {
       try

@@ -1,4 +1,3 @@
-import React from "react";
 import { Checkbox as ChakraCheckbox, CheckboxProps as ChakraCheckboxProps } from "@chakra-ui/react";
 /***************************************************************/
 

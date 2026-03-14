@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // 1. import `ChakraProvider` component to have chakra work correctly
 import { ChakraProvider } from "@chakra-ui/react";
 import { Box, useControllableState } from "@chakra-ui/react";
@@ -59,7 +59,7 @@ function CardGenerator()
             <UiPanel
                cardId={cardId} setCardId={setCardId}
                cardName={cardName} setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
-               setImageFileFunction={setImageFile} selectedImageFileName={imageFile.name}
+               setImageFile={setImageFile} selectedImageFileName={imageFile.name}
                imageFile={imageFile}
                cardType={cardType} setCardType={setCardType} typesFontSize={typesFontSize} setTypesFontSize={setTypesFontSize}
                manaCost={manaCost} setManaCost={setManaCost}

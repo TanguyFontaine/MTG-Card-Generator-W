@@ -4,9 +4,8 @@ import { HStack } from "@chakra-ui/react";
 import { Textbox } from "../style_components/textbox";
 import { Text } from "../style_components/text";
 import { FontSizeControler } from "./font_size_controler";
-/***************************************************************/
-
 import { CardTypeObj } from "../classes/card_type";
+/***************************************************************/
 
 interface SubTypesProps
 {

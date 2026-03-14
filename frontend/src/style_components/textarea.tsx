@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import { Textarea as ChakraTextarea, TextareaProps as ChakraTextareaProps } from "@chakra-ui/react";
 /***************************************************************/
 
@@ -13,9 +13,9 @@ export function Textarea(props: TextareaComponentProps)
 {
    const { setValue, inputValue, setInputValue, ...otherProps } = props;
 
-   let handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
    {
-      let textAreaValue = e.target.value;
+      const textAreaValue = e.target.value;
       setInputValue(textAreaValue);
       setValue(textAreaValue);
    };

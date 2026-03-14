@@ -40,7 +40,7 @@ interface UiPanelProps
    setCardId: (id: number | null) => void;
    setCardName: (value: string) => void;
    setNameFontSize: (value: number) => void;
-   setImageFileFunction: (file: ImageFile) => void;
+   setImageFile: (file: ImageFile) => void;
    setCardType: (cardType: CardTypeObj) => void;
    setTypesFontSize: (value: number) => void;
    setManaCost: (manaCost: ManaCostObj) => void;
@@ -75,7 +75,7 @@ export function UiPanel(props: UiPanelProps)
                spellFontSize={props.spellFontSize} setSpellFontSize={props.setSpellFontSize} />
             <FlavorText flavorText={props.flavorText} setFlavorText={props.setFlavorText} flavorTextFontSize={props.flavorTextFontSize} setFlavorTextFontSize={props.setFlavorTextFontSize} />
             <PowerToughness power={props.power} setPower={props.setPower} toughness={props.toughness} setToughness={props.setToughness} ptFontSize={props.ptFontSize} setPTFontSize={props.setPTFontSize} />
-            <ImageSelector setImageFileFunction={props.setImageFileFunction} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering} />
+            <ImageSelector setImageFile={props.setImageFile} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering} />
             <CardSavingUI
                cardId={props.cardId} setCardId={props.setCardId}
                cardName={props.cardName} setCardName={props.setCardName}
@@ -87,7 +87,7 @@ export function UiPanel(props: UiPanelProps)
                toughness={props.toughness} setToughness={props.setToughness}
                loyalty={props.loyalty} setLoyalty={props.setLoyalty}
                cardFrame={props.cardFrame} setCardFrame={props.setCardFrame}
-               imageFile={props.imageFile} setImageFile={props.setImageFileFunction}
+               imageFile={props.imageFile} setImageFile={props.setImageFile}
             />
          </Grid>
       </Box>

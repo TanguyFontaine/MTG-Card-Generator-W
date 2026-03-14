@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import { Select as ChakraSelect, SelectProps as ChakraSelectProps } from "@chakra-ui/react";
 /***************************************************************/
 
@@ -13,9 +13,9 @@ export function Select(props: SelectComponentProps)
    const { setValue, options, ...otherProps } = props;
    const optionItems = options.map((option) => <option key={option} value={option}>{option}</option>);
 
-   let handleInputChange = (e: ChangeEvent<HTMLSelectElement>) =>
+   const handleInputChange = (e: ChangeEvent<HTMLSelectElement>) =>
    {
-      let inputValue = e.target.value;
+      const inputValue = e.target.value;
       setValue(inputValue);
    };
 

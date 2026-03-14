@@ -23,7 +23,7 @@ export function CardFrameSelection(props: CardFrameSelectionProps)
          <Select
             width="88.5%"
             options={frameColors}
-            value={props.cardFrame || ""}
+            value={props.cardFrame}
             setValue={(value) => props.setCardFrame(value)}
             placeholder="Select the frame of your card."
          />

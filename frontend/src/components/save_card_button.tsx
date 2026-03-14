@@ -13,7 +13,7 @@ interface SaveCardButtonProps
 {
    cardId: number | null;
    cardName: string;
-   cardDescription: string;
+   spellDescription: string;
    cardType: CardTypeObj;
    manaCost: ManaCostObj;
    flavorText: string;
@@ -47,7 +47,7 @@ export function SaveCardButton(props: SaveCardButtonProps)
          // Create comprehensive card data object
          const cardToSend = {
             name: props.cardName || "",
-            spellDescription: props.cardDescription || "",
+            spellDescription: props.spellDescription || "",
             manaCost: props.manaCost.toString(),
             type: props.cardType.toString(),
             flavorText: props.flavorText || "",

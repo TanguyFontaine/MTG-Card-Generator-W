@@ -44,7 +44,7 @@ export function CardSavingUI(props: CardSavingUIProps)
          <SaveCardButton
             cardId={props.cardId} setCardId={props.setCardId}
             cardName={props.cardName}
-            cardDescription={props.spellDescription}
+            spellDescription={props.spellDescription}
             cardType={props.cardType}
             manaCost={props.manaCost}
             flavorText={props.flavorText}

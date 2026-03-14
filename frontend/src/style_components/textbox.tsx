@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import { Input as ChakraTextbox, InputProps as ChakraInputProps } from "@chakra-ui/react";
 /***************************************************************/
 
@@ -11,9 +11,9 @@ export function Textbox(props: TextboxComponentProps)
 {
    const { setValue, ...otherProps } = props;
 
-   let handleInputChange = (e: ChangeEvent<HTMLInputElement>) =>
+   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) =>
    {
-      let inputValue = e.target.value;
+      const inputValue = e.target.value;
       setValue(inputValue);
    };
 

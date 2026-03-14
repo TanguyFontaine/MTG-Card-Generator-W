@@ -1,5 +1,5 @@
 import { HStack } from "@chakra-ui/react";
-/**************************************************** */
+/***************************************************************/
 
 import { Radio } from "../style_components/radio";
 import { RadioGroup } from "../style_components/radio_group";

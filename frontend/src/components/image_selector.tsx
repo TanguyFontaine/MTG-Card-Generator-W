@@ -11,13 +11,13 @@ import type { ImageFile } from "./image_file_interface";
 interface ImageSelectorProps
 {
    selectedImageFileName?: string;
-   setImageFileFunction: (file: ImageFile) => void;
+   setImageFile: (file: ImageFile) => void;
    setImageCentering: (value: string) => void;
 }
 
 export function ImageSelector(props: ImageSelectorProps)
 {
-   const setImageFileFunction = props.setImageFileFunction;
+   const setImageFile = props.setImageFile;
 
    const [openFileSelector, { filesContent, loading, errors }] = useFilePicker({
       readAs: "DataURL",
@@ -27,8 +27,8 @@ export function ImageSelector(props: ImageSelectorProps)
    // When the user picks a new file, update the parent state with useEffect.
    useEffect(() => {
       if (filesContent.length > 0)
-         setImageFileFunction(filesContent[0]);
-   }, [filesContent, setImageFileFunction]);
+         setImageFile(filesContent[0]);
+   }, [filesContent, setImageFile]);
 
    if (loading)
    {

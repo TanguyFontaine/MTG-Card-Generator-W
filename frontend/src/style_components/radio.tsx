@@ -1,4 +1,3 @@
-import React from "react";
 import { Radio as ChakraRadio, RadioProps as ChakraRadioProps } from "@chakra-ui/react";
 /***************************************************************/
 
