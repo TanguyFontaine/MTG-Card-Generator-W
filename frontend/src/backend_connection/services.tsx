@@ -37,9 +37,9 @@ const CardService = {
          // no body is needed for GET requests
          const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARDS_TABLE_URL}`);
          await handleResponse(response);
-         
+
          const receivedCards: Card[] = await response.json();
-         receivedCards.sort((a, b) => (a.id ?? 0) - (b.id ?? 0)); 
+         receivedCards.sort((a, b) => (a.id ?? 0) - (b.id ?? 0));
          return receivedCards;
       }
       catch (error)

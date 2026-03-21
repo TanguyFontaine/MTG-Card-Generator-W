@@ -18,6 +18,7 @@ import { UiPanel } from "./components/ui_panel";
 import { CardImagePanel } from "./components/card_image_panel";
 import { ManaCostObj } from "./classes/mana_cost";
 import { CardTypeObj } from "./classes/card_type";
+import { ImageFile } from "./classes/image_file_interface";
 
 /***************************************************************/
 function CardGenerator()
@@ -27,9 +28,11 @@ function CardGenerator()
    const [cardName, setCardName] = useState("");
    const [nameFontSize, setNameFontSize] = useControllableState({ defaultValue: 32 });
 
-   const [imageFile, setImageFile] = useState({
-      name: "",
-      content: "",
+   const [imageFile, setImageFile] = useState<ImageFile>({
+      localFile: "",
+      localFileName: "",
+      url: "",
+      contentFromUrl: "",
    });
    const [imageCentering, setImageCentering] = useState("center");
 
@@ -59,7 +62,7 @@ function CardGenerator()
             <UiPanel
                cardId={cardId} setCardId={setCardId}
                cardName={cardName} setCardName={setCardName} nameFontSize={nameFontSize} setNameFontSize={setNameFontSize}
-               setImageFile={setImageFile} selectedImageFileName={imageFile.name}
+               setImageFile={setImageFile} selectedImageFileName={imageFile.localFileName}
                imageFile={imageFile}
                cardType={cardType} setCardType={setCardType} typesFontSize={typesFontSize} setTypesFontSize={setTypesFontSize}
                manaCost={manaCost} setManaCost={setManaCost}

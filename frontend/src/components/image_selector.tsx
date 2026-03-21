@@ -5,7 +5,7 @@ import { HStack } from "@chakra-ui/react";
 
 import { Button } from "../style_components/button";
 import { ImageCentering } from "./image_centering";
-import type { ImageFile } from "./image_file_interface";
+import type { ImageFile } from "../classes/image_file_interface";
 /***************************************************************/
 
 interface ImageSelectorProps
@@ -27,7 +27,15 @@ export function ImageSelector(props: ImageSelectorProps)
    // When the user picks a new file, update the parent state with useEffect.
    useEffect(() => {
       if (filesContent.length > 0)
-         setImageFile(filesContent[0]);
+      {
+         const fileContent = filesContent[0];
+         setImageFile({
+            localFileName: fileContent.name,
+            localFile: fileContent.content,
+            url: undefined,
+            contentFromUrl: ""
+         });
+      }
    }, [filesContent, setImageFile]);
 
    if (loading)

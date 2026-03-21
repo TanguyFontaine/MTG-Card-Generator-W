@@ -8,7 +8,7 @@ import { Symbol } from "./symbol";
 import { TextLine } from "./text_line";
 import { CardTypeObj } from "../classes/card_type";
 import { ManaCostObj } from "../classes/mana_cost";
-import type { ImageFile } from "./image_file_interface";
+import type { ImageFile } from "../classes/image_file_interface";
 
 import { symbols } from "../ressources/symbols";
 import logo from "../ressources/logo_mini.png";
@@ -145,8 +145,8 @@ export function CardImagePanel(props: CardImagePanelProps)
 {
    const name = props.cardName;
    const nameFontSize = props.nameFontSize;
-   const imageFileContent = props.imageFile.content;
-   const imageFileName = props.imageFile.name;
+   const imageFileContent = props.imageFile.localFile ? props.imageFile.localFile : props.imageFile.contentFromUrl;
+   const imageFileName = props.imageFile.localFileName;
    const imageCentering = props.imageCentering;
    const cardType = props.cardType;
    const typesFontSize = props.typesFontSize;

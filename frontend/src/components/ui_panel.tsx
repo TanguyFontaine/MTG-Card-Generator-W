@@ -14,7 +14,7 @@ import { FlavorText } from "./flavor_text";
 import { PowerToughness } from "./power_and_toughness";
 import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
-import type { ImageFile } from "./image_file_interface";
+import type { ImageFile } from "../classes/image_file_interface";
 /***************************************************************/
 
 interface UiPanelProps

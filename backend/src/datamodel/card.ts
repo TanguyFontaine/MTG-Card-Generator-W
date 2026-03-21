@@ -115,27 +115,18 @@ export class Card
 
    validateImageUrl(): ValidationResult
    {
-      if (this.imageUrl == null || this.imageUrl.length > MAX_IMAGE_URL_LENGTH)
+      if (this.imageUrl == null || this.imageUrl.length == 0 || !this.imageUrl.startsWith("http"))
+      {
+         return { isValid: false, error: "Invalid image URL format" };
+      }
+      else if (this.imageUrl.length > MAX_IMAGE_URL_LENGTH)
       {
          return { isValid: false, error: "Image URL is too long" };
-      }
-
-      try
-      {
-         if (this.imageUrl.length > 0 && !this.imageUrl.startsWith("data:") && !this.imageUrl.startsWith("http"))
-         {
-            return { isValid: false, error: "Invalid image URL format" };
-         }
-      }
-      catch (e)
-      {
-         return { isValid: false, error: "Invalid image URL" };
       }
 
       return { isValid: true };
    }
 
-   /** Runs all field validations and returns a combined result. */
    validate(): CardValidationResult
    {
       const validations: ValidationResult[] = [

@@ -6,7 +6,7 @@ import { LoadCardButton } from "../components/load_card_button";
 import { NewCardButton } from "../components/new_card_button";
 import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
-import type { ImageFile } from "./image_file_interface";
+import type { ImageFile } from "../classes/image_file_interface";
 
 /***************************************************************/
 

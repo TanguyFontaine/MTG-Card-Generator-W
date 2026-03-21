@@ -85,6 +85,7 @@ export class CardWriteController
       try
       {
          const card = buildCardFromRequestBody(req.body, cardId);
+
          const validation = card.validate();
          if (!validation.isValid)
          {

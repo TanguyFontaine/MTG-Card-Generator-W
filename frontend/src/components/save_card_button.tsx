@@ -4,10 +4,28 @@ import { useDisclosure, Modal, ModalContent, ModalHeader, ModalBody, ModalCloseB
 import { Button } from "../style_components/button";
 import { Text } from "../style_components/text";
 import CardService from "../backend_connection/services";
+import ImageUploader from "../classes/image_uploader";
 import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
-import type { ImageFile } from "./image_file_interface";
+import type { ImageFile } from "../classes/image_file_interface";
 /***************************************************************/
+
+// async to wait for the image upload to complete before saving the card
+async function getImageUrl(imageFile: ImageFile | undefined): Promise<string>
+{
+   let result = "";
+
+   if (imageFile.localFile && !imageFile.url)
+   {
+      result = await ImageUploader.uploadImage(imageFile.localFileName, imageFile.localFile);
+   }
+   else if (imageFile.url)
+   {
+      result = imageFile.url;
+   }
+
+   return result;
+}
 
 interface SaveCardButtonProps
 {
@@ -40,9 +58,10 @@ export function SaveCardButton(props: SaveCardButtonProps)
       try
       {
          // Debug: Log all props to see what we're receiving
-
          console.log("All props:", props);
 
+         // Use extracted function
+         const imageUrl = await getImageUrl(props.imageFile);
 
          // Create comprehensive card data object
          const cardToSend = {
@@ -52,7 +71,7 @@ export function SaveCardButton(props: SaveCardButtonProps)
             type: props.cardType.toString(),
             flavorText: props.flavorText || "",
             frame: props.cardFrame || "",
-            imageUrl: props.imageFile?.name || "",
+            imageUrl: imageUrl,
             power: props.power || "",
             toughness: props.toughness || "",
          };

@@ -2,7 +2,7 @@
 import { Button } from "../style_components/button";
 import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
-import type { ImageFile } from "./image_file_interface";
+import type { ImageFile } from "../classes/image_file_interface";
 /***************************************************************/
 
 interface NewCardButtonProps
@@ -37,10 +37,7 @@ export function NewCardButton(props: NewCardButtonProps)
       props.setPower("");
       props.setToughness("");
       props.setCardFrame("");
-      props.setImageFile({
-         name: "",
-         content: "",
-      });
+      props.setImageFile({localFileName: "", contentFromUrl: "", url: "", localFile: undefined});
 
       console.log("Card data reset complete");
    };

@@ -6,7 +6,22 @@ import CardService from "../backend_connection/services";
 import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
 import type { Card } from "../classes/card";
+import ImageUploader from "../classes/image_uploader";
 import type { CardSettersProps } from "./card_setters_props_interface";
+
+async function setImage(cardSettersProps: CardSettersProps, imageUrl: string)
+{
+   const dataUrl = await ImageUploader.fetchImageContentFromUrl(imageUrl);
+
+   if (cardSettersProps.setImageFile)
+   {
+      cardSettersProps.setImageFile({
+         url: imageUrl,
+         contentFromUrl: dataUrl,
+         localFile: "",
+         localFileName: ""});
+   }
+}
 
 interface LoadedCardItemProps
 {
@@ -39,6 +54,7 @@ export function LoadedCardItem({ card, cardSettersProps, onError, setIsLoading, 
          if (cardSettersProps.setCardFrame) cardSettersProps.setCardFrame(selectedCard.frame || "");
          if (cardSettersProps.setManaCost) cardSettersProps.setManaCost(ManaCostObj.fromString(selectedCard.manaCost));
          if (cardSettersProps.setCardType) cardSettersProps.setCardType(CardTypeObj.fromString(selectedCard.type));
+         await setImage(cardSettersProps, selectedCard.imageUrl);
 
          onClose(); // Close the modal after loading
 

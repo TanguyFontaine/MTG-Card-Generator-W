@@ -24,7 +24,6 @@ export const errorHandler = (err: HttpError, req: Request, res: Response, _next:
 {
    console.error("Unhandled error:", err);
 
-   // Handle payload too large error with a clear message
    if (err.type === "entity.too.large")
    {
       res.status(413).json({
