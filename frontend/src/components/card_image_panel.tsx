@@ -128,7 +128,6 @@ interface CardImagePanelProps
    cardType: CardTypeObj;
    typesFontSize: number;
    manaCost: ManaCostObj;
-   colorlessManaAmount?: number;
    cardFrame: string;
    spellDescription: string;
    spellFontSize: number;
