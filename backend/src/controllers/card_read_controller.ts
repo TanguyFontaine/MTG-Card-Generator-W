@@ -9,12 +9,12 @@ function buildCardFromRow(row: Record<string, unknown>): Card
    return new Card(
       row.id as number,
       row.name as string,
-      row.manacost as string,
+      row.mana_cost as string,
       row.type as string,
-      row.spelldescription as string,
-      row.flavortext as string,
-      row.cardframe as string,
-      row.imageurl as string,
+      row.spell_description as string,
+      row.flavor_text as string,
+      row.card_frame as string,
+      row.image_url as string,
       row.power as string,
       row.toughness as string,
    );

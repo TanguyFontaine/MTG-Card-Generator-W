@@ -51,7 +51,7 @@ export class CardWriteController
 
          const insertQuery = `
             INSERT INTO "${CARDS_TABLE_NAME}"
-               (name, manacost, type, spelldescription, flavortext, cardframe, imageurl, power, toughness)
+               (name, mana_cost, type, spell_description, flavor_text, card_frame, image_url, power, toughness)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             RETURNING *`;
 
@@ -96,8 +96,8 @@ export class CardWriteController
 
          const updateQuery = `
             UPDATE "${CARDS_TABLE_NAME}" SET
-               name = $2, manacost = $3, type = $4, spelldescription = $5,
-               flavortext = $6, cardframe = $7, imageurl = $8, power = $9, toughness = $10
+               name = $2, mana_cost = $3, type = $4, spell_description = $5,
+               flavor_text = $6, card_frame = $7, image_url = $8, power = $9, toughness = $10
             WHERE id = $1
             RETURNING *`;
 
