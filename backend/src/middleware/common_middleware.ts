@@ -7,14 +7,13 @@ interface HttpError extends Error
    type?: string; // ? => Optional attribute
 }
 
-const FRONTEND_ORIGIN = "http://localhost:3000";
+const DEFAULT_FRONTEND_ORIGIN = "http://localhost:3000";
 const DEFAULT_ERROR_STATUS = 500;
 
 // Cross-Origin Resource Sharing (CORS) middleware configuration
-// Used to allow the React frontend (running on localhost:3000) to make requests to this Express backend (running on localhost:3001).
-// By pass Same-Origin Policy in browsers
+// Allows the React frontend to make requests to this Express backend.
 export const corsMiddleware = cors({
-   origin: FRONTEND_ORIGIN, // Allow requests from React frontend
+   origin: process.env.FRONTEND_URL || DEFAULT_FRONTEND_ORIGIN,
    credentials: true,
 });
 

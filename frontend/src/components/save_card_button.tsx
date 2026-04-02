@@ -17,7 +17,7 @@ async function getImageUrl(imageFile: ImageFile | undefined): Promise<string>
 
    if (imageFile.localFile && !imageFile.url)
    {
-      result = await ImageUploader.uploadImage(imageFile.localFileName, imageFile.localFile);
+      result = await ImageUploader.uploadImage(imageFile.localFile);
    }
    else if (imageFile.url)
    {
