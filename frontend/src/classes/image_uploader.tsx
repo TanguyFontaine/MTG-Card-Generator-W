@@ -8,15 +8,26 @@ function buildCloudinaryUploadUrl(): string
    return `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 }
 
+function buildUploadFormData(base64FileContent: string, fileName: string): FormData
+{
+   const publicId = fileName.replace(/\.[^.]+$/, "").replace(/[^a-zA-Z0-9_-]/g, "_");
+
+   const formData = new FormData();
+   formData.append("file", base64FileContent);
+   formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+   formData.append("public_id", publicId);
+
+   return formData;
+}
+
 const ImageUploader = {
 
-// Upload image to Cloudinary and return the URL
-   async uploadImage(base64FileContent: string): Promise<string>
+// Upload image to Cloudinary and return the URL.
+   // Passing a public_id makes Cloudinary overwrite the existing asset with the same name
+   // instead of creating a new one on every save.
+   async uploadImage(base64FileContent: string, fileName: string): Promise<string>
    {
-      const formData = new FormData();
-
-      formData.append("file", base64FileContent);
-      formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+      const formData =  buildUploadFormData(base64FileContent, fileName);
 
       const cloudinaryResponse = await fetch(buildCloudinaryUploadUrl(), {
          method: "POST",
