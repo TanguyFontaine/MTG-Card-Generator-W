@@ -1,7 +1,7 @@
 const DEFAULT_API_URL = "http://localhost:3001";
 
 export const API_CONFIG = {
-   BASE_URL: (typeof process !== "undefined" && process.env?.REACT_APP_API_URL) || DEFAULT_API_URL,
+   BASE_URL: process.env.REACT_APP_API_URL || DEFAULT_API_URL,
 };
 
 export const ROUTES = {
