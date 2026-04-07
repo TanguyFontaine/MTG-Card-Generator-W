@@ -6,6 +6,7 @@ import { Text } from "../style_components/text";
 import { frames } from "../ressources/frames";
 import { Symbol } from "./symbol";
 import { TextLine } from "./text_line";
+import { isValidImageExtension } from "./utilities";
 import { CardTypeObj } from "../classes/card_type";
 import { ManaCostObj } from "../classes/mana_cost";
 import type { ImageFile } from "../classes/image_file_interface";
@@ -14,14 +15,6 @@ import { symbols } from "../ressources/symbols";
 import logo from "../ressources/logo_mini.png";
 
 /***************************************************************/
-
-function fileExtensionIsValid(imageFileName: string): boolean
-{
-   const athorizedFileExtensions = ["png", "jpeg", "jpg", "gif", "webp"];
-
-   const splitFileName = imageFileName.split(".");
-   return (athorizedFileExtensions.some(ext => (ext === splitFileName[splitFileName.length - 1].toLowerCase())));
-}
 
 function retrieveCorrespondingFrameImage(frameColor: string, cardPower: string, cardToughness: string): string
 {
@@ -102,7 +95,7 @@ function DisplayImage(props: DisplayImageProps)
    const imageCentering = props.imageCentering;
 
    // Do not display the error panel while an image has not been selected
-   if (imageFileName === "" || fileExtensionIsValid(imageFileName))
+   if (imageFileName === "" || isValidImageExtension(imageFileName))
    {
       return (
          <Box height="416px" width="566px" position="relative" top="-89.18%" left="7%" /*top="10.82%" left="62.38%"*/>

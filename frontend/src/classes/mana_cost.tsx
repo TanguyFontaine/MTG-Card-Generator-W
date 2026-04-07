@@ -1,7 +1,4 @@
-function removeBrackets(stringSymbol: string): string
-{
-   return stringSymbol.slice(1, -1);
-}
+import { formatSymbol, removeBrackets } from "../components/utilities";
 
 class ManaCostObj
 {
@@ -42,9 +39,9 @@ class ManaCostObj
 
       if (this.colorlessAmount > -1)
       {
-         result += `[${this.colorlessAmount}]`;
+         result += formatSymbol(this.colorlessAmount);
       }
-      this.otherManaSymbols.forEach(symbol => { result += `[${symbol}]`; });
+      this.otherManaSymbols.forEach(symbol => { result += formatSymbol(symbol); });
 
       return result;
    }

@@ -3,7 +3,7 @@ import { HStack } from "@chakra-ui/react";
 
 import { Text } from "../style_components/text";
 import { Textbox } from "../style_components/textbox";
-import { FontSizeControler } from "./font_size_controller";
+import { FontSizeController } from "./font_size_controller";
 /***************************************************************/
 
 interface CardNameProps
@@ -25,7 +25,7 @@ export function CardName(props: CardNameProps)
             setValue={(value) => props.setCardName(value)}
             placeholder="Enter the name of your card here."
          />
-         <FontSizeControler setValue={props.setNameFontSize} value={props.nameFontSize} />
+         <FontSizeController setValue={props.setNameFontSize} value={props.nameFontSize} />
       </HStack>
    );
 }

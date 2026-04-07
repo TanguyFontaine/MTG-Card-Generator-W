@@ -4,6 +4,7 @@ import { Box, Grid, VStack, HStack, Accordion, AccordionItem, AccordionButton, A
 import { Textarea } from "../style_components/textarea";
 import { Text } from "../style_components/text";
 import { SymbolButton } from "./symbol_button";
+import { formatSymbol } from "./utilities";
 import { symbols } from "../ressources/symbols";
 import { FontSizeController } from "./font_size_controller";
 /***************************************************************/
@@ -20,7 +21,7 @@ export function SpellDescription(props: SpellDescriptionProps)
 {
    function addSymbolToTextbox(symbol: string | number)
    {
-      let newInputValue = props.spellDescription.concat("[" + symbol + "]");
+      const newInputValue = props.spellDescription.concat(formatSymbol(symbol));
       props.setSpellDescription(newInputValue);
    }
 
