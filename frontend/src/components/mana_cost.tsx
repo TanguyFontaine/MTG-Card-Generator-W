@@ -95,7 +95,7 @@ export function ManaCost(props: ManaCostProps)
                         <SymbolButton symbol={symbols.XGreen} setValue={() => setManaCostFunction(symbols.XGreen)} />
 
                         <SymbolButton symbol={symbols.Snow} setValue={() => setManaCostFunction(symbols.Snow)} />
-                        <SymbolButton symbol={symbols.Inifity} setValue={() => setManaCostFunction(symbols.Inifity)} />
+                        <SymbolButton symbol={symbols.Infinity} setValue={() => setManaCostFunction(symbols.Infinity)} />
                         <SymbolButton symbol={symbols.Half} setValue={() => setManaCostFunction(symbols.Half)} />
                      </HStack>
                   </VStack>

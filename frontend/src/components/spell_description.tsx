@@ -68,7 +68,7 @@ export function SpellDescription(props: SpellDescriptionProps)
                         <SymbolButton symbol={18} setValue={() => addSymbolToTextbox(18)} />
                         <SymbolButton symbol={19} setValue={() => addSymbolToTextbox(19)} />
                         <SymbolButton symbol={20} setValue={() => addSymbolToTextbox(20)} />
-                        <SymbolButton symbol={symbols.Inifity} setValue={() => addSymbolToTextbox(symbols.Inifity)} />
+                        <SymbolButton symbol={symbols.Infinity} setValue={() => addSymbolToTextbox(symbols.Infinity)} />
                         <SymbolButton symbol={symbols.Half} setValue={() => addSymbolToTextbox(symbols.Half)} />
                      </HStack>
                      <HStack spacing={2} flexWrap="wrap" rowGap={2}>

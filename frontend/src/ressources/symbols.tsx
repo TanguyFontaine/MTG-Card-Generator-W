@@ -48,7 +48,7 @@ export const symbols = {
    Energy: "e",
    Saga: "saga",
 
-   Inifity: "infinity",
+   Infinity: "infinity",
    Half: "1-2",
 
    LoyaltyUp: "loyalty-up",
