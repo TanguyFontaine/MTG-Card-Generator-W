@@ -3,7 +3,7 @@ import { HStack } from "@chakra-ui/react";
 
 import { Text } from "../style_components/text";
 import { Textbox } from "../style_components/textbox";
-import { FontSizeControler } from "./font_size_controler";
+import { FontSizeControler } from "./font_size_controller";
 /***************************************************************/
 
 interface CardNameProps

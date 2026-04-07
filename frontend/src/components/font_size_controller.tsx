@@ -4,13 +4,13 @@ import { HStack, Box } from "@chakra-ui/react";
 import { Button } from "../style_components/button";
 /***************************************************************/
 
-interface FontSizeControlerProps
+interface FontSizeControllerProps
 {
    value: number;
    setValue: (value: number) => void;
 }
 
-export function FontSizeControler(props: FontSizeControlerProps)
+export function FontSizeController(props: FontSizeControllerProps)
 {
    const value = props.value;
    const setValue = props.setValue;

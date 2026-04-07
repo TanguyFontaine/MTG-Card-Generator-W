@@ -5,7 +5,7 @@ import { Textarea } from "../style_components/textarea";
 import { Text } from "../style_components/text";
 import { SymbolButton } from "./symbol_button";
 import { symbols } from "../ressources/symbols";
-import { FontSizeControler } from "./font_size_controler";
+import { FontSizeController } from "./font_size_controller";
 /***************************************************************/
 
 interface SpellDescriptionProps
@@ -32,7 +32,7 @@ export function SpellDescription(props: SpellDescriptionProps)
                inputValue={props.spellDescription} setInputValue={props.setSpellDescription}
                setValue={(value) => props.setSpellDescription(value)}
                placeholder="Enter the abilities or the description of your spell :" />
-            <FontSizeControler setValue={props.setSpellFontSize} value={props.spellFontSize} />
+            <FontSizeController setValue={props.setSpellFontSize} value={props.spellFontSize} />
          </HStack>
 
          <Accordion allowToggle>

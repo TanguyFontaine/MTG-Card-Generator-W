@@ -3,7 +3,7 @@ import { HStack } from "@chakra-ui/react";
 
 import { Textbox } from "../style_components/textbox";
 import { Text } from "../style_components/text";
-import { FontSizeControler } from "./font_size_controler";
+import { FontSizeController } from "./font_size_controller";
 /***************************************************************/
 
 interface PowerToughnessProps
@@ -24,7 +24,7 @@ export function PowerToughness(props: PowerToughnessProps)
          <Textbox flex="1" minW="80px" value={props.power} setValue={(value) => props.setPower(value)} placeholder="Power" />
          <Text color="brand.textSecondary">Toughness:</Text>
          <Textbox flex="1" minW="80px" value={props.toughness} setValue={(value) => props.setToughness(value)} placeholder="Toughness" />
-         <FontSizeControler setValue={props.setPTFontSize} value={props.ptFontSize} />
+         <FontSizeController setValue={props.setPTFontSize} value={props.ptFontSize} />
       </HStack>
    );
 }

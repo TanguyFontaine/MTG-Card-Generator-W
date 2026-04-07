@@ -3,7 +3,7 @@ import { HStack } from "@chakra-ui/react";
 
 import { Textarea } from "../style_components/textarea";
 import { Text } from "../style_components/text";
-import { FontSizeControler } from "./font_size_controler";
+import { FontSizeControler } from "./font_size_controller";
 /***************************************************************/
 
 interface FlavorTextProps

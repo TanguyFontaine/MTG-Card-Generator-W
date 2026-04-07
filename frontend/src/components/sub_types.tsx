@@ -3,7 +3,7 @@ import { HStack } from "@chakra-ui/react";
 
 import { Textbox } from "../style_components/textbox";
 import { Text } from "../style_components/text";
-import { FontSizeControler } from "./font_size_controler";
+import { FontSizeController } from "./font_size_controller";
 import { CardTypeObj } from "../classes/card_type";
 /***************************************************************/
 
@@ -32,7 +32,7 @@ export function SubTypes(props: SubTypesProps)
             setValue={handleSubTypesChange}
             placeholder="Enter the sub types of your card here."
          />
-         <FontSizeControler setValue={props.setTypesFontSize} value={props.typesFontSize} />
+         <FontSizeController setValue={props.setTypesFontSize} value={props.typesFontSize} />
       </HStack>
    );
 }
