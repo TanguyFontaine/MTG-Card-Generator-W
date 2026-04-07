@@ -44,7 +44,7 @@ export function NewCardButton(props: NewCardButtonProps)
 
    return (
       <>
-         <Button w={134} colorScheme="blue" onClick={handleNewCard}>
+         <Button w={134} variant="outline" onClick={handleNewCard}>
             New Card
          </Button>
       </>

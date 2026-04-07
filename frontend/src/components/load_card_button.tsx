@@ -43,7 +43,7 @@ export function LoadCardButton(cardSetters: CardSettersProps)
 
    return (
       <>
-         <Button w={134} colorScheme="blue" isLoading={isLoading} loadingText="Loading..." onClick={handleLoadCards}>
+         <Button w={134} variant="outline" isLoading={isLoading} loadingText="Loading..." onClick={handleLoadCards}>
             Load Card
          </Button>
 

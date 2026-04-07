@@ -116,7 +116,6 @@ export function SaveCardButton(props: SaveCardButtonProps)
       <>
          <Button
             w={134}
-            colorScheme="blue"
             onClick={handleSaveCard}
             isLoading={isLoading}
             loadingText="Saving..."
@@ -125,10 +124,12 @@ export function SaveCardButton(props: SaveCardButtonProps)
          </Button>
          <Modal isOpen={isOpen} onClose={onClose}>
             <ModalContent>
-               <ModalHeader>Save Status</ModalHeader>
+               <ModalHeader>{saveStatus === "success" ? "Success" : "Error"}</ModalHeader>
                <ModalCloseButton />
-               <ModalBody>
-                  <Text>{getModalMessage()}</Text>
+               <ModalBody pb={6}>
+                  <Text color={saveStatus === "success" ? "brand.success" : "brand.error"}>
+                     {getModalMessage()}
+                  </Text>
                </ModalBody>
             </ModalContent>
          </Modal>

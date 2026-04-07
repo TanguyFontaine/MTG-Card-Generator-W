@@ -1,4 +1,4 @@
-import { HStack, Box } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
 import { Textbox } from "../style_components/textbox";
@@ -19,12 +19,11 @@ interface PowerToughnessProps
 export function PowerToughness(props: PowerToughnessProps)
 {
    return (
-      <HStack w="100%" justify="space-between">
-         <Text>Power:</Text>
-         <Textbox width={252} value={props.power} setValue={(value) => props.setPower(value)} placeholder="Power" />
-         <Box width={30} />
-         <Text>Toughness:</Text>
-         <Textbox width={252} value={props.toughness} setValue={(value) => props.setToughness(value)} placeholder="Toughness" />
+      <HStack w="100%" justify="space-between" flexWrap="wrap" rowGap={2}>
+         <Text color="brand.textSecondary">Power:</Text>
+         <Textbox flex="1" minW="80px" value={props.power} setValue={(value) => props.setPower(value)} placeholder="Power" />
+         <Text color="brand.textSecondary">Toughness:</Text>
+         <Textbox flex="1" minW="80px" value={props.toughness} setValue={(value) => props.setToughness(value)} placeholder="Toughness" />
          <FontSizeControler setValue={props.setPTFontSize} value={props.ptFontSize} />
       </HStack>
    );

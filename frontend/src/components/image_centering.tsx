@@ -15,9 +15,9 @@ export function ImageCentering(props: ImageCenteringProps)
 {
    return (
       <HStack spacing={2}>
-         <Text>Crop image from :</Text>
+         <Text color="brand.textSecondary" fontSize="14px">Crop from:</Text>
          <RadioGroup name="centering" defaultValue="center" setValue={(value) => props.setImageCentering(value)}>
-            <HStack spacing={4}>
+            <HStack spacing={3}>
                <Radio value="center" displayLabel="Center" />
                <Radio value="top" displayLabel="Top" />
                <Radio value="bottom" displayLabel="Bottom" />

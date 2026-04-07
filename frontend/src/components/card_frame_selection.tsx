@@ -19,9 +19,9 @@ export function CardFrameSelection(props: CardFrameSelectionProps)
 
    return (
       <HStack spacing={2}>
-         <Text>Card frame:</Text>
+         <Text color="brand.textSecondary" minW="90px">Card frame:</Text>
          <Select
-            width="88.5%"
+            flex="1"
             options={frameColors}
             value={props.cardFrame}
             setValue={(value) => props.setCardFrame(value)}

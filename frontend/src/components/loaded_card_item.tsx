@@ -78,7 +78,7 @@ export function LoadedCardItem({ card, cardSettersProps, onError, setIsLoading, 
          textAlign="left"
          justifyContent="flex-start"
          onClick={handleSelectCard}
-         _hover={{ bg: "blue.50", color: "blue.800" }}
+         _hover={{ bg: "brand.raised", borderColor: "brand.gold" }}
       >
          ID: {card.id} - {card.name || "Unnamed Card"}
       </Button>

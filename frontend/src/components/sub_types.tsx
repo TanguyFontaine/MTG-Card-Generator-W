@@ -25,7 +25,7 @@ export function SubTypes(props: SubTypesProps)
 
    return (
       <HStack w="100%" justify="space-between">
-         <Text>Sub types:</Text>
+         <Text color="brand.textSecondary" minW="70px">Subtypes:</Text>
          <Textbox
             width="72%"
             value={props.cardType.subTypes}

@@ -46,8 +46,6 @@ export function LoadedCardsPanel({ isOpen, onClose, cards, error, cardSettersPro
                      placeholder="Search by name"
                      value={searchInput}
                      onChange={(event) => handleSearchUpdate(event, setSearchInput)}
-                     bg="blue.800"
-                     _hover={{ borderColor: "blue.300", bg: "blue.900" }}
                   />
                </FormControl>
             </ModalHeader>
@@ -74,7 +72,7 @@ export function LoadedCardsPanel({ isOpen, onClose, cards, error, cardSettersPro
                }
             </ModalBody>
             <ModalFooter>
-               <Button colorScheme="blue" mr={3} onClick={onClose}>
+               <Button mr={3} onClick={onClose}>
                   Close
                </Button>
             </ModalFooter>

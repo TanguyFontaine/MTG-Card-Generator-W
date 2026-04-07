@@ -20,7 +20,7 @@ export function FlavorText(props: FlavorTextProps)
    // The flavor text is a string, it can contain any character
    return (
       <HStack w="100%" justify="space-between">
-         <Text>Flavor text:</Text>
+         <Text color="brand.textSecondary" minW="70px">Flavor text:</Text>
          <Textarea width="73%"
             inputValue={props.flavorText} setInputValue={props.setFlavorText}
             setValue={(value) => props.setFlavorText(value)}

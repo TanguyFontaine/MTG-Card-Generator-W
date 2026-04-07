@@ -4,6 +4,7 @@ import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
 import { Button } from "../style_components/button";
+import { Text } from "../style_components/text";
 import { ImageCentering } from "./image_centering";
 import type { ImageFile } from "../classes/image_file_interface";
 /***************************************************************/
@@ -54,8 +55,11 @@ export function ImageSelector(props: ImageSelectorProps)
    }
 
    return (
-      <HStack w="100%" justify="space-between">
-         <Button mr="30px" colorScheme="blue" onClick={() => openFileSelector()}>Select image file </Button>
+      <HStack w="100%" justify="space-between" flexWrap="wrap" rowGap={3}>
+         <Button colorScheme="blue" variant="outline" onClick={() => openFileSelector()}>Select image file</Button>
+         {props.selectedImageFileName &&
+            <Text fontSize="13px" color="brand.textSecondary" wordBreak="break-all">{props.selectedImageFileName}</Text>
+         }
          <ImageCentering setImageCentering={props.setImageCentering} />
       </HStack>
    );

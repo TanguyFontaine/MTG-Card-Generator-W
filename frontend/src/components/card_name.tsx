@@ -18,7 +18,7 @@ export function CardName(props: CardNameProps)
 {
    return (
       <HStack w="100%" justify="space-between">
-         <Text>Name:</Text>
+         <Text color="brand.textSecondary" minW="70px">Name:</Text>
          <Textbox
             w="75%"
             value={props.cardName}

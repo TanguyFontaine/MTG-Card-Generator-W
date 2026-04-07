@@ -40,7 +40,7 @@ interface CardSavingUIProps
 export function CardSavingUI(props: CardSavingUIProps)
 {
    return (
-      <HStack w="100%" justify="space-between">
+      <HStack w="100%" justify="center" spacing={4}>
          <SaveCardButton
             cardId={props.cardId} setCardId={props.setCardId}
             cardName={props.cardName}

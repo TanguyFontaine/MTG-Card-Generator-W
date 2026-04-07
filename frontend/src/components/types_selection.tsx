@@ -23,14 +23,14 @@ export function TypesSelection(props: TypesSelectionProps)
    };
 
    return (
-      <HStack spacing={4}>
-         <Text>Types:</Text>
+      <HStack spacing={4} flexWrap="wrap">
+         <Text color="brand.textSecondary" minW="70px">Types:</Text>
          <CheckboxGroup
             name="types"
             setValue={handleTypesChange}
             value={props.cardType.types}
          >
-            <HStack spacing={4}>
+            <HStack spacing={3} flexWrap="wrap" rowGap={2}>
                <Checkbox value={CREATURE} displayLabel={CREATURE} />
                <Checkbox value={ARTIFACT} displayLabel={ARTIFACT} />
                <Checkbox value={ENCHANTMENT} displayLabel={ENCHANTMENT} />

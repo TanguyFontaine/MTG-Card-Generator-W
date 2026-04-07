@@ -1,6 +1,7 @@
-import { Box, Grid, useStyleConfig } from "@chakra-ui/react";
+import { Box, Grid, VStack, useStyleConfig } from "@chakra-ui/react";
 /***************************************************************/
 
+import { SectionBox } from "./section_box";
 import { ImageSelector } from "./image_selector";
 import { CardSavingUI } from "./card_saving_ui";
 import { CardName } from "./card_name";
@@ -60,36 +61,54 @@ export function UiPanel(props: UiPanelProps)
 {
    const style = useStyleConfig("UiPanel");
 
-   //<Loyalty setLoyalty={props.setLoyalty}/>
-
    return (
       <Box __css={style} w="100%">
-         <Grid mt="3%" mx="5%" gap="1.5em">
-            <CardName cardName={props.cardName} setCardName={props.setCardName} setNameFontSize={props.setNameFontSize} nameFontSize={props.nameFontSize} />
-            <TypesSelection cardType={props.cardType} setCardType={props.setCardType} />
-            <SuperTypesSelection cardType={props.cardType} setCardType={props.setCardType} />
-            <SubTypes cardType={props.cardType} setCardType={props.setCardType} setTypesFontSize={props.setTypesFontSize} typesFontSize={props.typesFontSize} />
-            <ManaCost manaCost={props.manaCost} setManaCost={props.setManaCost} />
-            <CardFrameSelection cardFrame={props.cardFrame} setCardFrame={props.setCardFrame} />
-            <SpellDescription spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription}
-               spellFontSize={props.spellFontSize} setSpellFontSize={props.setSpellFontSize} />
-            <FlavorText flavorText={props.flavorText} setFlavorText={props.setFlavorText} flavorTextFontSize={props.flavorTextFontSize} setFlavorTextFontSize={props.setFlavorTextFontSize} />
-            <PowerToughness power={props.power} setPower={props.setPower} toughness={props.toughness} setToughness={props.setToughness} ptFontSize={props.ptFontSize} setPTFontSize={props.setPTFontSize} />
-            <ImageSelector setImageFile={props.setImageFile} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering} />
-            <CardSavingUI
-               cardId={props.cardId} setCardId={props.setCardId}
-               cardName={props.cardName} setCardName={props.setCardName}
-               spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription}
-               cardType={props.cardType} setCardType={props.setCardType}
-               manaCost={props.manaCost} setManaCost={props.setManaCost}
-               flavorText={props.flavorText} setFlavorText={props.setFlavorText}
-               power={props.power} setPower={props.setPower}
-               toughness={props.toughness} setToughness={props.setToughness}
-               loyalty={props.loyalty} setLoyalty={props.setLoyalty}
-               cardFrame={props.cardFrame} setCardFrame={props.setCardFrame}
-               imageFile={props.imageFile} setImageFile={props.setImageFile}
-            />
-         </Grid>
+         <VStack spacing={4} py={6} px={5} align="stretch">
+            <SectionBox title="Card Identity">
+               <Grid gap="1em">
+                  <CardName cardName={props.cardName} setCardName={props.setCardName} setNameFontSize={props.setNameFontSize} nameFontSize={props.nameFontSize} />
+                  <ManaCost manaCost={props.manaCost} setManaCost={props.setManaCost} />
+                  <CardFrameSelection cardFrame={props.cardFrame} setCardFrame={props.setCardFrame} />
+               </Grid>
+            </SectionBox>
+
+            <SectionBox title="Card Type">
+               <Grid gap="1em">
+                  <TypesSelection cardType={props.cardType} setCardType={props.setCardType} />
+                  <SuperTypesSelection cardType={props.cardType} setCardType={props.setCardType} />
+                  <SubTypes cardType={props.cardType} setCardType={props.setCardType} setTypesFontSize={props.setTypesFontSize} typesFontSize={props.typesFontSize} />
+               </Grid>
+            </SectionBox>
+
+            <SectionBox title="Card Text">
+               <Grid gap="1em">
+                  <SpellDescription spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription}
+                     spellFontSize={props.spellFontSize} setSpellFontSize={props.setSpellFontSize} />
+                  <FlavorText flavorText={props.flavorText} setFlavorText={props.setFlavorText} flavorTextFontSize={props.flavorTextFontSize} setFlavorTextFontSize={props.setFlavorTextFontSize} />
+                  <PowerToughness power={props.power} setPower={props.setPower} toughness={props.toughness} setToughness={props.setToughness} ptFontSize={props.ptFontSize} setPTFontSize={props.setPTFontSize} />
+              </Grid>
+            </SectionBox>
+
+            <SectionBox title="Card Image">
+               <ImageSelector setImageFile={props.setImageFile} selectedImageFileName={props.selectedImageFileName} setImageCentering={props.setImageCentering} />
+            </SectionBox>
+
+            <Box w="100%" pt={2} pb={2}>
+               <CardSavingUI
+                  cardId={props.cardId} setCardId={props.setCardId}
+                  cardName={props.cardName} setCardName={props.setCardName}
+                  spellDescription={props.spellDescription} setSpellDescription={props.setSpellDescription}
+                  cardType={props.cardType} setCardType={props.setCardType}
+                  manaCost={props.manaCost} setManaCost={props.setManaCost}
+                  flavorText={props.flavorText} setFlavorText={props.setFlavorText}
+                  power={props.power} setPower={props.setPower}
+                  toughness={props.toughness} setToughness={props.setToughness}
+                  loyalty={props.loyalty} setLoyalty={props.setLoyalty}
+                  cardFrame={props.cardFrame} setCardFrame={props.setCardFrame}
+                  imageFile={props.imageFile} setImageFile={props.setImageFile}
+               />
+            </Box>
+         </VStack>
       </Box>
    );
 }

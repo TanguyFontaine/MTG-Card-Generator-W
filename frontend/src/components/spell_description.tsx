@@ -27,7 +27,7 @@ export function SpellDescription(props: SpellDescriptionProps)
    return (
       <Grid gap={4}>
          <HStack w="100%" justify="space-between">
-            <Text>Abilities:</Text>
+            <Text color="brand.textSecondary" minW="70px">Abilities:</Text>
             <Textarea width="75%"
                inputValue={props.spellDescription} setInputValue={props.setSpellDescription}
                setValue={(value) => props.setSpellDescription(value)}
@@ -46,8 +46,8 @@ export function SpellDescription(props: SpellDescriptionProps)
                   </AccordionButton>
                </h2>
                <AccordionPanel pb={4}>
-                  <VStack spacing={1}>
-                     <HStack spacing={2}>
+                  <VStack spacing={2} align="stretch">
+                     <HStack spacing={2} flexWrap="wrap" rowGap={2}>
                         <SymbolButton symbol={1} setValue={() => addSymbolToTextbox(1)} />
                         <SymbolButton symbol={2} setValue={() => addSymbolToTextbox(2)} />
                         <SymbolButton symbol={3} setValue={() => addSymbolToTextbox(3)} />
@@ -71,7 +71,7 @@ export function SpellDescription(props: SpellDescriptionProps)
                         <SymbolButton symbol={symbols.Inifity} setValue={() => addSymbolToTextbox(symbols.Inifity)} />
                         <SymbolButton symbol={symbols.Half} setValue={() => addSymbolToTextbox(symbols.Half)} />
                      </HStack>
-                     <HStack spacing={2}>
+                     <HStack spacing={2} flexWrap="wrap" rowGap={2}>
                         <SymbolButton symbol={symbols.Tap} setValue={() => addSymbolToTextbox(symbols.Tap)} />
                         <SymbolButton symbol={symbols.Untap} setValue={() => addSymbolToTextbox(symbols.Untap)} />
                         <Box />
@@ -94,7 +94,7 @@ export function SpellDescription(props: SpellDescriptionProps)
                         <SymbolButton symbol={symbols.HybridBR} setValue={() => addSymbolToTextbox(symbols.HybridBR)} />
                         <SymbolButton symbol={symbols.HybridBG} setValue={() => addSymbolToTextbox(symbols.HybridBG)} />
                      </HStack>
-                     <HStack spacing={2}>
+                     <HStack spacing={2} flexWrap="wrap" rowGap={2}>
                         <SymbolButton symbol={symbols.TWhite} setValue={() => addSymbolToTextbox(symbols.TWhite)} />
                         <SymbolButton symbol={symbols.TBlue} setValue={() => addSymbolToTextbox(symbols.TBlue)} />
                         <SymbolButton symbol={symbols.TBlack} setValue={() => addSymbolToTextbox(symbols.TBlack)} />
