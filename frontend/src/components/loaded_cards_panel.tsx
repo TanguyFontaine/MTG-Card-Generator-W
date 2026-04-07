@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, FormControl } from "@chakra-ui/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, FormControl, ModalOverlay } from "@chakra-ui/react";
 /***************************************************************/
 
 import { Button } from "../style_components/button";
@@ -38,6 +38,7 @@ export function LoadedCardsPanel({ isOpen, onClose, cards, error, cardSettersPro
 
    return (
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
+         <ModalOverlay />
          <ModalContent>
             <ModalHeader>
                <FormControl>
