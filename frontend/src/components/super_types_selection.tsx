@@ -5,21 +5,18 @@ import { Checkbox } from "../style_components/checkbox";
 import { CheckboxGroup } from "../style_components/checkbox_group";
 import { Text } from "../style_components/text";
 import { LEGENDARY, SNOW, BASIC, TOKEN } from "../classes/card_type";
-import { CardTypeObj } from "../classes/card_type";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface SuperTypesSelectionProps
+export function SuperTypesSelection()
 {
-   cardType: CardTypeObj;
-   setCardType: (cardType: CardTypeObj) => void;
-}
+   const { state, dispatch } = useCardContext();
 
-export function SuperTypesSelection(props: SuperTypesSelectionProps)
-{
    const handleSuperTypesChange = (selectedSuperTypes: (string | number)[]) =>
    {
-      const newCardType = props.cardType.setSuperTypes(selectedSuperTypes as string[]);
-      props.setCardType(newCardType);
+      const newCardType = state.cardType.setSuperTypes(selectedSuperTypes as string[]);
+      dispatch({ name: CardActionName.setCardType, data: newCardType });
    };
 
    return (
@@ -28,7 +25,7 @@ export function SuperTypesSelection(props: SuperTypesSelectionProps)
          <CheckboxGroup
             name="superTypes"
             setValue={handleSuperTypesChange}
-            value={props.cardType.superTypes}
+            value={state.cardType.superTypes}
          >
             <HStack spacing={3}>
                <Checkbox value={LEGENDARY} displayLabel={LEGENDARY} />

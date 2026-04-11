@@ -1,3 +1,5 @@
+// Class representing a card for backend data transfer.
+
 interface Card
 {
    id?: number;

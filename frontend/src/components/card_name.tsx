@@ -4,28 +4,27 @@ import { HStack } from "@chakra-ui/react";
 import { Text } from "../style_components/text";
 import { Textbox } from "../style_components/textbox";
 import { FontSizeController } from "./font_size_controller";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface CardNameProps
+export function CardName()
 {
-   cardName: string;
-   nameFontSize: number;
-   setCardName: (value: string) => void;
-   setNameFontSize: (value: number) => void;
-}
+   const { state, dispatch } = useCardContext();
 
-export function CardName(props: CardNameProps)
-{
+   const setCardName = (value: string) => dispatch({ name: CardActionName.setCardName, data: value });
+   const setFontSize = (value: number) => dispatch({ name: CardActionName.setNameFontSize, data: value });
+
    return (
       <HStack w="100%" justify="space-between">
          <Text color="brand.textSecondary" minW="70px">Name:</Text>
          <Textbox
             w="75%"
-            value={props.cardName}
-            setValue={(value) => props.setCardName(value)}
+            value={state.cardName}
+            setValue={setCardName}
             placeholder="Enter the name of your card here."
          />
-         <FontSizeController setValue={props.setNameFontSize} value={props.nameFontSize} />
+         <FontSizeController setValue={setFontSize} value={state.nameFontSize} />
       </HStack>
    );
 }

@@ -7,9 +7,7 @@ import { frames } from "../ressources/frames";
 import { Symbol } from "./symbol";
 import { TextLine } from "./text_line";
 import { isValidImageExtension } from "./utilities";
-import { CardTypeObj } from "../classes/card_type";
-import { ManaCostObj } from "../classes/mana_cost";
-import type { ImageFile } from "../classes/image_file_interface";
+import { useCardContext } from "../contexts/card_context";
 
 import { symbols } from "../ressources/symbols";
 import logo from "../ressources/logo_mini.png";
@@ -113,44 +111,26 @@ function DisplayImage(props: DisplayImageProps)
 }
 
 
-interface CardImagePanelProps
+export function CardImagePanel()
 {
-   imageFile: ImageFile;
-   cardName: string;
-   nameFontSize: number;
-   cardType: CardTypeObj;
-   typesFontSize: number;
-   manaCost: ManaCostObj;
-   cardFrame: string;
-   spellDescription: string;
-   spellFontSize: number;
-   flavorText: string;
-   flavorTextFontSize: number;
-   power: string;
-   toughness: string;
-   ptFontSize: number;
-   loyalty: string;
-   imageCentering: string;
-}
+   const { state } = useCardContext();
 
-export function CardImagePanel(props: CardImagePanelProps)
-{
-   const name = props.cardName;
-   const nameFontSize = props.nameFontSize;
-   const imageFileContent = props.imageFile.localFile ? props.imageFile.localFile : props.imageFile.contentFromUrl;
-   const imageFileName = props.imageFile.localFileName;
-   const imageCentering = props.imageCentering;
-   const cardType = props.cardType;
-   const typesFontSize = props.typesFontSize;
-   const manaCost = props.manaCost;
-   const spellDescription = props.spellDescription;
-   const spellFontSize = props.spellFontSize;
-   const flavorText = props.flavorText;
-   const flavorTextFontSize = props.flavorTextFontSize;
-   const power = props.power;
-   const toughness = props.toughness;
-   const ptFontSize = props.ptFontSize;
-   const selectedCardFrame = props.cardFrame;
+   const name = state.cardName;
+   const nameFontSize = state.nameFontSize;
+   const imageFileContent = state.imageFile.localFile ? state.imageFile.localFile : state.imageFile.contentFromUrl;
+   const imageFileName = state.imageFile.localFileName;
+   const imageCentering = state.imageCentering;
+   const cardType = state.cardType;
+   const typesFontSize = state.typesFontSize;
+   const manaCost = state.manaCost;
+   const spellDescription = state.spellDescription;
+   const spellFontSize = state.spellFontSize;
+   const flavorText = state.flavorText;
+   const flavorTextFontSize = state.flavorTextFontSize;
+   const power = state.power;
+   const toughness = state.toughness;
+   const powerToughnessFontSize = state.powerToughnessFontSize;
+   const selectedCardFrame = state.cardFrame;
 
    const typesItems = cardType.types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
    const superTypesItems = cardType.superTypes.map((superType, index) => <Text key={`supertype-${index}`}>{superType}</Text>);
@@ -166,8 +146,8 @@ export function CardImagePanel(props: CardImagePanelProps)
    const manaCostLeftPos = 93.5 - (manaCost.otherManaSymbols.length + (manaCost.colorlessAmount > -1 ? 1 : 0)) * 5.12 + "%";
 
    // adjust the power toughness position depending on the length of both values and the font size
-   const powerLeftPos = 84.35 - ((power.length + toughness.length) / (35 / ptFontSize)) + "%";
-   const powerTopPos = 89 + (3.4 - ptFontSize * 0.1) + "%";
+   const powerLeftPos = 84.35 - ((power.length + toughness.length) / (35 / powerToughnessFontSize)) + "%";
+   const powerTopPos = 89 + (3.4 - powerToughnessFontSize * 0.1) + "%";
 
    // adjust the name height pos depending on the font size
    // result = baseTopValue + ((defaultFontSize / 10) - (fontSize / 10))
@@ -209,7 +189,7 @@ export function CardImagePanel(props: CardImagePanelProps)
                <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="64.5%" left="8.5%" width="84%" >{displayableSpellDescription}</Text>
             </Box>
 
-            <HStack fontSize={ptFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1}>
+            <HStack fontSize={powerToughnessFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1}>
                <Text>{power} </Text>
                {power !== "" || toughness !== "" ? <Text>/</Text> : <Text />}
                <Text>{toughness} </Text>

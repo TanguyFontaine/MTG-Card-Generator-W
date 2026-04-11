@@ -7,22 +7,21 @@ import { SymbolButton } from "./symbol_button";
 import { formatSymbol } from "./utilities";
 import { symbols } from "../ressources/symbols";
 import { FontSizeController } from "./font_size_controller";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface SpellDescriptionProps
+export function SpellDescription()
 {
-   spellDescription: string;
-   spellFontSize: number;
-   setSpellDescription: (value: string) => void;
-   setSpellFontSize: (value: number) => void;
-}
+   const { state, dispatch } = useCardContext();
 
-export function SpellDescription(props: SpellDescriptionProps)
-{
+   const setSpellDescription = (value: string) => dispatch({ name: CardActionName.setSpellDescription, data: value });
+   const setFontSize = (value: number) => dispatch({ name: CardActionName.setSpellFontSize, data: value });
+
    function addSymbolToTextbox(symbol: string | number)
    {
-      const newInputValue = props.spellDescription.concat(formatSymbol(symbol));
-      props.setSpellDescription(newInputValue);
+      const newInputValue = state.spellDescription.concat(formatSymbol(symbol));
+      setSpellDescription(newInputValue);
    }
 
    return (
@@ -30,10 +29,10 @@ export function SpellDescription(props: SpellDescriptionProps)
          <HStack w="100%" justify="space-between">
             <Text color="brand.textSecondary" minW="70px">Abilities:</Text>
             <Textarea width="75%"
-               inputValue={props.spellDescription} setInputValue={props.setSpellDescription}
-               setValue={(value) => props.setSpellDescription(value)}
+               inputValue={state.spellDescription} setInputValue={setSpellDescription}
+               setValue={setSpellDescription}
                placeholder="Enter the abilities or the description of your spell :" />
-            <FontSizeController setValue={props.setSpellFontSize} value={props.spellFontSize} />
+            <FontSizeController setValue={setFontSize} value={state.spellFontSize} />
          </HStack>
 
          <Accordion allowToggle>

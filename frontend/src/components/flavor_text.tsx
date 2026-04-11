@@ -4,28 +4,28 @@ import { HStack } from "@chakra-ui/react";
 import { Textarea } from "../style_components/textarea";
 import { Text } from "../style_components/text";
 import { FontSizeController } from "./font_size_controller";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface FlavorTextProps
+export function FlavorText()
 {
-   flavorText: string;
-   flavorTextFontSize: number;
+   const { state, dispatch } = useCardContext();
 
-   setFlavorText: (value: string) => void;
-   setFlavorTextFontSize: (value: number) => void;
-}
+   const setFlavorText = (value: string) => dispatch({ name: CardActionName.setFlavorText, data: value });
+   const setFontSize = (value: number) => dispatch({ name: CardActionName.setFlavorTextFontSize, data: value });
 
-export function FlavorText(props: FlavorTextProps)
-{
-   // The flavor text is a string, it can contain any character
    return (
       <HStack w="100%" justify="space-between">
          <Text color="brand.textSecondary" minW="70px">Flavor text:</Text>
          <Textarea width="73%"
-            inputValue={props.flavorText} setInputValue={props.setFlavorText}
-            setValue={(value) => props.setFlavorText(value)}
+            inputValue={state.flavorText} setInputValue={setFlavorText}
+            setValue={setFlavorText}
             placeholder="Enter the flavor text :" />
-         <FontSizeController setValue={props.setFlavorTextFontSize} value={props.flavorTextFontSize} />
+         <FontSizeController
+            setValue={setFontSize}
+            value={state.flavorTextFontSize}
+         />
       </HStack>
    );
 }

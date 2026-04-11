@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useFilePicker } from "use-file-picker";
 import { HStack } from "@chakra-ui/react";
 /***************************************************************/
@@ -6,19 +6,19 @@ import { HStack } from "@chakra-ui/react";
 import { Button } from "../style_components/button";
 import { Text } from "../style_components/text";
 import { ImageCentering } from "./image_centering";
-import type { ImageFile } from "../classes/image_file_interface";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface ImageSelectorProps
+export function ImageSelector()
 {
-   selectedImageFileName?: string;
-   setImageFile: (file: ImageFile) => void;
-   setImageCentering: (value: string) => void;
-}
+   const { state, dispatch } = useCardContext();
 
-export function ImageSelector(props: ImageSelectorProps)
-{
-   const setImageFile = props.setImageFile;
+   const setImageFile = useCallback(
+      (file: { localFileName: string; localFile: string; url?: string; contentFromUrl: string }) =>
+         dispatch({ name: CardActionName.setImageFile, data: file }),
+      [dispatch],
+   );
 
    const [openFileSelector, { filesContent, loading, errors }] = useFilePicker({
       readAs: "DataURL",
@@ -57,10 +57,10 @@ export function ImageSelector(props: ImageSelectorProps)
    return (
       <HStack w="100%" justify="space-between" flexWrap="wrap" rowGap={3}>
          <Button colorScheme="blue" variant="outline" onClick={() => openFileSelector()}>Select image file</Button>
-         {props.selectedImageFileName &&
-            <Text fontSize="13px" color="brand.textSecondary" wordBreak="break-all">{props.selectedImageFileName}</Text>
+         {state.imageFile.localFileName &&
+            <Text fontSize="13px" color="brand.textSecondary" wordBreak="break-all">{state.imageFile.localFileName}</Text>
          }
-         <ImageCentering setImageCentering={props.setImageCentering} />
+         <ImageCentering />
       </HStack>
    );
 }

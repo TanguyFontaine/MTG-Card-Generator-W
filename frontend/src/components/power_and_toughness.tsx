@@ -4,27 +4,26 @@ import { HStack } from "@chakra-ui/react";
 import { Textbox } from "../style_components/textbox";
 import { Text } from "../style_components/text";
 import { FontSizeController } from "./font_size_controller";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface PowerToughnessProps
+export function PowerToughness()
 {
-   power: string;
-   toughness: string;
-   ptFontSize: number;
-   setPower: (value: string) => void;
-   setToughness: (value: string) => void;
-   setPTFontSize: (value: number) => void;
-}
+   const { state, dispatch } = useCardContext();
 
-export function PowerToughness(props: PowerToughnessProps)
-{
+   const setPower = (value: string) => dispatch({ name: CardActionName.setPower, data: value });
+   const setToughness = (value: string) => dispatch({ name: CardActionName.setToughness, data: value });
+   const setFontSize = (value: number) => dispatch({ name: CardActionName.setPowerToughnessFontSize, data: value });
+
    return (
       <HStack w="100%" justify="space-between" flexWrap="wrap" rowGap={2}>
          <Text color="brand.textSecondary">Power:</Text>
-         <Textbox flex="1" minW="80px" value={props.power} setValue={(value) => props.setPower(value)} placeholder="Power" />
+         <Textbox flex="1" minW="80px" value={state.power} setValue={setPower} placeholder="Power" />
          <Text color="brand.textSecondary">Toughness:</Text>
-         <Textbox flex="1" minW="80px" value={props.toughness} setValue={(value) => props.setToughness(value)} placeholder="Toughness" />
-         <FontSizeController setValue={props.setPTFontSize} value={props.ptFontSize} />
+         <Textbox flex="1" minW="80px" value={state.toughness} setValue={setToughness} placeholder="Toughness" />
+         <FontSizeController setValue={setFontSize} value={state.powerToughnessFontSize}
+         />
       </HStack>
    );
 }

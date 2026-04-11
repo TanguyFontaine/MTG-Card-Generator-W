@@ -6,38 +6,36 @@ import { Text } from "../style_components/text";
 import { SymbolButton } from "./symbol_button";
 import { symbols } from "../ressources/symbols";
 import { ManaCostObj } from "../classes/mana_cost";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface ManaCostProps
+export function ManaCost()
 {
-   manaCost: ManaCostObj;
-   setManaCost: (manaCost: ManaCostObj) => void;
-}
+   const { state, dispatch } = useCardContext();
 
-export function ManaCost(props: ManaCostProps)
-{
    function setManaCostFunction(symbol: string)
    {
-      const newManaCost = props.manaCost.addSymbol(symbol);
-      props.setManaCost(newManaCost);
+      const newManaCost = state.manaCost.addSymbol(symbol);
+      dispatch({ name: CardActionName.setManaCost, data: newManaCost });
    }
 
    function setColorlessManaAmount(currentColorlessAmount: number)
    {
-      const newManaCost = props.manaCost.setColorlessAmount(currentColorlessAmount + 1);
-      props.setManaCost(newManaCost);
+      const newManaCost = state.manaCost.setColorlessAmount(currentColorlessAmount + 1);
+      dispatch({ name: CardActionName.setManaCost, data: newManaCost });
    }
 
    function resetValues()
    {
-      props.setManaCost(ManaCostObj.newEmpty());
+      dispatch({ name: CardActionName.setManaCost, data: ManaCostObj.newEmpty() });
    }
 
    return (
       <VStack spacing={2} align="stretch">
          <HStack spacing={5}>
             <Text color="brand.textSecondary">Mana cost:</Text>
-            <SymbolButton symbol={"0"} fontSize={25} setValue={() => setColorlessManaAmount(props.manaCost.colorlessAmount)} />
+            <SymbolButton symbol={"0"} fontSize={25} setValue={() => setColorlessManaAmount(state.manaCost.colorlessAmount)} />
             <SymbolButton symbol={symbols.White} fontSize={25} setValue={() => setManaCostFunction(symbols.White)} />
             <SymbolButton symbol={symbols.Blue} fontSize={25} setValue={() => setManaCostFunction(symbols.Blue)} />
             <SymbolButton symbol={symbols.Black} fontSize={25} setValue={() => setManaCostFunction(symbols.Black)} />

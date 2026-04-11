@@ -7,33 +7,38 @@ import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
 import type { Card } from "../classes/card";
 import ImageUploader from "../classes/image_uploader";
-import type { CardSettersProps } from "./card_setters_props_interface";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
+import type { ImageFile } from "../classes/image_file_interface";
 
-async function setImage(cardSettersProps: CardSettersProps, imageUrl: string)
+async function getImageFileFromUrl(url: string): Promise<ImageFile>
 {
-   const dataUrl = await ImageUploader.fetchImageContentFromUrl(imageUrl);
-
-   if (cardSettersProps.setImageFile)
+   let imageFile: ImageFile = { localFile: "", localFileName: "", url: "", contentFromUrl: "" };
+   if (url)
    {
-      cardSettersProps.setImageFile({
-         url: imageUrl,
+      const dataUrl = await ImageUploader.fetchImageContentFromUrl(url);
+      imageFile = {
+         url: url,
          contentFromUrl: dataUrl,
          localFile: "",
-         localFileName: ""});
+         localFileName: "",
+      };
    }
+   return imageFile;
 }
 
 interface LoadedCardItemProps
 {
    card: Card;
-   cardSettersProps: CardSettersProps;
    onError: (message: string) => void;
    setIsLoading: (loading: boolean) => void;
    onClose: () => void;
 }
 
-export function LoadedCardItem({ card, cardSettersProps, onError, setIsLoading, onClose }: LoadedCardItemProps)
+export function LoadedCardItem({ card, onError, setIsLoading, onClose }: LoadedCardItemProps)
 {
+   const { dispatch } = useCardContext();
+
    const handleSelectCard = async () =>
    {
       setIsLoading(true);
@@ -41,23 +46,29 @@ export function LoadedCardItem({ card, cardSettersProps, onError, setIsLoading, 
       try
       {
          const selectedCard = await CardService.getCardById(card.id);
-         console.log("Card loaded:", selectedCard);
 
-         // Update the parent component's state with the loaded card data
-         if (cardSettersProps.setCardId) cardSettersProps.setCardId(selectedCard.id);
-         if (cardSettersProps.setCardName) cardSettersProps.setCardName(selectedCard.name || "");
-         if (cardSettersProps.setSpellDescription) cardSettersProps.setSpellDescription(selectedCard.spellDescription || "");
-         if (cardSettersProps.setFlavorText) cardSettersProps.setFlavorText(selectedCard.flavorText || "");
-         if (cardSettersProps.setPower) cardSettersProps.setPower(selectedCard.power || "");
-         if (cardSettersProps.setToughness) cardSettersProps.setToughness(selectedCard.toughness || "");
-         if (cardSettersProps.setLoyalty) cardSettersProps.setLoyalty(selectedCard.loyalty || "");
-         if (cardSettersProps.setCardFrame) cardSettersProps.setCardFrame(selectedCard.frame || "");
-         if (cardSettersProps.setManaCost) cardSettersProps.setManaCost(ManaCostObj.fromString(selectedCard.manaCost));
-         if (cardSettersProps.setCardType) cardSettersProps.setCardType(CardTypeObj.fromString(selectedCard.type));
-         await setImage(cardSettersProps, selectedCard.imageUrl);
+         // Fetch image content if there's an image URL
+         let imageFile: ImageFile = await getImageFileFromUrl(selectedCard.imageUrl || "");
 
-         onClose(); // Close the modal after loading
+         // Load the entire card state in a single dispatch
+         dispatch({
+            name: CardActionName.loadCard,
+            data: {
+               cardId: selectedCard.id,
+               cardName: selectedCard.name || "",
+               spellDescription: selectedCard.spellDescription || "",
+               flavorText: selectedCard.flavorText || "",
+               power: selectedCard.power || "",
+               toughness: selectedCard.toughness || "",
+               loyalty: selectedCard.loyalty || "",
+               cardFrame: selectedCard.frame || "",
+               manaCost: ManaCostObj.fromString(selectedCard.manaCost),
+               cardType: CardTypeObj.fromString(selectedCard.type),
+               imageFile: imageFile,
+            },
+         });
 
+         onClose();
       }
       catch (error)
       {

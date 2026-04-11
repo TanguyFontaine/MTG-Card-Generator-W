@@ -5,21 +5,18 @@ import { Checkbox } from "../style_components/checkbox";
 import { CheckboxGroup } from "../style_components/checkbox_group";
 import { Text } from "../style_components/text";
 import { CREATURE, ARTIFACT, ENCHANTMENT, PLANESWALKER, BATTLE, INSTANT, SORCERY, LAND, KINDRED } from "../classes/card_type";
-import { CardTypeObj } from "../classes/card_type";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface TypesSelectionProps
+export function TypesSelection()
 {
-   cardType: CardTypeObj;
-   setCardType: (cardType: CardTypeObj) => void;
-}
+   const { state, dispatch } = useCardContext();
 
-export function TypesSelection(props: TypesSelectionProps)
-{
    const handleTypesChange = (selectedTypes: (string | number)[]) =>
    {
-      const newCardType = props.cardType.setTypes(selectedTypes as string[]);
-      props.setCardType(newCardType);
+      const newCardType = state.cardType.setTypes(selectedTypes as string[]);
+      dispatch({ name: CardActionName.setCardType, data: newCardType });
    };
 
    return (
@@ -28,7 +25,7 @@ export function TypesSelection(props: TypesSelectionProps)
          <CheckboxGroup
             name="types"
             setValue={handleTypesChange}
-            value={props.cardType.types}
+            value={state.cardType.types}
          >
             <HStack spacing={3} flexWrap="wrap" rowGap={2}>
                <Checkbox value={CREATURE} displayLabel={CREATURE} />

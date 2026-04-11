@@ -7,10 +7,9 @@ import { Button } from "../style_components/button";
 import CardService from "../backend_connection/services";
 import { LoadedCardsPanel } from "./loaded_cards_panel";
 import type { Card } from "../classes/card";
-import type { CardSettersProps } from "./card_setters_props_interface";
 /***************************************************************/
 
-export function LoadCardButton(cardSetters: CardSettersProps)
+export function LoadCardButton()
 {
    const { isOpen, onOpen, onClose } = useDisclosure();
    const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +51,6 @@ export function LoadCardButton(cardSetters: CardSettersProps)
             onClose={onClose}
             cards={cards}
             error={error}
-            cardSettersProps={cardSetters}
             setError={setError}
             setIsLoading={setIsLoading}
          />

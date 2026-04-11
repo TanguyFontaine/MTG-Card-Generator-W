@@ -7,7 +7,6 @@ import { Input } from "../style_components/input";
 import { Text } from "../style_components/text";
 import { LoadedCardItem } from "./loaded_card_item";
 import type { Card } from "../classes/card";
-import type { CardSettersProps } from "./card_setters_props_interface";
 /***************************************************************/
 
 function handleSearchUpdate(event: React.ChangeEvent<HTMLInputElement>, setSearchInput: (value: string) => void)
@@ -20,13 +19,12 @@ interface LoadedCardsPanelProps
    isOpen: boolean;
    cards: Card[];
    error: string;
-   cardSettersProps: CardSettersProps;
    onClose: () => void;
    setError: (error: string) => void;
    setIsLoading: (loading: boolean) => void;
 }
 
-export function LoadedCardsPanel({ isOpen, onClose, cards, error, cardSettersProps, setError, setIsLoading }: LoadedCardsPanelProps)
+export function LoadedCardsPanel({ isOpen, onClose, cards, error, setError, setIsLoading }: LoadedCardsPanelProps)
 {
    const [searchInput, setSearchInput] = useState("");
 
@@ -60,7 +58,6 @@ export function LoadedCardsPanel({ isOpen, onClose, cards, error, cardSettersPro
                                  <LoadedCardItem
                                     key={card.id}
                                     card={card}
-                                    cardSettersProps={cardSettersProps}
                                     onError={setError}
                                     setIsLoading={setIsLoading}
                                     onClose={onClose}

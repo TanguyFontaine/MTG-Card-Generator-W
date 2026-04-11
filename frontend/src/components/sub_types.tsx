@@ -4,35 +4,31 @@ import { HStack } from "@chakra-ui/react";
 import { Textbox } from "../style_components/textbox";
 import { Text } from "../style_components/text";
 import { FontSizeController } from "./font_size_controller";
-import { CardTypeObj } from "../classes/card_type";
+import { useCardContext } from "../contexts/card_context";
+import { CardActionName } from "../contexts/card_actions";
 /***************************************************************/
 
-interface SubTypesProps
+export function SubTypes()
 {
-   cardType: CardTypeObj;
-   typesFontSize: number;
-   setCardType: (cardType: CardTypeObj) => void;
-   setTypesFontSize: (value: number) => void;
-}
+   const { state, dispatch } = useCardContext();
 
-export function SubTypes(props: SubTypesProps)
-{
    const handleSubTypesChange = (subTypes: string) =>
    {
-      const newCardType = props.cardType.setSubTypes(subTypes);
-      props.setCardType(newCardType);
+      const newCardType = state.cardType.setSubTypes(subTypes);
+      dispatch({ name: CardActionName.setCardType, data: newCardType });
    };
+   const setFontSize = (value: number) => dispatch({ name: CardActionName.setTypesFontSize, data: value });
 
    return (
       <HStack w="100%" justify="space-between">
          <Text color="brand.textSecondary" minW="70px">Subtypes:</Text>
          <Textbox
             width="72%"
-            value={props.cardType.subTypes}
+            value={state.cardType.subTypes}
             setValue={handleSubTypesChange}
             placeholder="Enter the sub types of your card here."
          />
-         <FontSizeController setValue={props.setTypesFontSize} value={props.typesFontSize} />
+         <FontSizeController setValue={setFontSize} value={state.typesFontSize} />
       </HStack>
    );
 }
