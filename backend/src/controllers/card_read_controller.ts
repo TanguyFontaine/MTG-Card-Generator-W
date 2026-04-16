@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 
 import dbConnectionPool from "../connection/database_connection.js";
 import { Card, CARDS_TABLE_NAME } from "../datamodel/card.js";
+import { USER_CARDS_TABLE_NAME } from "../datamodel/user.js";
+import { isValidUserId } from "../datamodel/user.js";
 
 /** Builds a Card instance from a raw database row. */
 function buildCardFromRow(row: Record<string, unknown>): Card
@@ -22,12 +24,25 @@ function buildCardFromRow(row: Record<string, unknown>): Card
 
 export class CardReadController
 {
-   static async getAllCards(_req: Request, res: Response): Promise<void>
+   static async getAllCards(req: Request, res: Response): Promise<void>
    {
+      const userId = req.query.userId;
+
+      if (!isValidUserId(userId))
+      {
+         res.status(400).json({ error: "Not registered as a user. Please log in or register." });
+         return;
+      }
+
       try
       {
-         const selectQuery : string = `SELECT * FROM "${CARDS_TABLE_NAME}"`;
-         const result = await dbConnectionPool.query(selectQuery);
+         const selectQuery: string = `
+            SELECT c.* FROM "${CARDS_TABLE_NAME}" c
+            INNER JOIN "${USER_CARDS_TABLE_NAME}" uc ON c.id = uc.card_id
+            WHERE uc.user_id = $1`;
+         const params = [userId];
+
+         const result = await dbConnectionPool.query(selectQuery, params);
          const cards: Card[] = result.rows.map((row: Record<string, unknown>) => buildCardFromRow(row));
          res.json(cards);
       }

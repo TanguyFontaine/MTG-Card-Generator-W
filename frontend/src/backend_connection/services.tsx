@@ -28,14 +28,13 @@ async function handleResponse(response: Response): Promise<Response>
 // Card Service - handles all card-related API calls
 const CardService = {
 
-   // Get all cards sorted by ID ascending
-   async getAllCards(): Promise<Card[]>
+   // Get all cards sorted by ID ascending, filtered by user
+   async getAllCards(userId?: number): Promise<Card[]>
    {
       try
       {
-         // No need to define options for the fetch method: GET is the default method for 'fetch'
-         // no body is needed for GET requests
-         const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARDS_TABLE_URL}`);
+         const query = userId ? `?userId=${userId}` : "";
+         const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARDS_TABLE_URL}${query}`);
          await handleResponse(response);
 
          const receivedCards: Card[] = await response.json();
@@ -64,14 +63,14 @@ const CardService = {
       }
    },
 
-   async saveCard(cardToSend: Card): Promise<Card>
+   async saveCard(cardToSend: Card, userId?: number): Promise<Card>
    {
       try
       {
          const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARDS_TABLE_URL}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(cardToSend),
+            body: JSON.stringify({ ...cardToSend, userId }),
          });
 
          await handleResponse(response);
@@ -84,14 +83,14 @@ const CardService = {
       }
    },
 
-   async updateCard(cardId: number, cardToSend: Card): Promise<Card>
+   async updateCard(cardId: number, cardToSend: Card, userId?: number): Promise<Card>
    {
       try
       {
          const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARD_BY_ID_URL(cardId)}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(cardToSend),
+            body: JSON.stringify({ ...cardToSend, userId }),
          });
 
          await handleResponse(response);

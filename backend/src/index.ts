@@ -5,6 +5,7 @@ import http from "http";
 import { corsMiddleware, errorHandler, requestLogger } from "./middleware/common_middleware.js";
 import cardReadRoutes from "./routes/card_read_routes.js";
 import cardWriteRoutes from "./routes/card_write_routes.js";
+import userRoutes from "./routes/user_routes.js";
 import dbConnectionPool from "./connection/database_connection.js";
 
 const DEFAULT_PORT = 3001;
@@ -21,6 +22,7 @@ app.use(requestLogger);
 // Routes
 app.use("/", cardReadRoutes);
 app.use("/", cardWriteRoutes);
+app.use("/", userRoutes);
 
 // Health check endpoint
 app.get("/health", (_req: Request, res: Response) =>

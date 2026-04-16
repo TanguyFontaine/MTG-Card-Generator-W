@@ -6,12 +6,14 @@ import { useDisclosure } from "@chakra-ui/react";
 import { Button } from "../style_components/button";
 import CardService from "../backend_connection/services";
 import { LoadedCardsPanel } from "./loaded_cards_panel";
+import { useUserContext } from "../contexts/user_context";
 import type { Card } from "../classes/card";
 /***************************************************************/
 
 export function LoadCardButton()
 {
    const { isOpen, onOpen, onClose } = useDisclosure();
+   const { user } = useUserContext();
    const [isLoading, setIsLoading] = useState(false);
    const [cards, setCards] = useState<Card[]>([]);
    const [error, setError] = useState("");
@@ -24,7 +26,7 @@ export function LoadCardButton()
 
       try
       {
-         const allCards = await CardService.getAllCards();
+         const allCards = await CardService.getAllCards(user?.id);
          setCards(allCards);
          onOpen(); // Open the loaded cards panel to show cards
       }

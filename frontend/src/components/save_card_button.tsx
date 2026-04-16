@@ -7,6 +7,7 @@ import CardService from "../backend_connection/services";
 import ImageUploader from "../classes/image_uploader";
 import { useCardContext } from "../contexts/card_context";
 import { CardActionName } from "../contexts/card_actions";
+import { useUserContext } from "../contexts/user_context";
 import type { ImageFile } from "../classes/image_file_interface";
 /***************************************************************/
 
@@ -30,6 +31,7 @@ async function getImageUrl(imageFile: ImageFile | undefined): Promise<string>
 export function SaveCardButton()
 {
    const { state, dispatch } = useCardContext();
+   const { user } = useUserContext();
    const { isOpen, onOpen, onClose } = useDisclosure();
    const [isLoading, setIsLoading] = useState(false);
    const [saveStatus, setSaveStatus] = useState<"success" | "error" | null>(null);
@@ -64,13 +66,13 @@ export function SaveCardButton()
          {
             // Update existing card
             console.log("Updating existing card with ID:", state.cardId);
-            savedCard = await CardService.updateCard(state.cardId, cardToSend);
+            savedCard = await CardService.updateCard(state.cardId, cardToSend, user?.id);
          }
          else
          {
             // Create new card
             console.log("Creating new card");
-            savedCard = await CardService.saveCard(cardToSend);
+            savedCard = await CardService.saveCard(cardToSend, user?.id);
             dispatch({ name: CardActionName.setCardId, data: savedCard.id });
          }
 

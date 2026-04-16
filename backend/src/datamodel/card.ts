@@ -115,11 +115,12 @@ export class Card
 
    validateImageUrl(): ValidationResult
    {
-      if (this.imageUrl == null || this.imageUrl.length == 0 || !this.imageUrl.startsWith("http"))
+      // allow empty image URL, but if provided it must be a valid URL format and not too long
+      if (this.imageUrl != null && this.imageUrl.length > 0 && !this.imageUrl.startsWith("http"))
       {
          return { isValid: false, error: "Invalid image URL format" };
       }
-      else if (this.imageUrl.length > MAX_IMAGE_URL_LENGTH)
+      else if (this.imageUrl != null && this.imageUrl.length > MAX_IMAGE_URL_LENGTH)
       {
          return { isValid: false, error: "Image URL is too long" };
       }

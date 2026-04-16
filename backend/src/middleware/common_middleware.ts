@@ -11,7 +11,6 @@ const DEFAULT_FRONTEND_ORIGIN = "http://localhost:3000";
 const DEFAULT_ERROR_STATUS = 500;
 
 // Cross-Origin Resource Sharing (CORS) middleware configuration
-// Allows the React frontend to make requests to this Express backend.
 export const corsMiddleware = cors({
    origin: process.env.FRONTEND_URL || DEFAULT_FRONTEND_ORIGIN,
    credentials: true,

@@ -7,4 +7,7 @@ export const API_CONFIG = {
 export const ROUTES = {
    CARDS_TABLE_URL: "/cards",
    CARD_BY_ID_URL: (id: number | string): string => `/cards/${id}`,
+
+   USERS_REGISTER_URL: "/users/register",
+   USERS_LOGIN_URL: "/users/login",
 };
