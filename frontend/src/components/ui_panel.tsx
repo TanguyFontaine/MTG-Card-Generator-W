@@ -1,18 +1,18 @@
 import { Box, Grid, HStack, VStack, useStyleConfig } from "@chakra-ui/react";
 /***************************************************************/
 
-import { SectionBox } from "./section_box";
-import { ImageSelector } from "./image_selector";
-import { CardSavingUI } from "./card_saving_ui";
-import { CardName } from "./card_name";
-import { TypesSelection } from "./types_selection";
-import { SuperTypesSelection } from "./super_types_selection";
-import { SubTypes } from "./sub_types";
-import { ManaCost } from "./mana_cost";
-import { CardFrameSelection } from "./card_frame_selection";
-import { SpellDescription } from "./spell_description";
-import { FlavorText } from "./flavor_text";
-import { PowerToughness } from "./power_and_toughness";
+import { SectionBox } from "./card_edit/section_box";
+import { ImageSelector } from "./card_edit/image_selector";
+import { CardSavingUI } from "./users/card_saving_ui";
+import { CardName } from "./card_edit/card_name";
+import { TypesSelection } from "./card_edit/types_selection";
+import { SuperTypesSelection } from "./card_edit/super_types_selection";
+import { SubTypes } from "./card_edit/sub_types";
+import { ManaCost } from "./card_edit/mana_cost";
+import { CardFrameSelection } from "./card_edit/card_frame_selection";
+import { SpellDescription } from "./card_edit/spell_description";
+import { FlavorText } from "./card_edit/flavor_text";
+import { PowerToughness } from "./card_edit/power_and_toughness";
 import { Button } from "../style_components/button";
 import { Text } from "../style_components/text";
 import { useUserContext } from "../contexts/user_context";

@@ -1,12 +1,12 @@
 import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Checkbox } from "../style_components/checkbox";
-import { CheckboxGroup } from "../style_components/checkbox_group";
-import { Text } from "../style_components/text";
-import { LEGENDARY, SNOW, BASIC, TOKEN } from "../classes/card_type";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
+import { Checkbox } from "../../style_components/checkbox";
+import { CheckboxGroup } from "../../style_components/checkbox_group";
+import { Text } from "../../style_components/text";
+import { LEGENDARY, SNOW, BASIC, TOKEN } from "../../classes/card_type";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
 /***************************************************************/
 
 export function SuperTypesSelection()

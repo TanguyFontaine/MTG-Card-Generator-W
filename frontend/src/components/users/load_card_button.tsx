@@ -3,11 +3,11 @@ import { useDisclosure } from "@chakra-ui/react";
 
 /***************************************************************/
 
-import { Button } from "../style_components/button";
-import CardService from "../backend_connection/services";
+import { Button } from "../../style_components/button";
+import CardService from "../../backend_connection/services";
 import { LoadedCardsPanel } from "./loaded_cards_panel";
-import { useUserContext } from "../contexts/user_context";
-import type { Card } from "../classes/card";
+import { useUserContext } from "../../contexts/user_context";
+import type { Card } from "../../classes/card";
 /***************************************************************/
 
 export function LoadCardButton()

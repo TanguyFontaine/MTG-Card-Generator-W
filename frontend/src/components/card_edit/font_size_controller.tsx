@@ -1,7 +1,7 @@
 import { HStack, Box } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Button } from "../style_components/button";
+import { Button } from "../../style_components/button";
 /***************************************************************/
 
 interface FontSizeControllerProps

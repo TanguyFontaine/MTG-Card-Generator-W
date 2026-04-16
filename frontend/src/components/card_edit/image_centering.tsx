@@ -1,11 +1,11 @@
 import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Radio } from "../style_components/radio";
-import { RadioGroup } from "../style_components/radio_group";
-import { Text } from "../style_components/text";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
+import { Radio } from "../../style_components/radio";
+import { RadioGroup } from "../../style_components/radio_group";
+import { Text } from "../../style_components/text";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
 /***************************************************************/
 
 export function ImageCentering()

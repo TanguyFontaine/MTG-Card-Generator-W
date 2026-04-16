@@ -2,15 +2,15 @@ import { Image, Box, HStack, useStyleConfig } from "@chakra-ui/react";
 import { isDefined } from "@chakra-ui/utils";
 /***************************************************************/
 
-import { Text } from "../style_components/text";
-import { frames } from "../ressources/frames";
-import { Symbol } from "./symbol";
+import { Text } from "../../style_components/text";
+import { frames } from "../../ressources/frames";
+import { Symbol } from "../card_edit/symbol";
 import { TextLine } from "./text_line";
-import { isValidImageExtension } from "./utilities";
-import { useCardContext } from "../contexts/card_context";
+import { isValidImageExtension } from "../utilities";
+import { useCardContext } from "../../contexts/card_context";
 
-import { symbols } from "../ressources/symbols";
-import logo from "../ressources/logo_mini.png";
+import { symbols } from "../../ressources/symbols";
+import logo from "../../ressources/logo_mini.png";
 
 /***************************************************************/
 

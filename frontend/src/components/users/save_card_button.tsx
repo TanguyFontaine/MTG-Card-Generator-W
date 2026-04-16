@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useDisclosure, Modal, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 
-import { Button } from "../style_components/button";
-import { Text } from "../style_components/text";
-import CardService from "../backend_connection/services";
-import ImageUploader from "../classes/image_uploader";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
-import { useUserContext } from "../contexts/user_context";
-import type { ImageFile } from "../classes/image_file_interface";
+import { Button } from "../../style_components/button";
+import { Text } from "../../style_components/text";
+import CardService from "../../backend_connection/services";
+import ImageUploader from "../../classes/image_uploader";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
+import { useUserContext } from "../../contexts/user_context";
+import type { ImageFile } from "../../classes/image_file_interface";
 /***************************************************************/
 
 // async to wait for the image upload to complete before saving the card

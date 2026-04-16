@@ -1,11 +1,11 @@
 import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Text } from "../style_components/text";
-import { Select } from "../style_components/select";
-import { frames } from "../ressources/frames";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
+import { Text } from "../../style_components/text";
+import { Select } from "../../style_components/select";
+import { frames } from "../../ressources/frames";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
 
 /***************************************************************/
 

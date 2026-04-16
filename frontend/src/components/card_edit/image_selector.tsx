@@ -3,11 +3,11 @@ import { useFilePicker } from "use-file-picker";
 import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Button } from "../style_components/button";
-import { Text } from "../style_components/text";
+import { Button } from "../../style_components/button";
+import { Text } from "../../style_components/text";
 import { ImageCentering } from "./image_centering";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
 /***************************************************************/
 
 export function ImageSelector()

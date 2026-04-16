@@ -1,15 +1,15 @@
 // To represent an item loaded from the DB
 // It is a button that shows the card name and when clicked loads the card data into the parent component
 
-import { Button } from "../style_components/button";
-import CardService from "../backend_connection/services";
-import { ManaCostObj } from "../classes/mana_cost";
-import { CardTypeObj } from "../classes/card_type";
-import type { Card } from "../classes/card";
-import ImageUploader from "../classes/image_uploader";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
-import type { ImageFile } from "../classes/image_file_interface";
+import { Button } from "../../style_components/button";
+import CardService from "../../backend_connection/services";
+import { ManaCostObj } from "../../classes/mana_cost";
+import { CardTypeObj } from "../../classes/card_type";
+import type { Card } from "../../classes/card";
+import ImageUploader from "../../classes/image_uploader";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
+import type { ImageFile } from "../../classes/image_file_interface";
 
 async function getImageFileFromUrl(url: string): Promise<ImageFile>
 {

@@ -1,9 +1,9 @@
 import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
-import { SaveCardButton } from "../components/save_card_button";
-import { LoadCardButton } from "../components/load_card_button";
-import { NewCardButton } from "../components/new_card_button";
+import { SaveCardButton } from "./save_card_button";
+import { LoadCardButton } from "./load_card_button";
+import { NewCardButton } from "./new_card_button";
 
 /***************************************************************/
 

@@ -1,13 +1,13 @@
 import { Box, VStack, HStack, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Button } from "../style_components/button";
-import { Text } from "../style_components/text";
+import { Button } from "../../style_components/button";
+import { Text } from "../../style_components/text";
 import { SymbolButton } from "./symbol_button";
-import { symbols } from "../ressources/symbols";
-import { ManaCostObj } from "../classes/mana_cost";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
+import { symbols } from "../../ressources/symbols";
+import { ManaCostObj } from "../../classes/mana_cost";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
 /***************************************************************/
 
 export function ManaCost()

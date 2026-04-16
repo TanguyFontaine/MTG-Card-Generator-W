@@ -3,20 +3,20 @@ import { Box, VStack, HStack, FormControl, FormLabel } from "@chakra-ui/react";
 
 /***************************************************************/
 
-import { Button } from "../style_components/button";
-import { Input } from "../style_components/input";
-import { Text } from "../style_components/text";
-import UserService from "../backend_connection/user_service";
-import { useUserContext } from "../contexts/user_context";
+import { Button } from "../../style_components/button";
+import { Input } from "../../style_components/input";
+import { Text } from "../../style_components/text";
+import UserService from "../../backend_connection/user_service";
+import { useUserContext } from "../../contexts/user_context";
 
 /***************************************************************/
 
-type AuthMode = "login" | "register";
+type AuthenticationMode = "login" | "register";
 
-export function AuthPanel()
+export function AuthenticationPanel()
 {
    const { login } = useUserContext();
-   const [mode, setMode] = useState<AuthMode>("login");
+   const [mode, setMode] = useState<AuthenticationMode>("login");
    const [userName, setUserName] = useState("");
    const [password, setPassword] = useState("");
    const [error, setError] = useState("");

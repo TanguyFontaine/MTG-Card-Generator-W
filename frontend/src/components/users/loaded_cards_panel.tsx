@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, FormControl, ModalOverlay } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Button } from "../style_components/button";
-import { Input } from "../style_components/input";
-import { Text } from "../style_components/text";
+import { Button } from "../../style_components/button";
+import { Input } from "../../style_components/input";
+import { Text } from "../../style_components/text";
 import { LoadedCardItem } from "./loaded_card_item";
-import type { Card } from "../classes/card";
+import type { Card } from "../../classes/card";
 /***************************************************************/
 
 function handleSearchUpdate(event: React.ChangeEvent<HTMLInputElement>, setSearchInput: (value: string) => void)

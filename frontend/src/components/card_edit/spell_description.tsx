@@ -1,14 +1,14 @@
 import { Box, Grid, VStack, HStack, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Textarea } from "../style_components/textarea";
-import { Text } from "../style_components/text";
+import { Textarea } from "../../style_components/textarea";
+import { Text } from "../../style_components/text";
 import { SymbolButton } from "./symbol_button";
-import { formatSymbol } from "./utilities";
-import { symbols } from "../ressources/symbols";
+import { formatSymbol } from "../utilities";
+import { symbols } from "../../ressources/symbols";
 import { FontSizeController } from "./font_size_controller";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
 /***************************************************************/
 
 export function SpellDescription()

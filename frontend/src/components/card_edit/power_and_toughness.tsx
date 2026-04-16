@@ -1,11 +1,11 @@
 import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Textbox } from "../style_components/textbox";
-import { Text } from "../style_components/text";
+import { Textbox } from "../../style_components/textbox";
+import { Text } from "../../style_components/text";
 import { FontSizeController } from "./font_size_controller";
-import { useCardContext } from "../contexts/card_context";
-import { CardActionName } from "../contexts/card_actions";
+import { useCardContext } from "../../contexts/card_context";
+import { CardActionName } from "../../contexts/card_actions";
 /***************************************************************/
 
 export function PowerToughness()

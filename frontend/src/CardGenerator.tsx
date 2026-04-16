@@ -13,8 +13,8 @@ import "mana-font";
 
 import theme from "./theme";
 import { UiPanel } from "./components/ui_panel";
-import { CardImagePanel } from "./components/card_image_panel";
-import { AuthPanel } from "./components/auth_panel";
+import { CardImagePanel } from "./components/card_display/card_image_panel";
+import { AuthenticationPanel } from "./components/users/authentication_panel";
 import { useResizablePanel, MIN_PANEL_WIDTH, MAX_PANEL_WIDTH_RATIO } from "./hooks/use_resizable_panel";
 import { CardStateProvider } from "./contexts/card_context";
 import { UserStateProvider, useUserContext } from "./contexts/user_context";
@@ -27,7 +27,7 @@ function CardGeneratorContent()
 
    if (!isLoggedIn)
    {
-      return <AuthPanel />;
+      return <AuthenticationPanel />;
    }
 
    return (
