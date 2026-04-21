@@ -1,5 +1,4 @@
 export const USERS_TABLE_NAME: string = "users";
-export const USER_CARDS_TABLE_NAME: string = "user_cards";
 
 const MAX_USERNAME_LENGTH = 60;
 const MIN_USERNAME_LENGTH = 2;

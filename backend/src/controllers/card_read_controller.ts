@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 
 import dbConnectionPool from "../connection/database_connection.js";
 import { Card, CARDS_TABLE_NAME } from "../datamodel/card.js";
-import { USER_CARDS_TABLE_NAME } from "../datamodel/user.js";
 import { isValidUserId } from "../datamodel/user.js";
 
 /** Builds a Card instance from a raw database row. */
@@ -36,10 +35,7 @@ export class CardReadController
 
       try
       {
-         const selectQuery: string = `
-            SELECT c.* FROM "${CARDS_TABLE_NAME}" c
-            INNER JOIN "${USER_CARDS_TABLE_NAME}" uc ON c.id = uc.card_id
-            WHERE uc.user_id = $1`;
+         const selectQuery: string = `SELECT * FROM "${CARDS_TABLE_NAME}" WHERE user_id = $1`;
          const params = [userId];
 
          const result = await dbConnectionPool.query(selectQuery, params);

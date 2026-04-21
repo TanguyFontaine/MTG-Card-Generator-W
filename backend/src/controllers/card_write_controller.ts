@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { CARDS_TABLE_NAME, Card } from "../datamodel/card.js";
-import { USER_CARDS_TABLE_NAME } from "../datamodel/user.js";
 import dbConnectionPool from "../connection/database_connection.js";
 import { isValidUserId } from "../datamodel/user.js";
 
@@ -33,9 +32,9 @@ function buildCardFromRequestBody(cardData: CardRequestBody, cardId: number = 0)
    );
 }
 
-function validateCardOwnership(cardId: number, userId: number): Promise<boolean>
+async function validateCardOwnership(cardId: number, userId: number): Promise<boolean>
 {
-   const ownershipCheckQuery = `SELECT id FROM "${USER_CARDS_TABLE_NAME}" WHERE card_id = $1 AND user_id = $2`;
+   const ownershipCheckQuery = `SELECT id FROM "${CARDS_TABLE_NAME}" WHERE id = $1 AND user_id = $2`;
 
    return dbConnectionPool.query(ownershipCheckQuery, [cardId, userId])
       .then(result => result.rows.length == 1)
@@ -71,11 +70,10 @@ export class CardWriteController
             return;
          }
 
-         // Save the card to the database ('cards' table) and get the generated ID
          const insertQuery = `
             INSERT INTO "${CARDS_TABLE_NAME}"
-               (name, mana_cost, type, spell_description, flavor_text, card_frame, image_url, power, toughness)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+               (name, mana_cost, type, spell_description, flavor_text, card_frame, image_url, power, toughness, user_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
             RETURNING *`;
 
          const result = await dbConnectionPool.query(insertQuery,
@@ -89,16 +87,10 @@ export class CardWriteController
             card.imageUrl,
             card.power,
             card.toughness,
+            userId,
          ]);
 
          const savedCard = result.rows[0];
-
-         // Link the card to the user via the user_cards junction table
-         await dbConnectionPool.query(
-               `INSERT INTO "${USER_CARDS_TABLE_NAME}" (card_id, user_id) VALUES ($1, $2)`,
-               [savedCard.id, userId],
-            );
-
          console.log("Card saved successfully:", savedCard);
          res.status(201).json(savedCard);
       }
