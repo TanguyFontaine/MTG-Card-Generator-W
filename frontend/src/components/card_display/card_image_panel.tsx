@@ -1,202 +1,61 @@
-import { Image, Box, HStack, useStyleConfig } from "@chakra-ui/react";
-import { isDefined } from "@chakra-ui/utils";
+﻿import { Box, useStyleConfig } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Text } from "../../style_components/text";
-import { frames } from "../../ressources/frames";
-import { Symbol } from "../card_edit/symbol";
-import { TextLine } from "./text_line";
-import { isValidImageExtension } from "../utilities";
 import { useCardContext } from "../../contexts/card_context";
-
-import { symbols } from "../../ressources/symbols";
-import logo from "../../ressources/logo_mini.png";
+import { CardRender, CARD_RENDER_WIDTH, CARD_RENDER_HEIGHT } from "./card_render";
 
 /***************************************************************/
 
-function retrieveCorrespondingFrameImage(frameColor: string, cardPower: string, cardToughness: string): string
-{
-   // to retieve the frame with the power/toughness box or the frame without
-   let frameIndex: 0 | 1 = 0;
-   if (cardPower !== "" || cardToughness !== "")
-   {
-      frameIndex = 1;
-   }
+const MOBILE_CARD_SCALE = 0.55;
+const SM_CARD_SCALE = 0.73;
 
-   // By default take the colorless frame
-   let frameImage = frames["Colorless"][frameIndex];
-
-   if (isDefined(frameColor) && frameColor !== "")
-   {
-      frameImage = frames[frameColor][frameIndex];
-   }
-
-   return frameImage;
-}
-
-// Take the spell descrition in param. It is a string whith the descritpion and encoded symbols
-// example : [Tap] : add [g]
-// returns a list of SymbolEments and Strings to be displayed
-function createDisplayableSymbols(spellDescription: string, spellFontSize: number): (string | JSX.Element)[]
-{
-   const leftBracketSplit = spellDescription.split("[");
-
-   let displayableElements: (string | JSX.Element)[] = [];
-   let elementIndex = 0; // Counter for unique keys
-   for (let i = 0; i < leftBracketSplit.length; i++)
-   {
-      const rightBracketSplit = leftBracketSplit[i].split("]");
-
-      if (rightBracketSplit.length === 2)
-      {
-         // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
-         const symbolCode = rightBracketSplit[0];
-         const displayableSymbol = (symbolCode === symbols.Energy) ?
-            <Symbol key={`symbol-${elementIndex++}`} symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 4} style={{ position: "relative", top: "-2px" }} /> :
-            <Symbol key={`symbol-${elementIndex++}`} symbol={symbolCode} fontSize={spellFontSize - 8} style={{ position: "relative", top: "-3px" }} />;
-         displayableElements = displayableElements.concat(displayableSymbol);
-         displayableElements = displayableElements.concat(rightBracketSplit[1]);
-      }
-      else
-      {
-         displayableElements = displayableElements.concat(rightBracketSplit);
-      }
-   }
-
-   return (displayableElements);
-}
-
-// Splits the description into lines and applies custom line height
-// Each line is split into displayable elements (symbols and text)
-// Returns an array of TextLine components, each representing a line of the description
-function transformIntoDisplayableElements(spellDescription: string, spellFontSize: number): JSX.Element[]
-{
-   // React requires that each element in an array has a unique key prop, here we use the line index as a key
-   return spellDescription.split("\n").map((line, idx) =>
-      line.trim() === ""
-         ? <TextLine key={idx} isEmpty={true} />
-         : <TextLine key={idx}>{createDisplayableSymbols(line, spellFontSize)}</TextLine>
-   );
-}
-
-interface DisplayImageProps
-{
-   imageFileName: string;
-   imageFileContent: string;
-   imageCentering: string;
-}
-
-function DisplayImage(props: DisplayImageProps)
-{
-   const imageFileName = props.imageFileName;
-   const imageFileContent = props.imageFileContent;
-   const imageCentering = props.imageCentering;
-
-   // Do not display the error panel while an image has not been selected
-   if (imageFileName === "" || isValidImageExtension(imageFileName))
-   {
-      return (
-         <Box height="416px" width="566px" position="relative" top="-89.18%" left="7%" /*top="10.82%" left="62.38%"*/>
-            <Image boxSize="inherit" objectPosition={imageCentering} objectFit="cover" alt={imageFileName} src={imageFileContent}></Image>
-         </Box>
-      );
-   }
-   return (
-      <Text position="relative" top="-75.18%" left="10%" fontSize={24} color="white" noOfLines={2}>
-         Invalid image file, supported extensions are :
-         <br />
-         png, jpg, jpeg, gif, webp
-      </Text>
-   );
-}
-
+/***************************************************************/
 
 export function CardImagePanel()
 {
    const { state } = useCardContext();
-
-   const name = state.cardName;
-   const nameFontSize = state.nameFontSize;
-   const imageFileContent = state.imageFile.localFile ? state.imageFile.localFile : state.imageFile.contentFromUrl;
-   const imageFileName = state.imageFile.localFileName;
-   const imageCentering = state.imageCentering;
-   const cardType = state.cardType;
-   const typesFontSize = state.typesFontSize;
-   const manaCost = state.manaCost;
-   const spellDescription = state.spellDescription;
-   const spellFontSize = state.spellFontSize;
-   const flavorText = state.flavorText;
-   const flavorTextFontSize = state.flavorTextFontSize;
-   const power = state.power;
-   const toughness = state.toughness;
-   const powerToughnessFontSize = state.powerToughnessFontSize;
-   const selectedCardFrame = state.cardFrame;
-
-   const typesItems = cardType.types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
-   const superTypesItems = cardType.superTypes.map((superType, index) => <Text key={`supertype-${index}`}>{superType}</Text>);
-
-   const displayableManaCost = manaCost.otherManaSymbols.map((symbol, index) => <Box key={`mana-${index}`}><Symbol symbol={symbol} shadow={true} /></Box>);
-
-
-   // Formulas to display values at the rigths position
-
-   //the mana cost at the right place
-   // 96.8 is hard coded pos of the 1st mana symbol, 5.12 is the size of mana symbol with fontSize(24)
-   // we do not forget the colorless mana that is not the mana cost list
-   const manaCostLeftPos = 93.5 - (manaCost.otherManaSymbols.length + (manaCost.colorlessAmount > -1 ? 1 : 0)) * 5.12 + "%";
-
-   // adjust the power toughness position depending on the length of both values and the font size
-   const powerLeftPos = 84.35 - ((power.length + toughness.length) / (35 / powerToughnessFontSize)) + "%";
-   const powerTopPos = 89 + (3.4 - powerToughnessFontSize * 0.1) + "%";
-
-   // adjust the name height pos depending on the font size
-   // result = baseTopValue + ((defaultFontSize / 10) - (fontSize / 10))
-   const nameTopPos = 4.8 + (3.2 - nameFontSize * 0.1) + "%";
-   const typesTopPos = 56.85 + (2.8 - typesFontSize * 0.1) + "%";
-   const spellDescriptionLineHeight = (2 + ((spellFontSize * 0.04) - 2)) + "em";
-   const flavorTextLineHeight = 1.34 + (flavorTextFontSize * 0.1 - 2.1) + "em";
-
-   const displayableSpellDescription = transformIntoDisplayableElements(spellDescription, spellFontSize);
-
    const style = useStyleConfig("CardImagePanel");
 
+   const imageFileContent = state.imageFile.localFile ? state.imageFile.localFile : state.imageFile.contentFromUrl;
+
    return (
-      <Box __css={style} h="100vh" w="100%" sx={{ wordSpacing: "0.2em" }}>
-         <Box position="relative" left="20%" height="937px" width="656px">
-            <Image boxSize="inherit" objectFit="fill" src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)} />
-
-            <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering}></DisplayImage>
-
-            <Text pos="absolute" top={nameTopPos} left="7%" fontSize={nameFontSize}>{name}</Text>
-
-            <Box data-name="manaCost" pos="absolute" top="5.1%" left={manaCostLeftPos} fontSize={24}>
-               <HStack spacing={1}>
-                  {manaCost.colorlessAmount > -1 ? <Box><Symbol symbol={manaCost.colorlessAmount} shadow={true} /></Box> : <Box />}
-                  <HStack spacing={1}>
-                     {displayableManaCost}
-                  </HStack>
-               </HStack>
-            </Box>
-
-            <HStack fontSize={typesFontSize} pos="absolute" top={typesTopPos} left="7%" spacing="0.3em">
-               {superTypesItems}
-               {typesItems}
-               <Text>{cardType.subTypes}</Text>
-            </HStack>
-            <Image boxSize="44px" pos="absolute" top="56.2%" left="87%" src={logo} />
-
-            <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{ wordSpacing: "0.12em" }}>
-               <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="64.5%" left="8.5%" width="84%" >{displayableSpellDescription}</Text>
-            </Box>
-
-            <HStack fontSize={powerToughnessFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1}>
-               <Text>{power} </Text>
-               {power !== "" || toughness !== "" ? <Text>/</Text> : <Text />}
-               <Text>{toughness} </Text>
-            </HStack>
-
-            <Box lineHeight={flavorTextLineHeight} sx={{ wordSpacing: "0.12em" }}>
-               <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="76%" left="8.5%" width="82%" >{flavorText}</Text>
+      <Box __css={style} h={{ base: "auto", md: "100vh" }} w="100%" sx={{ wordSpacing: "0.2em" }}>
+         <Box
+            display="flex"
+            justifyContent={{ base: "center", md: "flex-start" }}
+            pl={{ base: 0, md: "20%" }}
+            pt={{ base: 4, md: 0 }}
+            w="100%"
+         >
+            <Box
+               w={{ base: `${Math.round(CARD_RENDER_WIDTH * MOBILE_CARD_SCALE)}px`, sm: `${Math.round(CARD_RENDER_WIDTH * SM_CARD_SCALE)}px`, md: `${CARD_RENDER_WIDTH}px` }}
+               h={{ base: `${Math.round(CARD_RENDER_HEIGHT * MOBILE_CARD_SCALE)}px`, sm: `${Math.round(CARD_RENDER_HEIGHT * SM_CARD_SCALE)}px`, md: `${CARD_RENDER_HEIGHT}px` }}
+               overflow="hidden"
+               flexShrink={0}
+            >
+               <Box
+                  transform={{ base: `scale(${MOBILE_CARD_SCALE})`, sm: `scale(${SM_CARD_SCALE})`, md: "none" }}
+                  transformOrigin="top left"
+               >
+                  <CardRender
+                     name={state.cardName}
+                     nameFontSize={state.nameFontSize}
+                     imageFileName={state.imageFile.localFileName}
+                     imageFileContent={imageFileContent}
+                     imageCentering={state.imageCentering}
+                     cardType={state.cardType}
+                     typesFontSize={state.typesFontSize}
+                     manaCost={state.manaCost}
+                     spellDescription={state.spellDescription}
+                     spellFontSize={state.spellFontSize}
+                     flavorText={state.flavorText}
+                     flavorTextFontSize={state.flavorTextFontSize}
+                     power={state.power}
+                     toughness={state.toughness}
+                     powerToughnessFontSize={state.powerToughnessFontSize}
+                     selectedCardFrame={state.cardFrame}
+                  />
+               </Box>
             </Box>
          </Box>
       </Box>

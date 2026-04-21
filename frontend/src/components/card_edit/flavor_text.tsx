@@ -16,9 +16,9 @@ export function FlavorText()
    const setFontSize = (value: number) => dispatch({ name: CardActionName.setFlavorTextFontSize, data: value });
 
    return (
-      <HStack w="100%" justify="space-between">
+      <HStack w="100%" justify="space-between" flexWrap="wrap" rowGap={2}>
          <Text color="brand.textSecondary" minW="70px">Flavor text:</Text>
-         <Textarea width="73%"
+         <Textarea flex="1" minW="120px"
             inputValue={state.flavorText} setInputValue={setFlavorText}
             setValue={setFlavorText}
             placeholder="Enter the flavor text :" />

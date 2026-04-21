@@ -20,14 +20,14 @@ export function SuperTypesSelection()
    };
 
    return (
-      <HStack spacing={4}>
+      <HStack spacing={4} flexWrap="wrap" rowGap={2}>
          <Text color="brand.textSecondary" minW="70px">Supertypes:</Text>
          <CheckboxGroup
             name="superTypes"
             setValue={handleSuperTypesChange}
             value={state.cardType.superTypes}
          >
-            <HStack spacing={3}>
+            <HStack spacing={3} flexWrap="wrap" rowGap={2}>
                <Checkbox value={LEGENDARY} displayLabel={LEGENDARY} />
                <Checkbox value={SNOW} displayLabel={SNOW} />
                <Checkbox value={BASIC} displayLabel={BASIC} />

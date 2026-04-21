@@ -1,0 +1,220 @@
+import { Image, Box, HStack } from "@chakra-ui/react";
+import { isDefined } from "@chakra-ui/utils";
+/***************************************************************/
+
+import { Text } from "../../style_components/text";
+import { frames } from "../../ressources/frames";
+import { Symbol } from "../card_edit/symbol";
+import { TextLine } from "./text_line";
+import { isValidImageExtension } from "../utilities";
+import { ManaCostObj } from "../../classes/mana_cost";
+import { CardTypeObj } from "../../classes/card_type";
+
+import { symbols } from "../../ressources/symbols";
+import logo from "../../ressources/logo_mini.png";
+
+/***************************************************************/
+
+export const CARD_RENDER_WIDTH = 656;
+export const CARD_RENDER_HEIGHT = 937;
+
+/***************************************************************/
+
+function retrieveCorrespondingFrameImage(frameColor: string, cardPower: string, cardToughness: string): string
+{
+   // to retieve the frame with the power/toughness box or the frame without
+   let frameIndex: 0 | 1 = 0;
+   if (cardPower !== "" || cardToughness !== "")
+   {
+      frameIndex = 1;
+   }
+
+   // By default take the colorless frame
+   let frameImage = frames["Colorless"][frameIndex];
+
+   if (isDefined(frameColor) && frameColor !== "")
+   {
+      frameImage = frames[frameColor][frameIndex];
+   }
+
+   return frameImage;
+}
+
+// Take the spell descrition in param. It is a string whith the descritpion and encoded symbols
+// example : [Tap] : add [g]
+// returns a list of SymbolEments and Strings to be displayed
+function createDisplayableSymbols(spellDescription: string, spellFontSize: number): (string | JSX.Element)[]
+{
+   const leftBracketSplit = spellDescription.split("[");
+
+   let displayableElements: (string | JSX.Element)[] = [];
+   let elementIndex = 0; // Counter for unique keys
+   for (let i = 0; i < leftBracketSplit.length; i++)
+   {
+      const rightBracketSplit = leftBracketSplit[i].split("]");
+
+      if (rightBracketSplit.length === 2)
+      {
+         // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
+         const symbolCode = rightBracketSplit[0];
+         const displayableSymbol = (symbolCode === symbols.Energy) ?
+            <Symbol key={`symbol-${elementIndex++}`} symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 4} style={{ position: "relative", top: "-2px" }} /> :
+            <Symbol key={`symbol-${elementIndex++}`} symbol={symbolCode} fontSize={spellFontSize - 8} style={{ position: "relative", top: "-3px" }} />;
+         displayableElements = displayableElements.concat(displayableSymbol);
+         displayableElements = displayableElements.concat(rightBracketSplit[1]);
+      }
+      else
+      {
+         displayableElements = displayableElements.concat(rightBracketSplit);
+      }
+   }
+
+   return (displayableElements);
+}
+
+// Splits the description into lines and applies custom line height
+// Each line is split into displayable elements (symbols and text)
+// Returns an array of TextLine components, each representing a line of the description
+function transformIntoDisplayableElements(spellDescription: string, spellFontSize: number): JSX.Element[]
+{
+   // React requires that each element in an array has a unique key prop, here we use the line index as a key
+   return spellDescription.split("\n").map((line, idx) =>
+      line.trim() === ""
+         ? <TextLine key={idx} isEmpty={true} />
+         : <TextLine key={idx}>{createDisplayableSymbols(line, spellFontSize)}</TextLine>
+   );
+}
+
+/***************************************************************/
+
+interface DisplayImageProps
+{
+   imageFileName: string;
+   imageFileContent: string;
+   imageCentering: string;
+}
+
+function DisplayImage(props: DisplayImageProps)
+{
+   const imageFileName = props.imageFileName;
+   const imageFileContent = props.imageFileContent;
+   const imageCentering = props.imageCentering;
+
+   // Do not display the error panel while an image has not been selected
+   if (imageFileName === "" || isValidImageExtension(imageFileName))
+   {
+      return (
+         <Box height="416px" width="566px" position="relative" top="-89.18%" left="7%" /*top="10.82%" left="62.38%"*/>
+            <Image boxSize="inherit" objectPosition={imageCentering} objectFit="cover" alt={imageFileName} src={imageFileContent}></Image>
+         </Box>
+      );
+   }
+   return (
+      <Text position="relative" top="-75.18%" left="10%" fontSize={24} color="white" noOfLines={2}>
+         Invalid image file, supported extensions are :
+         <br />
+         png, jpg, jpeg, gif, webp
+      </Text>
+   );
+}
+
+/***************************************************************/
+
+export interface CardRenderProps
+{
+   name: string;
+   nameFontSize: number;
+   imageFileName: string;
+   imageFileContent: string;
+   imageCentering: string;
+   cardType: CardTypeObj;
+   typesFontSize: number;
+   manaCost: ManaCostObj;
+   spellDescription: string;
+   spellFontSize: number;
+   flavorText: string;
+   flavorTextFontSize: number;
+   power: string;
+   toughness: string;
+   powerToughnessFontSize: number;
+   selectedCardFrame: string;
+}
+
+export function CardRender(props: CardRenderProps)
+{
+   const {
+      name, nameFontSize,
+      imageFileName, imageFileContent, imageCentering,
+      cardType, typesFontSize,
+      manaCost,
+      spellDescription, spellFontSize,
+      flavorText, flavorTextFontSize,
+      power, toughness, powerToughnessFontSize,
+      selectedCardFrame,
+   } = props;
+
+   const typesItems = cardType.types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
+   const superTypesItems = cardType.superTypes.map((superType, index) => <Text key={`supertype-${index}`}>{superType}</Text>);
+
+   const displayableManaCost = manaCost.otherManaSymbols.map((symbol, index) => <Box key={`mana-${index}`}><Symbol symbol={symbol} shadow={true} /></Box>);
+
+   // Formulas to display values at the rigths position
+
+   //the mana cost at the right place
+   // 96.8 is hard coded pos of the 1st mana symbol, 5.12 is the size of mana symbol with fontSize(24)
+   // we do not forget the colorless mana that is not the mana cost list
+   const manaCostLeftPos = 93.5 - (manaCost.otherManaSymbols.length + (manaCost.colorlessAmount > -1 ? 1 : 0)) * 5.12 + "%";
+
+   // adjust the power toughness position depending on the length of both values and the font size
+   const powerLeftPos = 84.35 - ((power.length + toughness.length) / (35 / powerToughnessFontSize)) + "%";
+   const powerTopPos = 89 + (3.4 - powerToughnessFontSize * 0.1) + "%";
+
+   // adjust the name height pos depending on the font size
+   // result = baseTopValue + ((defaultFontSize / 10) - (fontSize / 10))
+   const nameTopPos = 4.8 + (3.2 - nameFontSize * 0.1) + "%";
+   const typesTopPos = 56.85 + (2.8 - typesFontSize * 0.1) + "%";
+   const spellDescriptionLineHeight = (2 + ((spellFontSize * 0.04) - 2)) + "em";
+   const flavorTextLineHeight = 1.34 + (flavorTextFontSize * 0.1 - 2.1) + "em";
+
+   const displayableSpellDescription = transformIntoDisplayableElements(spellDescription, spellFontSize);
+
+   return (
+      <Box position="relative" height={`${CARD_RENDER_HEIGHT}px`} width={`${CARD_RENDER_WIDTH}px`}>
+         <Image boxSize="inherit" objectFit="fill" src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)} />
+
+         <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering} />
+
+         <Text pos="absolute" top={nameTopPos} left="7%" fontSize={nameFontSize}>{name}</Text>
+
+         <Box data-name="manaCost" pos="absolute" top="5.1%" left={manaCostLeftPos} fontSize={24}>
+            <HStack spacing={1}>
+               {manaCost.colorlessAmount > -1 ? <Box><Symbol symbol={manaCost.colorlessAmount} shadow={true} /></Box> : <Box />}
+               <HStack spacing={1}>
+                  {displayableManaCost}
+               </HStack>
+            </HStack>
+         </Box>
+
+         <HStack fontSize={typesFontSize} pos="absolute" top={typesTopPos} left="7%" spacing="0.3em">
+            {superTypesItems}
+            {typesItems}
+            <Text>{cardType.subTypes}</Text>
+         </HStack>
+         <Image boxSize="44px" pos="absolute" top="56.2%" left="87%" src={logo} />
+
+         <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{ wordSpacing: "0.12em" }}>
+            <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="64.5%" left="8.5%" width="84%">{displayableSpellDescription}</Text>
+         </Box>
+
+         <HStack fontSize={powerToughnessFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1}>
+            <Text>{power} </Text>
+            {power !== "" || toughness !== "" ? <Text>/</Text> : <Text />}
+            <Text>{toughness} </Text>
+         </HStack>
+
+         <Box lineHeight={flavorTextLineHeight} sx={{ wordSpacing: "0.12em" }}>
+            <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="76%" left="8.5%" width="82%">{flavorText}</Text>
+         </Box>
+      </Box>
+   );
+}

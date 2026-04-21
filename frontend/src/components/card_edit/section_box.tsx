@@ -12,6 +12,7 @@ export function SectionBox({ title, children }: SectionBoxProps)
    return (
       <Box
          w="100%"
+         overflow="hidden"
          bg="brand.surface"
          borderRadius="6px"
          border="1px solid"

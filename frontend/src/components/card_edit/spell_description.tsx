@@ -26,9 +26,9 @@ export function SpellDescription()
 
    return (
       <Grid gap={4}>
-         <HStack w="100%" justify="space-between">
+         <HStack w="100%" justify="space-between" flexWrap="wrap" rowGap={2}>
             <Text color="brand.textSecondary" minW="70px">Abilities:</Text>
-            <Textarea width="75%"
+            <Textarea flex="1" minW="120px"
                inputValue={state.spellDescription} setInputValue={setSpellDescription}
                setValue={setSpellDescription}
                placeholder="Enter the abilities or the description of your spell :" />

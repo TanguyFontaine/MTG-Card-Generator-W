@@ -16,10 +16,11 @@ export function CardName()
    const setFontSize = (value: number) => dispatch({ name: CardActionName.setNameFontSize, data: value });
 
    return (
-      <HStack w="100%" justify="space-between">
+      <HStack w="100%" justify="space-between" flexWrap="wrap" rowGap={2}>
          <Text color="brand.textSecondary" minW="70px">Name:</Text>
          <Textbox
-            w="75%"
+            flex="1"
+            minW="120px"
             value={state.cardName}
             setValue={setCardName}
             placeholder="Enter the name of your card here."

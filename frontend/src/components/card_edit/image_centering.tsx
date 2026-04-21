@@ -14,10 +14,10 @@ export function ImageCentering()
    const setImageCentering = (value: string) => dispatch({ name: CardActionName.setImageCentering, data: value });
 
    return (
-      <HStack spacing={2}>
+      <HStack spacing={2} flexWrap="wrap" rowGap={2}>
          <Text color="brand.textSecondary" fontSize="14px">Crop from:</Text>
          <RadioGroup name="centering" defaultValue="center" setValue={setImageCentering}>
-            <HStack spacing={3}>
+            <HStack spacing={3} flexWrap="wrap" rowGap={2}>
                <Radio value="center" displayLabel="Center" />
                <Radio value="top" displayLabel="Top" />
                <Radio value="bottom" displayLabel="Bottom" />
