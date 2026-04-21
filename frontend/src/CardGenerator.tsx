@@ -32,13 +32,31 @@ function CardGeneratorContent()
 
    return (
       <CardStateProvider>
-         <Box display={{ md: "flex" }} h="100vh" w="100%" bg="brand.base">
-            <Box w={`${panelWidth}px`} minW={`${MIN_PANEL_WIDTH}px`} maxW={`${MAX_PANEL_WIDTH_RATIO * 100}%`} h="100vh" overflowY="auto"
-               borderRight="1px solid" borderColor="brand.border" bg="brand.base">
+         <Box display={{ base: "block", md: "flex" }} minH="100vh" w="100%" bg="brand.base">
+            <Box
+               w={{ base: "100%", md: `${panelWidth}px` }}
+               minW={{ base: "unset", md: `${MIN_PANEL_WIDTH}px` }}
+               maxW={{ base: "100%", md: `${MAX_PANEL_WIDTH_RATIO * 100}%` }}
+               h={{ base: "auto", md: "100vh" }}
+               overflowY={{ base: "visible", md: "auto" }}
+               borderRight={{ base: "none", md: "1px solid" }}
+               borderBottom={{ base: "1px solid", md: "none" }}
+               borderColor="brand.border"
+               bg="brand.base"
+            >
                <UiPanel />
             </Box>
-            <Box w="6px" h="100vh" cursor="col-resize" bg="brand.border" transition="background 0.15s ease" onMouseDown={handleMouseDown} flexShrink={0} />
-            <Box flex="1" h="100vh" overflowY="auto">
+            <Box
+               display={{ base: "none", md: "block" }}
+               w="6px"
+               h="100vh"
+               cursor="col-resize"
+               bg="brand.border"
+               transition="background 0.15s ease"
+               onMouseDown={handleMouseDown}
+               flexShrink={0}
+            />
+            <Box flex="1" h={{ base: "auto", md: "100vh" }} overflowY={{ base: "visible", md: "auto" }}>
                <CardImagePanel />
             </Box>
          </Box>
