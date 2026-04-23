@@ -165,9 +165,41 @@ export class CardWriteController
       }
    }
 
-   static async deleteCard(_req: Request, res: Response): Promise<void>
+   static async deleteCard(req: Request, res: Response): Promise<void>
    {
-      // TODO: Implement delete functionality
-      res.status(501).json({ error: "Delete operation not yet implemented" });
+      const cardId: number = parseInt(req.params.id);
+      const userId = req.body.userId;
+
+      if (!isValidUserId(userId))
+      {
+         res.status(400).json({ error: "Not registered as a user. Please log in or register." });
+         return;
+      }
+
+      if (!await validateCardOwnership(cardId, userId))
+      {
+         res.status(403).json({ error: "Error deleting card: You do not own this card." });
+         return;
+      }
+
+      try
+      {
+         const deleteQuery = `DELETE FROM "${CARDS_TABLE_NAME}" WHERE id = $1 RETURNING id`;
+         const result = await dbConnectionPool.query(deleteQuery, [cardId]);
+
+         if (result.rows.length === 0)
+         {
+            res.status(404).json({ error: "Card not found" });
+            return;
+         }
+
+         console.log("Card deleted successfully, id:", cardId);
+         res.status(200).json({ id: cardId });
+      }
+      catch (err)
+      {
+         console.error("Error deleting card:", err);
+         res.status(500).json({ error: "An internal server error occurred" });
+      }
    }
 }

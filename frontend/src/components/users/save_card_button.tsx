@@ -99,7 +99,7 @@ export function SaveCardButton()
    return (
       <>
          <Button
-            w={134}
+            w={112}
             onClick={handleSaveCard}
             isLoading={isLoading}
             loadingText="Saving..."

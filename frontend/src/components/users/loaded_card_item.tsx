@@ -91,7 +91,7 @@ export function LoadedCardItem({ card, onError, setIsLoading, onClose }: LoadedC
          onClick={handleSelectCard}
          _hover={{ bg: "brand.raised", borderColor: "brand.gold" }}
       >
-         ID: {card.id} - {card.name || "Unnamed Card"}
+         {card.name || "Unnamed Card"}
       </Button>
    );
 }

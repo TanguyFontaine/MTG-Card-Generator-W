@@ -44,7 +44,7 @@ export function LoadCardButton()
 
    return (
       <>
-         <Button w={134} variant="outline" isLoading={isLoading} loadingText="Loading..." onClick={handleLoadCards}>
+         <Button w={112} variant="outline" isLoading={isLoading} loadingText="Loading..." onClick={handleLoadCards}>
             Load Card
          </Button>
 

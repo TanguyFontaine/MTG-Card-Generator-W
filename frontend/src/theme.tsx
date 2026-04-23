@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/react";
+import { border, extendTheme } from "@chakra-ui/react";
 
 /***************************************************************/
 
@@ -110,6 +110,29 @@ const Button = {
          _hover: {
             color: "brand.gold",
             bg: "brand.raised",
+         },
+      },
+      danger: {
+         bg: "#8a1e1e",
+         color: "white",
+         _hover: {
+            bg: "#aa1e1e",
+            transform: "translateY(-1px)",
+            boxShadow: "0 2px 8px rgba(204, 68, 68, 0.35)",
+         },
+         _active: {
+            bg: "#8a1e1e",
+            transform: "translateY(0)",
+         },
+      },
+      dangerGhost: {
+         color:  "rgba(247, 53, 53, 0.88)",
+         borderColor: "rgba(204, 68, 68, 0.5)",
+         borderWidth: "1px",
+         bg: "transparent",
+         _hover: {
+            bg: "rgba(146, 35, 78, 0.13)",
+            borderColor: "rgba(247, 53, 53, 0.88)",
          },
       },
    },

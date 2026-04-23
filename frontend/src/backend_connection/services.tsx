@@ -103,26 +103,24 @@ const CardService = {
       }
    },
 
-   /*
-   // Delete a card
-   async deleteCard(cardId: number): Promise<Card>
+   async deleteCard(cardId: number, userId?: number): Promise<void>
    {
       try
       {
          const response = await fetch(`${API_CONFIG.BASE_URL}${ROUTES.CARD_BY_ID_URL(cardId)}`, {
-            method: 'DELETE'
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId }),
          });
 
-         assertResponseOK(response);
-
-         return await response.json();
+         await handleResponse(response);
       }
       catch (error)
       {
-         console.error('Error deleting card:', error);
+         console.error("Error deleting card:", error);
          throw error;
       }
-   }*/
+   },
 };
 
 export default CardService;

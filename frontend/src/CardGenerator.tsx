@@ -39,7 +39,6 @@ function CardGeneratorContent()
                maxW={{ base: "100%", md: `${MAX_PANEL_WIDTH_RATIO * 100}%` }}
                h={{ base: "auto", md: "100vh" }}
                overflowY={{ base: "visible", md: "auto" }}
-               borderRight={{ base: "none", md: "1px solid" }}
                borderBottom={{ base: "1px solid", md: "none" }}
                borderColor="brand.border"
                bg="brand.base"

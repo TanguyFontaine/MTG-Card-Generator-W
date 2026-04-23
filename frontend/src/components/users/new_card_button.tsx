@@ -15,7 +15,7 @@ export function NewCardButton()
 
    return (
       <>
-         <Button w={134} variant="outline" onClick={handleNewCard}>
+         <Button w={112} variant="outline" onClick={handleNewCard}>
             New Card
          </Button>
       </>
