@@ -1,4 +1,4 @@
-import { Box, Grid, VStack, HStack, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel } from "@chakra-ui/react";
+import { Box, Grid, HStack, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel } from "@chakra-ui/react";
 /***************************************************************/
 
 import { Textarea } from "../../style_components/textarea";
