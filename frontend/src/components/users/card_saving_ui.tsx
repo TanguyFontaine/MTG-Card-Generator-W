@@ -1,4 +1,4 @@
-import { HStack, Divider } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
 import { SaveCardButton } from "./save_card_button";

@@ -1,4 +1,4 @@
-﻿import { Box, useStyleConfig } from "@chakra-ui/react";
+import { Box, useStyleConfig } from "@chakra-ui/react";
 /***************************************************************/
 
 import { useCardContext } from "../../contexts/card_context";
