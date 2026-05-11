@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import { Box, useStyleConfig } from "@chakra-ui/react";
 /***************************************************************/
 
 import { useCardContext } from "../../contexts/card_context";
 import { CardRender, CARD_RENDER_WIDTH, CARD_RENDER_HEIGHT } from "./card_render";
+import { DownloadCardButton } from "./download_card_button";
 
 /***************************************************************/
 
@@ -15,6 +17,7 @@ export function CardImagePanel()
 {
    const { state } = useCardContext();
    const style = useStyleConfig("CardImagePanel");
+   const cardRef = useRef<HTMLDivElement>(null);
 
    const imageFileContent = state.imageFile.localFile ? state.imageFile.localFile : state.imageFile.contentFromUrl;
 
@@ -38,6 +41,7 @@ export function CardImagePanel()
                   transformOrigin="top left"
                >
                   <CardRender
+                     ref={cardRef}
                      name={state.cardName}
                      nameFontSize={state.nameFontSize}
                      imageFileName={state.imageFile.localFileName}
@@ -57,6 +61,14 @@ export function CardImagePanel()
                   />
                </Box>
             </Box>
+         </Box>
+         <Box
+            display="flex"
+            justifyContent={{ base: "center", md: "flex-start" }}
+            pl={{ base: 0, md: "20%" }}
+            pt={4}
+         >
+            <DownloadCardButton cardRef={cardRef} />
          </Box>
       </Box>
    );

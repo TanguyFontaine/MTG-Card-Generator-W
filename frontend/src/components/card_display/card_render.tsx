@@ -1,3 +1,4 @@
+import React from "react";
 import { Image, Box, HStack } from "@chakra-ui/react";
 import { isDefined } from "@chakra-ui/utils";
 /***************************************************************/
@@ -140,7 +141,7 @@ export interface CardRenderProps
    selectedCardFrame: string;
 }
 
-export function CardRender(props: CardRenderProps)
+export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(function CardRender(props, ref)
 {
    const {
       name, nameFontSize,
@@ -179,7 +180,7 @@ export function CardRender(props: CardRenderProps)
    const displayableSpellDescription = transformIntoDisplayableElements(spellDescription, spellFontSize);
 
    return (
-      <Box position="relative" height={`${CARD_RENDER_HEIGHT}px`} width={`${CARD_RENDER_WIDTH}px`}>
+      <Box ref={ref} position="relative" height={`${CARD_RENDER_HEIGHT}px`} width={`${CARD_RENDER_WIDTH}px`}>
          <Image boxSize="inherit" objectFit="fill" src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)} />
 
          <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering} />
@@ -217,4 +218,4 @@ export function CardRender(props: CardRenderProps)
          </Box>
       </Box>
    );
-}
+});
