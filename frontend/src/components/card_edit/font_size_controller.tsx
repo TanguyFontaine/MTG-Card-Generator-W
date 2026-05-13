@@ -1,7 +1,8 @@
-import { HStack, Box } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 /***************************************************************/
 
-import { Button } from "../../style_components/button";
+import { FontSizeStepButton } from "./font_size_step_button";
+import { FontSizeInput } from "./font_size_input";
 /***************************************************************/
 
 interface FontSizeControllerProps
@@ -17,15 +18,9 @@ export function FontSizeController(props: FontSizeControllerProps)
 
    return (
       <HStack spacing={0}>
-         <Button size="xs" variant="ghost" minW="28px" onClick={() => setValue(value - 1)}>
-            -
-         </Button>
-         <Box as="span" mx={1} fontSize="13px" color="brand.textSecondary" minW="24px" textAlign="center">
-            {value}
-         </Box>
-         <Button size="xs" variant="ghost" minW="28px" onClick={() => setValue(value + 1)}>
-            +
-         </Button>
+         <FontSizeStepButton onStep={() => setValue(value - 1)}>-</FontSizeStepButton>
+         <FontSizeInput value={value} setValue={setValue} />
+         <FontSizeStepButton onStep={() => setValue(value + 1)}>+</FontSizeStepButton>
       </HStack>
    );
 }
