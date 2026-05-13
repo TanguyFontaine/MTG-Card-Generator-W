@@ -1,10 +1,9 @@
 import React from "react";
 import { Image, Box, HStack } from "@chakra-ui/react";
-import { isDefined } from "@chakra-ui/utils";
 /***************************************************************/
 
 import { Text } from "../../style_components/text";
-import { frames } from "../../ressources/frames";
+import { frames, FrameLayers, OUTER_BORDER_PATH, BACKGROUND_SHADOW_PATH } from "../../ressources/frames";
 import { Symbol } from "../card_edit/symbol";
 import { TextLine } from "./text_line";
 import { isValidImageExtension } from "../utilities";
@@ -12,33 +11,22 @@ import { ManaCostObj } from "../../classes/mana_cost";
 import { CardTypeObj } from "../../classes/card_type";
 
 import { symbols } from "../../ressources/symbols";
-import logo from "../../ressources/logo_mini.png";
+import logo from "../../../public/frames/logo_mini.png";
 
 /***************************************************************/
 
-export const CARD_RENDER_WIDTH = 656;
-export const CARD_RENDER_HEIGHT = 937;
+export const CARD_RENDER_WIDTH = 2923;
+export const CARD_RENDER_HEIGHT = 4000;
 
 /***************************************************************/
 
-function retrieveCorrespondingFrameImage(frameColor: string, cardPower: string, cardToughness: string): string
+function retrieveCorrespondingFrameLayers(frameColor: string): FrameLayers
 {
-   // to retieve the frame with the power/toughness box or the frame without
-   let frameIndex: 0 | 1 = 0;
-   if (cardPower !== "" || cardToughness !== "")
+   if (frameColor !== "" && frames[frameColor])
    {
-      frameIndex = 1;
+      return frames[frameColor];
    }
-
-   // By default take the colorless frame
-   let frameImage = frames["Colorless"][frameIndex];
-
-   if (isDefined(frameColor) && frameColor !== "")
-   {
-      frameImage = frames[frameColor][frameIndex];
-   }
-
-   return frameImage;
+   return frames["Colorless"];
 }
 
 // Take the spell descrition in param. It is a string whith the descritpion and encoded symbols
@@ -105,13 +93,13 @@ function DisplayImage(props: DisplayImageProps)
    if (imageFileName === "" || isValidImageExtension(imageFileName))
    {
       return (
-         <Box height="416px" width="566px" position="relative" top="-89.18%" left="7%" /*top="10.82%" left="62.38%"*/>
+         <Box w="2562px" h="1860px" position="absolute" top="428px" left="180px">
             <Image boxSize="inherit" objectPosition={imageCentering} objectFit="cover" alt={imageFileName} src={imageFileContent}></Image>
          </Box>
       );
    }
    return (
-      <Text position="relative" top="-75.18%" left="10%" fontSize={24} color="white" noOfLines={2}>
+      <Text position="absolute" top="428px" left="180px" fontSize={107} color="white" noOfLines={2}>
          Invalid image file, supported extensions are :
          <br />
          png, jpg, jpeg, gif, webp
@@ -164,33 +152,53 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
    //the mana cost at the right place
    // 96.8 is hard coded pos of the 1st mana symbol, 5.12 is the size of mana symbol with fontSize(24)
    // we do not forget the colorless mana that is not the mana cost list
-   const manaCostLeftPos = 93.5 - (manaCost.otherManaSymbols.length + (manaCost.colorlessAmount > -1 ? 1 : 0)) * 5.12 + "%";
+   const manaCostLeftPos = 93.5 - (manaCost.otherManaSymbols.length + (manaCost.colorlessAmount > -1 ? 1 : 0)) * 5.4 + "%";
 
    // adjust the power toughness position depending on the length of both values and the font size
-   const powerLeftPos = 84.35 - ((power.length + toughness.length) / (35 / powerToughnessFontSize)) + "%";
-   const powerTopPos = 89 + (3.4 - powerToughnessFontSize * 0.1) + "%";
+   const powerLeftPos = 85 - ((power.length + toughness.length) / (160 / powerToughnessFontSize)) + "%";
+   const powerTopPos = 92.55 + (3.36 - powerToughnessFontSize * 0.022) + "%";
+   const hasPT = power !== "" || toughness !== "";
 
    // adjust the name height pos depending on the font size
-   // result = baseTopValue + ((defaultFontSize / 10) - (fontSize / 10))
-   const nameTopPos = 4.8 + (3.2 - nameFontSize * 0.1) + "%";
-   const typesTopPos = 56.85 + (2.8 - typesFontSize * 0.1) + "%";
-   const spellDescriptionLineHeight = (2 + ((spellFontSize * 0.04) - 2)) + "em";
-   const flavorTextLineHeight = 1.34 + (flavorTextFontSize * 0.1 - 2.1) + "em";
+   const nameTopPos = 4.6 + (3.15 - nameFontSize * 0.022) + "%";
+   const typesTopPos = 59 + (2.75 - typesFontSize * 0.022) + "%";
+   const spellDescriptionLineHeight = (spellFontSize * 0.0075) + "em";
+   const flavorTextLineHeight = (flavorTextFontSize * 0.062) + "em";
 
    const displayableSpellDescription = transformIntoDisplayableElements(spellDescription, spellFontSize);
 
+   const frameLayers = retrieveCorrespondingFrameLayers(selectedCardFrame);
+
    return (
       <Box ref={ref} position="relative" height={`${CARD_RENDER_HEIGHT}px`} width={`${CARD_RENDER_WIDTH}px`}>
-         <Image boxSize="inherit" objectFit="fill" src={retrieveCorrespondingFrameImage(selectedCardFrame, power, toughness)} />
 
+         {/* Layer 1: Outer background border — 2923×4000, full canvas */}
+         <Image position="absolute" top="0" left="0" w={`${CARD_RENDER_WIDTH}px`} h={`${CARD_RENDER_HEIGHT}px`} objectFit="fill" src={OUTER_BORDER_PATH} />
+
+         {/* Layer 2: Color-specific background  border — 2780×3782, offset (70, 70) */}
+         <Image position="absolute" top="70px" left="70px" w="2780px" h="3782px" objectFit="fill" src={frameLayers.border} />
+
+         {/* Layer 3: Art image */}
          <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering} />
+
+         {/* Layer 4: inner background shadow — 2736×3740, offset (89, 113)  */}
+         <Image position="absolute" top="113px" left="89px" w="2736px" h="3740px" objectFit="fill" src={BACKGROUND_SHADOW_PATH} />
+
+         {/* Layer 5: Color background — 2710×3722, offset (105, 131) within the 2923×4000 canvas */}
+         <Image position="absolute" top="131px" left="105px" w="2710px" h="3722px" objectFit="fill" src={frameLayers.background} />
+
+         {/* Layer 6: Name / type line boxes — 2668×2412, offset (125, 152) */}
+         <Image position="absolute" top="152px" left="125px" w="2668px" h="2412px" objectFit="fill" src={frameLayers.nameTypeBox} />
+
+         {/* Layer 7: Power / toughness box — 555×296, offset (2277, 3666), creatures only */}
+         {hasPT && <Image position="absolute" top="3666px" left="2277px" w="555px" h="296px" objectFit="fill" src={frameLayers.ptBox} />}
 
          <Text pos="absolute" top={nameTopPos} left="7%" fontSize={nameFontSize}>{name}</Text>
 
-         <Box data-name="manaCost" pos="absolute" top="5.1%" left={manaCostLeftPos} fontSize={24}>
-            <HStack spacing={1}>
+         <Box data-name="manaCost" pos="absolute" top="4.6%" left={manaCostLeftPos} fontSize={116}>
+            <HStack spacing={4}>
                {manaCost.colorlessAmount > -1 ? <Box><Symbol symbol={manaCost.colorlessAmount} shadow={true} /></Box> : <Box />}
-               <HStack spacing={1}>
+               <HStack spacing={4}>
                   {displayableManaCost}
                </HStack>
             </HStack>
@@ -201,10 +209,10 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
             {typesItems}
             <Text>{cardType.subTypes}</Text>
          </HStack>
-         <Image boxSize="44px" pos="absolute" top="56.2%" left="87%" src={logo} />
+         <Image boxSize="196px" pos="absolute" top="58.5%" left="87%" src={logo} />
 
-         <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{ wordSpacing: "0.12em" }}>
-            <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="64.5%" left="8.5%" width="84%">{displayableSpellDescription}</Text>
+         <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{ wordSpacing: "0.08em" }}>
+            <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="65.24%" left="7.25%" width="85.8%">{displayableSpellDescription}</Text>
          </Box>
 
          <HStack fontSize={powerToughnessFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1}>
@@ -214,7 +222,7 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
          </HStack>
 
          <Box lineHeight={flavorTextLineHeight} sx={{ wordSpacing: "0.12em" }}>
-            <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="76%" left="8.5%" width="82%">{flavorText}</Text>
+            <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="75%" left="7.25%" width="85.8%">{flavorText}</Text>
          </Box>
       </Box>
    );

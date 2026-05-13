@@ -5,14 +5,13 @@ import { toPng } from "html-to-image";
 import { Button } from "../../style_components/button";
 import { useCardContext } from "../../contexts/card_context";
 import { dataUrlToUint8Array, injectPngDpi } from "./png_dpi_utils";
+import { CARD_RENDER_WIDTH } from "./card_render";
 
 /***************************************************************/
 
-// Output dimensions: 2x the display size (1312px wide) for a 2.5 in card = 525 DPI
-// Text and fonts are re-rendered at full 2x resolution; frame PNG is upscaled 1.4x (imperceptible at card size)
-const CARD_RENDER_DISPLAY_WIDTH = 656;
-const DOWNLOAD_PIXEL_RATIO = 2;
-const CARD_PRINT_DPI = Math.round((CARD_RENDER_DISPLAY_WIDTH * DOWNLOAD_PIXEL_RATIO) / 2.5); // 525
+// Output at native frame resolution (2923px wide). A standard card is 2.5 in wide → ~1169 DPI.
+const DOWNLOAD_PIXEL_RATIO = 1;
+const CARD_PRINT_DPI = Math.round(CARD_RENDER_WIDTH / 2.5); // 1169
 
 /***************************************************************/
 
