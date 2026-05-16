@@ -117,7 +117,7 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
    const { cardState, imageFileContent } = props;
    const {
       cardName: name, nameFontSize,
-      imageFile: { localFileName: imageFileName },
+      imageFile: { localFileName: imageFileName, url: imageUrl },
       imageCentering,
       cardType, typesFontSize,
       manaCost,
@@ -170,7 +170,7 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
          ))}
 
          {/* Art image */}
-         <DisplayImage imageFileName={imageFileName} imageFileContent={imageFileContent} imageCentering={imageCentering} />
+         <DisplayImage imageFileName={imageFileName || imageUrl || ""} imageFileContent={imageFileContent} imageCentering={imageCentering} />
 
          {/* Frame layers above the art */}
          {frame.layersAfterArt.map((layer, index) => (
