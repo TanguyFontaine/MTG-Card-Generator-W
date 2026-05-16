@@ -80,6 +80,8 @@ function DisplayImage(props: DisplayImageProps)
    const imageCentering = props.imageCentering;
 
    // Do not display the error panel while an image has not been selected
+   // Display an empty box to avoid download error with html-to-image when no image is selected
+   // as it tries to load the image with an empty string as source and fails, even if the image is not displayed at all
    if (imageFileName === "")
    {
       return <Box w="2562px" h="1860px" position="absolute" top="428px" left="180px" />;
