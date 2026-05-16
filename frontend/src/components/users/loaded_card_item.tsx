@@ -61,7 +61,6 @@ export function LoadedCardItem({ card, onError, setIsLoading, onClose }: LoadedC
                power: selectedCard.power || "",
                toughness: selectedCard.toughness || "",
                loyalty: selectedCard.loyalty || "",
-               cardFrame: selectedCard.frame || "",
                manaCost: ManaCostObj.fromString(selectedCard.manaCost),
                cardType: CardTypeObj.fromString(selectedCard.type),
                imageFile: imageFile,

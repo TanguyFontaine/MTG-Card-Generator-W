@@ -31,8 +31,6 @@ function cardReducer(state: CardState, action: CardAction): CardState
          return { ...state, cardType: action.data };
       case CardActionName.setTypesFontSize:
          return { ...state, typesFontSize: action.data };
-      case CardActionName.setCardFrame:
-         return { ...state, cardFrame: action.data };
       case CardActionName.setManaCost:
          return { ...state, manaCost: action.data };
       case CardActionName.setSpellDescription:

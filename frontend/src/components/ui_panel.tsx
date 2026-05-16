@@ -9,7 +9,6 @@ import { TypesSelection } from "./card_edit/types_selection";
 import { SuperTypesSelection } from "./card_edit/super_types_selection";
 import { SubTypes } from "./card_edit/sub_types";
 import { ManaCost } from "./card_edit/mana_cost";
-import { CardFrameSelection } from "./card_edit/card_frame_selection";
 import { SpellDescription } from "./card_edit/spell_description";
 import { FlavorText } from "./card_edit/flavor_text";
 import { PowerToughness } from "./card_edit/power_and_toughness";
@@ -40,7 +39,6 @@ export function UiPanel()
                <Grid gap="1em">
                   <CardName />
                   <ManaCost />
-                  <CardFrameSelection />
                </Grid>
             </SectionBox>
 

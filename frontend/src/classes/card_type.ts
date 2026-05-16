@@ -147,6 +147,13 @@ class CardTypeObj
       return [...CARD_TYPES];
    }
 
+   isVehicle(): boolean
+   {
+      // TODO, redo UI for special subtypes + localization in general (translations)
+      return this.subTypes.toLowerCase().includes("vehicle") ||
+             this.subTypes.toLowerCase().includes("véhicule")
+      ;
+   }
    // removeType(type) not needed yet
    // removeSuperType(superType) not needed yet
 }

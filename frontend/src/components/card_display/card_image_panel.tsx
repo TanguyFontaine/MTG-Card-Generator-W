@@ -45,22 +45,8 @@ export function CardImagePanel()
                >
                   <CardRender
                      ref={cardRef}
-                     name={state.cardName}
-                     nameFontSize={state.nameFontSize}
-                     imageFileName={state.imageFile.localFileName}
+                     cardState={state}
                      imageFileContent={imageFileContent}
-                     imageCentering={state.imageCentering}
-                     cardType={state.cardType}
-                     typesFontSize={state.typesFontSize}
-                     manaCost={state.manaCost}
-                     spellDescription={state.spellDescription}
-                     spellFontSize={state.spellFontSize}
-                     flavorText={state.flavorText}
-                     flavorTextFontSize={state.flavorTextFontSize}
-                     power={state.power}
-                     toughness={state.toughness}
-                     powerToughnessFontSize={state.powerToughnessFontSize}
-                     selectedCardFrame={state.cardFrame}
                   />
                </Box>
             </Box>

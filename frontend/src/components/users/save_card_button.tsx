@@ -55,7 +55,6 @@ export function SaveCardButton()
             manaCost: state.manaCost.toString(),
             type: state.cardType.toString(),
             flavorText: state.flavorText || "",
-            frame: state.cardFrame || "",
             imageUrl: imageUrl,
             power: state.power || "",
             toughness: state.toughness || "",

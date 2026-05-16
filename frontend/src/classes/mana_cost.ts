@@ -1,4 +1,11 @@
 import { formatSymbol, removeBrackets } from "../components/utilities";
+import { symbols } from "../ressources/symbols";
+
+// returns true if all mana symbols in the list are the same as the provided hybrid symbol
+function isOnlyHybridFromSymbol(manaSymbols: string[], hybridSymbol: string): boolean
+{
+   return manaSymbols.every(symbol => symbol === hybridSymbol);
+}
 
 class ManaCostObj
 {
@@ -75,6 +82,21 @@ class ManaCostObj
 
       return new ManaCostObj(colorlessAmount, otherManaSymbols);
    }
+
+   isHybridTwoColors(): boolean
+   {
+      return isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridWU) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridWB) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridRW) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridRG) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridGU) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridGW) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridUB) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridUR) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridBR) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridBG);
+   }
+
 }
 
 export { ManaCostObj };
