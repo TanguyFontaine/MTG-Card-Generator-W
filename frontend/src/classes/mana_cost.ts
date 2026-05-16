@@ -94,7 +94,17 @@ class ManaCostObj
              isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridUB) ||
              isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridUR) ||
              isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridBR) ||
-             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridBG);
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridBG) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyWU) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyWB) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyRW) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyRG) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyGU) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyGW) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyUB) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyUR) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyBR) ||
+             isOnlyHybridFromSymbol(this.otherManaSymbols, symbols.HybridPhyBG);
    }
 
 }

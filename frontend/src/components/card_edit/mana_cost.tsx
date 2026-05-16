@@ -58,8 +58,8 @@ export function ManaCost()
                   </AccordionButton>
                </h2>
                <AccordionPanel pb={4}>
-                  <HStack spacing={2} flexWrap="wrap" rowGap={2} justify="center">
-                        <SymbolButton symbol={symbols.Colorless} setValue={() => setManaCostFunction(symbols.Colorless)} />
+                  <HStack spacing={6} justify="center" flexWrap="wrap" rowGap={1}>
+                     <HStack spacing={1} flexWrap="wrap" rowGap={0} justify="center">
                         <SymbolButton symbol={symbols.HybridWU} setValue={() => setManaCostFunction(symbols.HybridWU)} />
                         <SymbolButton symbol={symbols.HybridWB} setValue={() => setManaCostFunction(symbols.HybridWB)} />
                         <SymbolButton symbol={symbols.HybridRW} setValue={() => setManaCostFunction(symbols.HybridRW)} />
@@ -70,26 +70,54 @@ export function ManaCost()
                         <SymbolButton symbol={symbols.HybridUR} setValue={() => setManaCostFunction(symbols.HybridUR)} />
                         <SymbolButton symbol={symbols.HybridBR} setValue={() => setManaCostFunction(symbols.HybridBR)} />
                         <SymbolButton symbol={symbols.HybridBG} setValue={() => setManaCostFunction(symbols.HybridBG)} />
-                        <SymbolButton symbol={symbols.TWhite} setValue={() => setManaCostFunction(symbols.TWhite)} />
-                        <SymbolButton symbol={symbols.TBlue} setValue={() => setManaCostFunction(symbols.TBlue)} />
-                        <SymbolButton symbol={symbols.TBlack} setValue={() => setManaCostFunction(symbols.TBlack)} />
-                        <SymbolButton symbol={symbols.TRed} setValue={() => setManaCostFunction(symbols.TRed)} />
-                        <SymbolButton symbol={symbols.TGreen} setValue={() => setManaCostFunction(symbols.TGreen)} />
+                     </HStack>
+                     <HStack spacing={2} justify="center" flexWrap="wrap">
+                        <SymbolButton symbol={symbols.TwoGenWhite} setValue={() => setManaCostFunction(symbols.TwoGenWhite)} />
+                        <SymbolButton symbol={symbols.TwoGenBlue} setValue={() => setManaCostFunction(symbols.TwoGenBlue)} />
+                        <SymbolButton symbol={symbols.TwoGenBlack} setValue={() => setManaCostFunction(symbols.TwoGenBlack)} />
+                        <SymbolButton symbol={symbols.TwoGenRed} setValue={() => setManaCostFunction(symbols.TwoGenRed)} />
+                        <SymbolButton symbol={symbols.TwoGenGreen} setValue={() => setManaCostFunction(symbols.TwoGenGreen)} />
+                     </HStack>
+                     <HStack spacing={2} justify="center" flexWrap="wrap">
+                        <SymbolButton symbol={symbols.ColorlessWhite} setValue={() => setManaCostFunction(symbols.ColorlessWhite)} />
+                        <SymbolButton symbol={symbols.ColorlessBlue} setValue={() => setManaCostFunction(symbols.ColorlessBlue)} />
+                        <SymbolButton symbol={symbols.ColorlessBlack} setValue={() => setManaCostFunction(symbols.ColorlessBlack)} />
+                        <SymbolButton symbol={symbols.ColorlessRed} setValue={() => setManaCostFunction(symbols.ColorlessRed)} />
+                        <SymbolButton symbol={symbols.ColorlessGreen} setValue={() => setManaCostFunction(symbols.ColorlessGreen)} />
+                     </HStack>
+                     <HStack spacing={2} justify="center" flexWrap="wrap">
                         <SymbolButton symbol={symbols.PhyColorless} setValue={() => setManaCostFunction(symbols.PhyColorless)} />
                         <SymbolButton symbol={symbols.PhyWhite} setValue={() => setManaCostFunction(symbols.PhyWhite)} />
                         <SymbolButton symbol={symbols.PhyBlue} setValue={() => setManaCostFunction(symbols.PhyBlue)} />
                         <SymbolButton symbol={symbols.PhyBlack} setValue={() => setManaCostFunction(symbols.PhyBlack)} />
                         <SymbolButton symbol={symbols.PhyRed} setValue={() => setManaCostFunction(symbols.PhyRed)} />
                         <SymbolButton symbol={symbols.PhyGreen} setValue={() => setManaCostFunction(symbols.PhyGreen)} />
+                     </HStack>
+                     <HStack spacing={1} justify="center" flexWrap="wrap">
+                        <SymbolButton symbol={symbols.HybridPhyWU} setValue={() => setManaCostFunction(symbols.HybridPhyWU)} />
+                        <SymbolButton symbol={symbols.HybridPhyWB} setValue={() => setManaCostFunction(symbols.HybridPhyWB)} />
+                        <SymbolButton symbol={symbols.HybridPhyRW} setValue={() => setManaCostFunction(symbols.HybridPhyRW)} />
+                        <SymbolButton symbol={symbols.HybridPhyRG} setValue={() => setManaCostFunction(symbols.HybridPhyRG)} />
+                        <SymbolButton symbol={symbols.HybridPhyGU} setValue={() => setManaCostFunction(symbols.HybridPhyGU)} />
+                        <SymbolButton symbol={symbols.HybridPhyGW} setValue={() => setManaCostFunction(symbols.HybridPhyGW)} />
+                        <SymbolButton symbol={symbols.HybridPhyUB} setValue={() => setManaCostFunction(symbols.HybridPhyUB)} />
+                        <SymbolButton symbol={symbols.HybridPhyUR} setValue={() => setManaCostFunction(symbols.HybridPhyUR)} />
+                        <SymbolButton symbol={symbols.HybridPhyBR} setValue={() => setManaCostFunction(symbols.HybridPhyBR)} />
+                        <SymbolButton symbol={symbols.HybridPhyBG} setValue={() => setManaCostFunction(symbols.HybridPhyBG)} />
+                     </HStack>
+                     <HStack spacing={2} justify="center" flexWrap="wrap">
                         <SymbolButton symbol={symbols.XColorless} setValue={() => setManaCostFunction(symbols.XColorless)} />
                         <SymbolButton symbol={symbols.XWhite} setValue={() => setManaCostFunction(symbols.XWhite)} />
                         <SymbolButton symbol={symbols.XBlue} setValue={() => setManaCostFunction(symbols.XBlue)} />
                         <SymbolButton symbol={symbols.XBlack} setValue={() => setManaCostFunction(symbols.XBlack)} />
                         <SymbolButton symbol={symbols.XRed} setValue={() => setManaCostFunction(symbols.XRed)} />
                         <SymbolButton symbol={symbols.XGreen} setValue={() => setManaCostFunction(symbols.XGreen)} />
+                     </HStack>
+                     <HStack spacing={4} justify="center" flexWrap="wrap">
+                        <SymbolButton symbol={symbols.Colorless} setValue={() => setManaCostFunction(symbols.Colorless)} />
                         <SymbolButton symbol={symbols.Snow} setValue={() => setManaCostFunction(symbols.Snow)} />
                         <SymbolButton symbol={symbols.Infinity} setValue={() => setManaCostFunction(symbols.Infinity)} />
-                        <SymbolButton symbol={symbols.Half} setValue={() => setManaCostFunction(symbols.Half)} />
+                        <SymbolButton symbol={symbols.Half} setValue={() => setManaCostFunction(symbols.Half)} />                     </HStack>
                   </HStack>
                </AccordionPanel>
             </AccordionItem>

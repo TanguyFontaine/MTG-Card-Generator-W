@@ -93,11 +93,18 @@ export function SpellDescription()
                         <SymbolButton symbol={symbols.HybridBG} setValue={() => addSymbolToTextbox(symbols.HybridBG)} />
                      </HStack>
                      <HStack spacing={2} justify="center" flexWrap="wrap">
-                        <SymbolButton symbol={symbols.TWhite} setValue={() => addSymbolToTextbox(symbols.TWhite)} />
-                        <SymbolButton symbol={symbols.TBlue} setValue={() => addSymbolToTextbox(symbols.TBlue)} />
-                        <SymbolButton symbol={symbols.TBlack} setValue={() => addSymbolToTextbox(symbols.TBlack)} />
-                        <SymbolButton symbol={symbols.TRed} setValue={() => addSymbolToTextbox(symbols.TRed)} />
-                        <SymbolButton symbol={symbols.TGreen} setValue={() => addSymbolToTextbox(symbols.TGreen)} />
+                        <SymbolButton symbol={symbols.TwoGenWhite} setValue={() => addSymbolToTextbox(symbols.TwoGenWhite)} />
+                        <SymbolButton symbol={symbols.TwoGenBlue} setValue={() => addSymbolToTextbox(symbols.TwoGenBlue)} />
+                        <SymbolButton symbol={symbols.TwoGenBlack} setValue={() => addSymbolToTextbox(symbols.TwoGenBlack)} />
+                        <SymbolButton symbol={symbols.TwoGenRed} setValue={() => addSymbolToTextbox(symbols.TwoGenRed)} />
+                        <SymbolButton symbol={symbols.TwoGenGreen} setValue={() => addSymbolToTextbox(symbols.TwoGenGreen)} />
+                     </HStack>
+                     <HStack spacing={2} justify="center" flexWrap="wrap">
+                        <SymbolButton symbol={symbols.ColorlessWhite} setValue={() => addSymbolToTextbox(symbols.ColorlessWhite)} />
+                        <SymbolButton symbol={symbols.ColorlessBlue} setValue={() => addSymbolToTextbox(symbols.ColorlessBlue)} />
+                        <SymbolButton symbol={symbols.ColorlessBlack} setValue={() => addSymbolToTextbox(symbols.ColorlessBlack)} />
+                        <SymbolButton symbol={symbols.ColorlessRed} setValue={() => addSymbolToTextbox(symbols.ColorlessRed)} />
+                        <SymbolButton symbol={symbols.ColorlessGreen} setValue={() => addSymbolToTextbox(symbols.ColorlessGreen)} />
                      </HStack>
                      <HStack spacing={2} justify="center" flexWrap="wrap">
                         <SymbolButton symbol={symbols.PhyColorless} setValue={() => addSymbolToTextbox(symbols.PhyColorless)} />
@@ -106,6 +113,18 @@ export function SpellDescription()
                         <SymbolButton symbol={symbols.PhyBlack} setValue={() => addSymbolToTextbox(symbols.PhyBlack)} />
                         <SymbolButton symbol={symbols.PhyRed} setValue={() => addSymbolToTextbox(symbols.PhyRed)} />
                         <SymbolButton symbol={symbols.PhyGreen} setValue={() => addSymbolToTextbox(symbols.PhyGreen)} />
+                     </HStack>
+                     <HStack spacing={1} justify="center" flexWrap="wrap">
+                        <SymbolButton symbol={symbols.HybridPhyWU} setValue={() => addSymbolToTextbox(symbols.HybridPhyWU)} />
+                        <SymbolButton symbol={symbols.HybridPhyWB} setValue={() => addSymbolToTextbox(symbols.HybridPhyWB)} />
+                        <SymbolButton symbol={symbols.HybridPhyRW} setValue={() => addSymbolToTextbox(symbols.HybridPhyRW)} />
+                        <SymbolButton symbol={symbols.HybridPhyRG} setValue={() => addSymbolToTextbox(symbols.HybridPhyRG)} />
+                        <SymbolButton symbol={symbols.HybridPhyGU} setValue={() => addSymbolToTextbox(symbols.HybridPhyGU)} />
+                        <SymbolButton symbol={symbols.HybridPhyGW} setValue={() => addSymbolToTextbox(symbols.HybridPhyGW)} />
+                        <SymbolButton symbol={symbols.HybridPhyUB} setValue={() => addSymbolToTextbox(symbols.HybridPhyUB)} />
+                        <SymbolButton symbol={symbols.HybridPhyUR} setValue={() => addSymbolToTextbox(symbols.HybridPhyUR)} />
+                        <SymbolButton symbol={symbols.HybridPhyBR} setValue={() => addSymbolToTextbox(symbols.HybridPhyBR)} />
+                        <SymbolButton symbol={symbols.HybridPhyBG} setValue={() => addSymbolToTextbox(symbols.HybridPhyBG)} />
                      </HStack>
                      <HStack spacing={2} justify="center" flexWrap="wrap">
                         <SymbolButton symbol={symbols.XColorless} setValue={() => addSymbolToTextbox(symbols.XColorless)} />

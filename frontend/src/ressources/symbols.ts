@@ -19,19 +19,34 @@ export const symbols = {
    HybridBG: "bg",
 
    // mana font does not support more than 2 colorless and color split. (ex 3/W is not supported)
-   TWhite: "2w",
-   TBlue: "2u",
-   TBlack: "2b",
-   TRed: "2r",
-   TGreen: "2g",
+   TwoGenWhite: "2w",
+   TwoGenBlue: "2u",
+   TwoGenBlack: "2b",
+   TwoGenRed: "2r",
+   TwoGenGreen: "2g",
+   ColorlessWhite: "cw",
+   ColorlessBlue: "cu",
+   ColorlessBlack: "cb",
+   ColorlessRed: "cr",
+   ColorlessGreen: "cg",
 
-   // mana font does not support hybrid phyrexian mana (but the mecanic is quite useless)
    PhyColorless: "p",
    PhyWhite: "wp",
    PhyBlue: "up",
    PhyBlack: "bp",
    PhyRed: "rp",
    PhyGreen: "gp",
+
+   HybridPhyWU: "wup",
+   HybridPhyWB: "wbp",
+   HybridPhyRW: "rwp",
+   HybridPhyRG: "rgp",
+   HybridPhyGU: "gup",
+   HybridPhyGW: "gwp",
+   HybridPhyUB: "ubp",
+   HybridPhyUR: "urp",
+   HybridPhyBR: "brp",
+   HybridPhyBG: "bgp",
 
    Snow: "s",
 
