@@ -208,7 +208,7 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
             <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="65.24%" left="7.25%" width="85.8%">{displayableSpellDescription}</Text>
          </Box>
 
-         <HStack fontSize={powerToughnessFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1} color={cardType.isVehicle() ? "white" : undefined}>
+         <HStack fontSize={powerToughnessFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1} color={cardState.usesVehicleFrame ? "white" : undefined}>
             <Text>{power} </Text>
             {power !== "" || toughness !== "" ? <Text>/</Text> : <Text />}
             <Text>{toughness} </Text>

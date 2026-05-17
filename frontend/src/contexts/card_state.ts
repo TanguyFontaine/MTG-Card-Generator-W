@@ -1,6 +1,7 @@
 import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
 import type { ImageFile } from "../classes/image_file_interface";
+import { CardColor } from "../classes/card_color";
 
 // Class reprensenting the entire state of the card in the frontend.
 export interface CardState
@@ -21,6 +22,9 @@ export interface CardState
    toughness: string;
    powerToughnessFontSize: number;
    loyalty: string;
+   /** null = auto-detect from mana cost; [] = colorless; [CardColor.X, ...] = explicit override */
+   frameColorOverride: CardColor[] | null;
+   usesVehicleFrame: boolean;
 }
 
 export const INITIAL_STATE: CardState = {
@@ -40,4 +44,6 @@ export const INITIAL_STATE: CardState = {
    toughness: "",
    powerToughnessFontSize: 152,
    loyalty: "",
+   frameColorOverride: null,
+   usesVehicleFrame: false,
 };

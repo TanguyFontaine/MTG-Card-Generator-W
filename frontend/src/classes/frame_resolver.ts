@@ -103,11 +103,12 @@ function getHybridFile(colors: CardColor[]): string
 
 // ─── Per-layer file resolution ────────────────────────────────────────────────
 
-function resolveBorderFile(cardType: CardTypeObj, cardColors: CardColor[], manaCost: ManaCostObj): string
+function resolveBorderFile(cardType: CardTypeObj, cardColors: CardColor[], manaCost: ManaCostObj,
+                           usesVehicleFrame: boolean, withOverride: boolean): string
 {
    let fileName: string = "";
 
-   if (cardType.isVehicle())
+   if (usesVehicleFrame)
       fileName = "vehicle.png";
    else if (cardType.types.includes("Artifact"))
       fileName = "artifact.png";
@@ -115,7 +116,7 @@ function resolveBorderFile(cardType: CardTypeObj, cardColors: CardColor[], manaC
       fileName = "colourless.png";
    else if (cardColors.length === 1)
       fileName = MONO_COLOR_FILES[cardColors[0]];
-   else if (cardColors.length === 2 && manaCost.isHybridTwoColors())
+   else if (cardColors.length === 2 && (manaCost.isHybridTwoColors() || withOverride))
       fileName = getHybridFile(cardColors);
    else
       fileName = "gold.png";
@@ -142,13 +143,13 @@ function resolveBackgroundFile(cardType: CardTypeObj, cardColors: CardColor[]): 
    return fileName;
 }
 
-function resolveNameTypeBoxFile(cardType: CardTypeObj, cardColors: CardColor[], manaCost: ManaCostObj): string
+function resolveNameTypeBoxFile(cardType: CardTypeObj, cardColors: CardColor[], manaCost: ManaCostObj, withOverride: boolean): string
 {
    let fileName: string = "";
 
    if (cardColors.length === 1)
       fileName = MONO_COLOR_FILES[cardColors[0]];
-   else if (cardColors.length > 1 && !manaCost.isHybridTwoColors())
+   else if (cardColors.length > 1 && !manaCost.isHybridTwoColors() && !withOverride )
       fileName = "gold.png";
    else if (cardType.types.includes("Land"))
       fileName = "land.png";
@@ -160,15 +161,16 @@ function resolveNameTypeBoxFile(cardType: CardTypeObj, cardColors: CardColor[], 
    return fileName;
 }
 
-function resolvePtBoxFile(cardType: CardTypeObj, cardColors: CardColor[], manaCost: ManaCostObj): string
+function resolvePtBoxFile(cardType: CardTypeObj, cardColors: CardColor[],
+   manaCost: ManaCostObj, usesVehicleFrame: boolean, withOverride: boolean): string
 {
    let fileName: string = "";
 
-   if (cardType.isVehicle())
+   if (usesVehicleFrame)
       fileName = "vehicle.png";
    else if (cardColors.length === 1)
       fileName = MONO_COLOR_FILES[cardColors[0]];
-   else if (cardColors.length > 1 && !manaCost.isHybridTwoColors())
+   else if (cardColors.length > 1 && !manaCost.isHybridTwoColors() && !withOverride)
       fileName = "gold.png";
    else if (cardType.types.includes("Land"))
       fileName = "land.png";
@@ -188,24 +190,25 @@ function resolvePtBoxFile(cardType: CardTypeObj, cardColors: CardColor[], manaCo
  */
 export function resolveFrame(cardState: CardState): Frame
 {
-   const { cardType, manaCost, power, toughness } = cardState;
-   const cardColors = getCardColors(manaCost);
+   const { cardType, manaCost, power, toughness, frameColorOverride, usesVehicleFrame } = cardState;
+   const cardColors = frameColorOverride ?? getCardColors(manaCost);
+   const withOverride = frameColorOverride !== null;
 
    const layersBeforeArt: FrameLayer[] = [
       OUTER_BORDER_LAYER,
-      makeBorderLayer(resolveBorderFile(cardType, cardColors, manaCost)),
+      makeBorderLayer(resolveBorderFile(cardType, cardColors, manaCost, usesVehicleFrame, withOverride)),
    ];
 
    const layersAfterArt: FrameLayer[] = [
       BACKGROUND_SHADOW_LAYER,
       makeBackgroundLayer(resolveBackgroundFile(cardType, cardColors)),
-      makeNameTypeBoxLayer(resolveNameTypeBoxFile(cardType, cardColors, manaCost)),
+      makeNameTypeBoxLayer(resolveNameTypeBoxFile(cardType, cardColors, manaCost, withOverride)),
    ];
 
    const hasPT = power !== "" || toughness !== "";
    if (hasPT)
    {
-      layersAfterArt.push(makePtBoxLayer(resolvePtBoxFile(cardType, cardColors, manaCost)));
+      layersAfterArt.push(makePtBoxLayer(resolvePtBoxFile(cardType, cardColors, manaCost, usesVehicleFrame, withOverride)));
    }
 
    return new Frame(layersBeforeArt, layersAfterArt);

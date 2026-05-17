@@ -52,7 +52,11 @@ function cardReducer(state: CardState, action: CardAction): CardState
       case CardActionName.resetCard:
          return { ...INITIAL_STATE };
       case CardActionName.loadCard:
-         return { ...state, ...action.data };
+         return { ...state, ...action.data, frameColorOverride: null, usesVehicleFrame: false };
+      case CardActionName.setFrameColorOverride:
+         return { ...state, frameColorOverride: action.data };
+      case CardActionName.setUsesVehicleFrame:
+         return { ...state, usesVehicleFrame: action.data };
       default:
          return state;
    }

@@ -12,6 +12,7 @@ import { ManaCost } from "./card_edit/mana_cost";
 import { SpellDescription } from "./card_edit/spell_description";
 import { FlavorText } from "./card_edit/flavor_text";
 import { PowerToughness } from "./card_edit/power_and_toughness";
+import { FrameCustomization } from "./card_edit/frame_customization";
 import { Button } from "../style_components/button";
 import { Text } from "../style_components/text";
 import { useUserContext } from "../contexts/user_context";
@@ -47,6 +48,12 @@ export function UiPanel()
                   <TypesSelection />
                   <SuperTypesSelection />
                   <SubTypes />
+               </Grid>
+            </SectionBox>
+
+            <SectionBox title="Frame Customization">
+               <Grid gap="1em">
+                  <FrameCustomization />
                </Grid>
             </SectionBox>
 

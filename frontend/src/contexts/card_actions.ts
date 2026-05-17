@@ -3,6 +3,7 @@ import { CardState } from "./card_state";
 import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
 import type { ImageFile } from "../classes/image_file_interface";
+import { CardColor } from "../classes/card_color";
 
 // ─── Action Names ────────────────────────────────────────────
 export enum CardActionName
@@ -25,6 +26,8 @@ export enum CardActionName
    setLoyalty = "SET_LOYALTY",
    resetCard = "RESET_CARD",
    loadCard = "LOAD_CARD",
+   setFrameColorOverride = "SET_FRAME_COLOR_OVERRIDE",
+   setUsesVehicleFrame = "SET_USES_VEHICLE_FRAME",
 }
 
 // ─── Actions ─────────────────────────────────────────────────
@@ -48,4 +51,6 @@ export type CardAction =
    | { name: CardActionName.setPowerToughnessFontSize; data: number }
    | { name: CardActionName.setLoyalty; data: string }
    | { name: CardActionName.resetCard }
-   | { name: CardActionName.loadCard; data: Partial<CardState> };
+   | { name: CardActionName.loadCard; data: Partial<CardState> }
+   | { name: CardActionName.setFrameColorOverride; data: CardColor[] | null }
+   | { name: CardActionName.setUsesVehicleFrame; data: boolean };
