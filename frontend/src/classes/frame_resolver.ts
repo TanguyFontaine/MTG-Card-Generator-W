@@ -28,20 +28,6 @@ import {
  *   6. PT box              (color-dependent, creatures only)
  *****************************************************************************/
 
-// ─── Internal frame category ──────────────────────────────────────────────────
-
-/** Frame categories used internally to select PNG layer files. */
-enum FrameType
-{
-   Colorless,
-   Mono,     // 1 distinct color
-   Hybrid,   // exactly 2 distinct colors
-   Gold,     // 3+ distinct colors
-   Artifact,
-   Vehicle,
-   Land,
-}
-
 /** WUBRG order — used to return colors in a stable, canonical order. */
 const WUBRG_ORDER = [
    CardColor.White,
