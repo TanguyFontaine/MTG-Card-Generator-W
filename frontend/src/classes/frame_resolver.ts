@@ -11,6 +11,7 @@ import {
    makeBorderLayer,
    makeNameTypeBoxLayer,
    makePtBoxLayer,
+   makeColorIndicatorLayer,
 } from "./frame_layers";
 
 /*****************************************************************************
@@ -85,6 +86,33 @@ function getHybridFile(colors: CardColor[]): string
 {
    const sorted = [colors[0], colors[1]].sort((a, b) => a - b);
    return HYBRID_FILES[`${sorted[0]}_${sorted[1]}`] ?? "gold.png";
+}
+
+// ─── Color indicator file lookup ─────────────────────────────────────────────
+
+// Maps a canonical color key (CardColor enum values sorted and joined) to the color indicator base filename (without extension).
+const COLOR_INDICATOR_FILES: { [key: string]: string } = {
+   // 1 color
+   "0": "W",       "1": "U",       "2": "B",       "3": "R",       "4": "G",
+   // 2 colors
+   "01": "WU",    "02": "WB",    "03": "RW",    "04": "GW",
+   "12": "UB",    "13": "UR",    "14": "GU",
+   "23": "BR",    "24": "BG",    "34": "RG",
+   // 3 colors
+   "012": "UBW",  "013": "URW",  "014": "WUG",  "023": "RWB",  "024": "WBG",
+   "034": "WRG",  "123": "BRU",  "124": "BGU",  "134": "GUR",  "234": "RGB",
+   // 4 colors
+   "0123": "BWRU", "0124": "GWUB", "0134": "RUGW", "0234": "RWBG", "1234": "BGRU",
+   // 5 colors
+   "01234": "WBGUR",
+};
+
+// Sort the card's colors and retrieve the corresponding color indicator file, if any.
+function resolveColorIndicatorFile(colors: CardColor[]): string
+{
+   const key = Array.from(colors).sort((a, b) => a - b).join("");
+   const baseName = COLOR_INDICATOR_FILES[key];
+   return baseName ? `${baseName}.png` : "";
 }
 
 // ─── Per-layer file resolution ────────────────────────────────────────────────
@@ -176,7 +204,7 @@ function resolvePtBoxFile(cardType: CardTypeObj, cardColors: CardColor[],
  */
 export function resolveFrame(cardState: CardState): Frame
 {
-   const { cardType, manaCost, power, toughness, frameColorOverride, usesVehicleFrame } = cardState;
+   const { cardType, manaCost, power, toughness, frameColorOverride, usesVehicleFrame, withColorIndicator } = cardState;
    const cardColors = frameColorOverride ?? getCardColors(manaCost);
    const withOverride = frameColorOverride !== null;
 
@@ -195,6 +223,15 @@ export function resolveFrame(cardState: CardState): Frame
    if (hasPT)
    {
       layersAfterArt.push(makePtBoxLayer(resolvePtBoxFile(cardType, cardColors, manaCost, usesVehicleFrame, withOverride)));
+   }
+
+   if (withColorIndicator && frameColorOverride !== null)
+   {
+      const indicatorFile = resolveColorIndicatorFile(cardColors);
+      if (indicatorFile !== "")
+      {
+         layersAfterArt.push(makeColorIndicatorLayer(indicatorFile));
+      }
    }
 
    return new Frame(layersBeforeArt, layersAfterArt);

@@ -124,6 +124,7 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
       spellDescription, spellFontSize,
       flavorText, flavorTextFontSize,
       power, toughness, powerToughnessFontSize,
+      withColorIndicator, frameColorOverride,
    } = cardState;
 
    const typesItems = cardType.types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
@@ -144,7 +145,11 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
 
    // adjust the name height pos depending on the font size
    const nameTopPos = 4.6 + (3.15 - nameFontSize * 0.022) + "%";
+
    const typesTopPos = 59 + (2.75 - typesFontSize * 0.022) + "%";
+   const showColorIndicator = withColorIndicator && frameColorOverride !== null;
+   const typesLeftPos = showColorIndicator ? "11.5%" : "7%";
+
    const spellDescriptionLineHeight = (spellFontSize * 0.0075) + "em";
    const flavorTextLineHeight = (flavorTextFontSize * 0.062) + "em";
 
@@ -197,7 +202,7 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
             </HStack>
          </Box>
 
-         <HStack fontSize={typesFontSize} pos="absolute" top={typesTopPos} left="7%" spacing="0.3em">
+         <HStack fontSize={typesFontSize} pos="absolute" top={typesTopPos} left={typesLeftPos} spacing="0.3em">
             {superTypesItems}
             {typesItems}
             <Text>{cardType.subTypes}</Text>

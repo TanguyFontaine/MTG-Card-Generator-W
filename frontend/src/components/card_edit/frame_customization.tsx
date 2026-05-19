@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { VStack, HStack } from "@chakra-ui/react";
 /***************************************************************/
 
@@ -22,7 +21,6 @@ const COLOR_OPTIONS: { color: CardColor; label: string }[] = [
 export function FrameCustomization()
 {
    const { state, dispatch } = useCardContext();
-   const [withColorIndicator, setWithColorIndicator] = useState(false);
 
    const effectiveColors: CardColor[] = state.frameColorOverride ?? [];
    const isColorless = state.frameColorOverride !== null && state.frameColorOverride.length === 0;
@@ -66,7 +64,8 @@ export function FrameCustomization()
          <VStack spacing={2} align="stretch">
             <HStack spacing={2} align="stretch">
                <Text color="brand.textSecondary">Frame colors:</Text>
-               <Radio displayLabel="With color indicator" isChecked={withColorIndicator} onClick={() => setWithColorIndicator(!withColorIndicator)} />
+               <Radio displayLabel="With color indicator" isChecked={state.withColorIndicator}
+                      onClick={() => dispatch({ name: CardActionName.setWithColorIndicator, data: !state.withColorIndicator })} />
             </HStack>
             <VStack spacing={1} align="flex-start">
                <Checkbox

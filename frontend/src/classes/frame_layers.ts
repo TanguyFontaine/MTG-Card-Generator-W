@@ -38,3 +38,8 @@ export function makePtBoxLayer(file: string): FrameLayer
 {
    return new FrameLayer(`${BASE_PATH}/boxes/power_toughness/${file}`, 3666, 2277, 555, 296);
 }
+
+export function makeColorIndicatorLayer(file: string): FrameLayer
+{
+   return new FrameLayer(`${BASE_PATH}/color indicators/${file}`, 2376, 176, 129, 129);
+}

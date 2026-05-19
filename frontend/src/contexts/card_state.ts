@@ -25,6 +25,7 @@ export interface CardState
    /** null = auto-detect from mana cost; [] = colorless; [CardColor.X, ...] = explicit override */
    frameColorOverride: CardColor[] | null;
    usesVehicleFrame: boolean;
+   withColorIndicator: boolean;
 }
 
 export const INITIAL_STATE: CardState = {
@@ -46,4 +47,5 @@ export const INITIAL_STATE: CardState = {
    loyalty: "",
    frameColorOverride: null,
    usesVehicleFrame: false,
+   withColorIndicator: false,
 };
