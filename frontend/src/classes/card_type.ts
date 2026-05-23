@@ -147,6 +147,10 @@ class CardTypeObj
       return [...CARD_TYPES];
    }
 
+   isLegendary(): boolean
+   {
+      return this.superTypes.includes(LEGENDARY);
+   }
    // removeType(type) not needed yet
    // removeSuperType(superType) not needed yet
 }

@@ -5,13 +5,14 @@ import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
 import { CardColor, SYMBOL_TO_COLORS } from "../classes/card_color";
 import {
-   OUTER_BORDER_LAYER,
-   BACKGROUND_SHADOW_LAYER,
+   makeOuterBorderLayer,
    makeBackgroundLayer,
+   makeBackgroundShadowLayer,
    makeBorderLayer,
    makeNameTypeBoxLayer,
    makePtBoxLayer,
    makeColorIndicatorLayer,
+   makeLegendaryCrownLayer,
 } from "./frame_layers";
 
 /*****************************************************************************
@@ -20,13 +21,16 @@ import {
  * Determines which PNG layers to use for a card's frame based on the card's
  * data (type line, mana cost, power/toughness).
  *
- * The assembly order is bottom-to-top:
+ * The assembly order (bottom-to-top, matching z-index values in frame_layers.ts):
  *   1. Outer border        (color-independent)
  *   2. Color border        (color-dependent)
- *   3. Background shadow   (color-independent)
- *   4. Color background    (color-dependent)
- *   5. Name/type boxes     (color-dependent)
- *   6. PT box              (color-dependent, creatures only)
+ *   3. Card art            (rendered separately, ART_Z_INDEX = 3)
+ *   4. Background shadow   (color-independent)
+ *   5. Color background    (color-dependent)
+ *   6. Legendary crown     (legendary cards only)
+ *   7. Name/type boxes     (color-dependent)
+ *   8. PT box              (color-dependent, creatures only)
+ *   9. Color indicator     (optional)
  *****************************************************************************/
 
 /** WUBRG order — used to return colors in a stable, canonical order. */
@@ -157,6 +161,12 @@ function resolveBackgroundFile(cardType: CardTypeObj, cardColors: CardColor[]): 
    return fileName;
 }
 
+function resolveLegendaryCrownFile(cardType: CardTypeObj, cardColors: CardColor[]): string
+{
+   // Legendary crown should match the background color
+   return resolveBackgroundFile(cardType, cardColors);
+}
+
 function resolveNameTypeBoxFile(cardType: CardTypeObj, cardColors: CardColor[], manaCost: ManaCostObj, withOverride: boolean): string
 {
    let fileName: string = "";
@@ -196,6 +206,16 @@ function resolvePtBoxFile(cardType: CardTypeObj, cardColors: CardColor[],
    return fileName;
 }
 
+function addMandatoryLayer(layers: FrameLayer[], layer: FrameLayer): void
+{
+   layers.push(layer);
+}
+function addOptionalLayer(layers: FrameLayer[], condition: boolean, layer: FrameLayer): void
+{
+   if (condition)
+      layers.push(layer);
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 /**
@@ -207,32 +227,21 @@ export function resolveFrame(cardState: CardState): Frame
    const { cardType, manaCost, power, toughness, frameColorOverride, usesVehicleFrame, withColorIndicator } = cardState;
    const cardColors = frameColorOverride ?? getCardColors(manaCost);
    const withOverride = frameColorOverride !== null;
-
-   const layersBeforeArt: FrameLayer[] = [
-      OUTER_BORDER_LAYER,
-      makeBorderLayer(resolveBorderFile(cardType, cardColors, manaCost, usesVehicleFrame, withOverride)),
-   ];
-
-   const layersAfterArt: FrameLayer[] = [
-      BACKGROUND_SHADOW_LAYER,
-      makeBackgroundLayer(resolveBackgroundFile(cardType, cardColors)),
-      makeNameTypeBoxLayer(resolveNameTypeBoxFile(cardType, cardColors, manaCost, withOverride)),
-   ];
-
    const hasPT = power !== "" || toughness !== "";
-   if (hasPT)
-   {
-      layersAfterArt.push(makePtBoxLayer(resolvePtBoxFile(cardType, cardColors, manaCost, usesVehicleFrame, withOverride)));
-   }
+   const isLegendary = cardType.isLegendary();
 
-   if (withColorIndicator && frameColorOverride !== null)
-   {
-      const indicatorFile = resolveColorIndicatorFile(cardColors);
-      if (indicatorFile !== "")
-      {
-         layersAfterArt.push(makeColorIndicatorLayer(indicatorFile));
-      }
-   }
+   // All frame layers — z-index values on each FrameLayer control the stacking order.
+   // The card art is rendered separately at ART_Z_INDEX (= 5) in card_render.tsx.
+   const layers: FrameLayer[] = [];
+   addMandatoryLayer(layers, makeOuterBorderLayer());
+   addMandatoryLayer(layers, makeBorderLayer(resolveBorderFile(cardType, cardColors, manaCost, usesVehicleFrame, withOverride), isLegendary));
+   addMandatoryLayer(layers, makeBackgroundShadowLayer(isLegendary));
+   addMandatoryLayer(layers, makeBackgroundLayer(resolveBackgroundFile(cardType, cardColors)));
+   addOptionalLayer(layers, isLegendary, makeLegendaryCrownLayer(resolveLegendaryCrownFile(cardType, cardColors)));
+   addMandatoryLayer(layers, makeNameTypeBoxLayer(resolveNameTypeBoxFile(cardType, cardColors, manaCost, withOverride)));
+   addOptionalLayer(layers, hasPT, makePtBoxLayer(resolvePtBoxFile(cardType, cardColors, manaCost, usesVehicleFrame, withOverride)));
+   addOptionalLayer(layers, withColorIndicator && frameColorOverride !== null,
+                    makeColorIndicatorLayer(resolveColorIndicatorFile(cardColors)));
 
-   return new Frame(layersBeforeArt, layersAfterArt);
+   return new Frame(layers);
 }

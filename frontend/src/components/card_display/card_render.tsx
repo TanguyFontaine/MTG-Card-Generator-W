@@ -4,6 +4,7 @@ import { Image, Box, HStack } from "@chakra-ui/react";
 
 import { Text } from "../../style_components/text";
 import { resolveFrame } from "../../classes/frame_resolver";
+import { ART_Z_INDEX, CARD_UI_Z_INDEX } from "../../classes/frame_layers";
 import { CardState } from "../../contexts/card_state";
 import { Symbol } from "../card_edit/symbol";
 import { TextLine } from "./text_line";
@@ -71,6 +72,7 @@ interface DisplayImageProps
    imageFileName: string;
    imageFileContent: string;
    imageCentering: string;
+   zIndex: number;
 }
 
 function DisplayImage(props: DisplayImageProps)
@@ -79,24 +81,24 @@ function DisplayImage(props: DisplayImageProps)
    const imageFileContent = props.imageFileContent;
    const imageCentering = props.imageCentering;
 
+   const artBoxStyle = { position: "absolute" as const, top: "428px", left: "180px", zIndex: props.zIndex };
    // Do not display the error panel while an image has not been selected
    // Display an empty box to avoid download error with html-to-image when no image is selected
    // as it tries to load the image with an empty string as source and fails, even if the image is not displayed at all
    if (imageFileName === "")
    {
-      return <Box w="2562px" h="1860px" position="absolute" top="428px" left="180px" />;
+      return <Box w="2562px" h="1860px" {...artBoxStyle} />;
    }
-
    if (isValidImageExtension(imageFileName))
    {
       return (
-         <Box w="2562px" h="1860px" position="absolute" top="428px" left="180px">
+         <Box w="2562px" h="1860px" {...artBoxStyle}>
             <Image boxSize="inherit" objectPosition={imageCentering} objectFit="cover" alt={imageFileName} src={imageFileContent}></Image>
          </Box>
       );
    }
    return (
-      <Text position="absolute" top="428px" left="180px" fontSize={107} color="white" noOfLines={2}>
+      <Text {...artBoxStyle} fontSize={107} color="white" noOfLines={2}>
          Invalid image file, supported extensions are :
          <br />
          png, jpg, jpeg, gif, webp
@@ -160,11 +162,12 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
    return (
       <Box ref={ref} position="relative" height={`${CARD_RENDER_HEIGHT}px`} width={`${CARD_RENDER_WIDTH}px`}>
 
-         {/* Frame layers below the art */}
-         {frame.layersBeforeArt.map((layer, index) => (
+         {/* Frame layers — z-index on each layer controls stacking order */}
+         {frame.layers.map((layer, index) => (
             <Image
-               key={`frame-below-${index}`}
+               key={`frame-${index}`}
                position="absolute"
+               zIndex={layer.zIndex}
                top={`${layer.top}px`}
                left={`${layer.left}px`}
                w={`${layer.width}px`}
@@ -175,25 +178,11 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
          ))}
 
          {/* Art image */}
-         <DisplayImage imageFileName={imageFileName || imageUrl || ""} imageFileContent={imageFileContent} imageCentering={imageCentering} />
+         <DisplayImage imageFileName={imageFileName || imageUrl || ""} imageFileContent={imageFileContent} imageCentering={imageCentering} zIndex={ART_Z_INDEX} />
 
-         {/* Frame layers above the art */}
-         {frame.layersAfterArt.map((layer, index) => (
-            <Image
-               key={`frame-above-${index}`}
-               position="absolute"
-               top={`${layer.top}px`}
-               left={`${layer.left}px`}
-               w={`${layer.width}px`}
-               h={`${layer.height}px`}
-               objectFit="fill"
-               src={layer.imagePath}
-            />
-         ))}
+         <Text pos="absolute" zIndex={CARD_UI_Z_INDEX} top={nameTopPos} left="7%" fontSize={nameFontSize}>{name}</Text>
 
-         <Text pos="absolute" top={nameTopPos} left="7%" fontSize={nameFontSize}>{name}</Text>
-
-         <Box data-name="manaCost" pos="absolute" top="4.6%" left={manaCostLeftPos} fontSize={116}>
+         <Box data-name="manaCost" pos="absolute" zIndex={CARD_UI_Z_INDEX} top="4.6%" left={manaCostLeftPos} fontSize={116}>
             <HStack spacing={4}>
                {manaCost.colorlessAmount > -1 ? <Box><Symbol symbol={manaCost.colorlessAmount} shadow={true} /></Box> : <Box />}
                <HStack spacing={4}>
@@ -202,25 +191,25 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
             </HStack>
          </Box>
 
-         <HStack fontSize={typesFontSize} pos="absolute" top={typesTopPos} left={typesLeftPos} spacing="0.3em">
+         <HStack fontSize={typesFontSize} pos="absolute" zIndex={CARD_UI_Z_INDEX} top={typesTopPos} left={typesLeftPos} spacing="0.3em">
             {superTypesItems}
             {typesItems}
             <Text>{cardType.subTypes}</Text>
          </HStack>
-         <Image boxSize="196px" pos="absolute" top="58.5%" left="87%" src={logo} />
+         <Image boxSize="196px" pos="absolute" zIndex={CARD_UI_Z_INDEX} top="58.5%" left="87%" src={logo} />
 
          <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{ wordSpacing: "0.08em" }}>
-            <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="65.24%" left="7.25%" width="85.8%">{displayableSpellDescription}</Text>
+            <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" zIndex={CARD_UI_Z_INDEX} top="65.24%" left="7.25%" width="85.8%">{displayableSpellDescription}</Text>
          </Box>
 
-         <HStack fontSize={powerToughnessFontSize} pos="absolute" top={powerTopPos} left={powerLeftPos} spacing={1} color={cardState.usesVehicleFrame ? "white" : undefined}>
+         <HStack fontSize={powerToughnessFontSize} pos="absolute" zIndex={CARD_UI_Z_INDEX} top={powerTopPos} left={powerLeftPos} spacing={1} color={cardState.usesVehicleFrame ? "white" : undefined}>
             <Text>{power} </Text>
             {power !== "" || toughness !== "" ? <Text>/</Text> : <Text />}
             <Text>{toughness} </Text>
          </HStack>
 
          <Box lineHeight={flavorTextLineHeight} sx={{ wordSpacing: "0.12em" }}>
-            <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" top="75%" left="7.25%" width="85.8%">{flavorText}</Text>
+            <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" zIndex={CARD_UI_Z_INDEX} top="75%" left="7.25%" width="85.8%">{flavorText}</Text>
          </Box>
       </Box>
    );

@@ -1,17 +1,15 @@
 import { FrameLayer } from "./frame_layer";
 
 // Represents a fully assembled card frame made of stacked PNG layers.
-// The card art image (dynamic user content) is rendered between the two layer groups:
-//   layersBeforeArt → card art → layersAfterArt
+// All layers carry an explicit zIndex so they can be rendered in any DOM order.
+// The card art is rendered separately in card_render.tsx at ART_Z_INDEX (= 5).
 class Frame
 {
-   readonly layersBeforeArt: FrameLayer[];
-   readonly layersAfterArt: FrameLayer[];
+   readonly layers: FrameLayer[];
 
-   constructor(layersBeforeArt: FrameLayer[], layersAfterArt: FrameLayer[])
+   constructor(layers: FrameLayer[])
    {
-      this.layersBeforeArt = layersBeforeArt;
-      this.layersAfterArt = layersAfterArt;
+      this.layers = layers;
    }
 }
 
