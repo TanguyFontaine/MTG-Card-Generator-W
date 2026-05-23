@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDisclosure, Modal, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from "@chakra-ui/react";
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 
 import { Button } from "../../style_components/button";
 import { Text } from "../../style_components/text";
@@ -9,6 +9,7 @@ import { useCardContext } from "../../contexts/card_context";
 import { CardActionName } from "../../contexts/card_actions";
 import { useUserContext } from "../../contexts/user_context";
 import type { ImageFile } from "../../classes/image_file_interface";
+import { colorsToWubrgString } from "../../classes/frame_utilities";
 /***************************************************************/
 
 // async to wait for the image upload to complete before saving the card
@@ -58,6 +59,11 @@ export function SaveCardButton()
             imageUrl: imageUrl,
             power: state.power || "",
             toughness: state.toughness || "",
+            frameCustomization: {
+               frameColorOverride: colorsToWubrgString(state.frameColorOverride),
+               withVehicleFrame: state.withVehicleFrame,
+               withColorIndicator: state.withColorIndicator,
+            },
          };
 
          let savedCard;
@@ -106,6 +112,7 @@ export function SaveCardButton()
             Save
          </Button>
          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
             <ModalContent>
                <ModalHeader>{saveStatus === "success" ? "Success" : "Error"}</ModalHeader>
                <ModalCloseButton />
