@@ -27,7 +27,7 @@ export enum CardActionName
    resetCard = "RESET_CARD",
    loadCard = "LOAD_CARD",
    setFrameColorOverride = "SET_FRAME_COLOR_OVERRIDE",
-   setUsesVehicleFrame = "SET_USES_VEHICLE_FRAME",
+   setWithVehicleFrame = "SET_WITH_VEHICLE_FRAME",
    setWithColorIndicator = "SET_WITH_COLOR_INDICATOR",
 }
 
@@ -54,5 +54,5 @@ export type CardAction =
    | { name: CardActionName.resetCard }
    | { name: CardActionName.loadCard; data: Partial<CardState> }
    | { name: CardActionName.setFrameColorOverride; data: CardColor[] | null }
-   | { name: CardActionName.setUsesVehicleFrame; data: boolean }
+   | { name: CardActionName.setWithVehicleFrame; data: boolean }
    | { name: CardActionName.setWithColorIndicator; data: boolean };

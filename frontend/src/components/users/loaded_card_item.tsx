@@ -10,6 +10,7 @@ import ImageUploader from "../../classes/image_uploader";
 import { useCardContext } from "../../contexts/card_context";
 import { CardActionName } from "../../contexts/card_actions";
 import type { ImageFile } from "../../classes/image_file_interface";
+import { wubrgStringToColors } from "../../classes/frame_utilities";
 
 async function getImageFileFromUrl(url: string): Promise<ImageFile>
 {
@@ -64,6 +65,9 @@ export function LoadedCardItem({ card, onError, setIsLoading, onClose }: LoadedC
                manaCost: ManaCostObj.fromString(selectedCard.manaCost),
                cardType: CardTypeObj.fromString(selectedCard.type),
                imageFile: imageFile,
+               frameColorOverride: wubrgStringToColors(selectedCard.frameCustomization?.frameColorOverride ?? null),
+               withVehicleFrame: selectedCard.frameCustomization?.withVehicleFrame ?? false,
+               withColorIndicator: selectedCard.frameCustomization?.withColorIndicator ?? false,
             },
          });
 

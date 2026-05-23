@@ -14,10 +14,14 @@ function buildCardFromRow(row: Record<string, unknown>): Card
       row.type as string,
       row.spell_description as string,
       row.flavor_text as string,
-      row.card_frame as string,
       row.image_url as string,
       row.power as string,
       row.toughness as string,
+      {
+         frameColorOverride: row.frame_color_override as string | null,
+         withVehicleFrame: row.with_vehicle_frame as boolean,
+         withColorIndicator: row.with_color_indicator as boolean,
+      },
    );
 }
 

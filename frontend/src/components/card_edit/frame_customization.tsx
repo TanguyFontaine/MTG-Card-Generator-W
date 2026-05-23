@@ -54,9 +54,9 @@ export function FrameCustomization()
          <HStack spacing={2} align="stretch">
             <Text color="brand.textSecondary">Vehicle frame:</Text>
             <Radio
-               isChecked={state.usesVehicleFrame}
+               isChecked={state.withVehicleFrame}
                onClick={() =>
-                  dispatch({ name: CardActionName.setUsesVehicleFrame, data: !state.usesVehicleFrame })
+                  dispatch({ name: CardActionName.setWithVehicleFrame, data: !state.withVehicleFrame })
                }
             />
          </HStack>

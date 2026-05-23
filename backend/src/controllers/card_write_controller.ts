@@ -10,14 +10,19 @@ interface CardRequestBody
    type?: string;
    spellDescription?: string;
    flavorText?: string;
-   frame?: string;
    imageUrl?: string;
    power?: string;
    toughness?: string;
+   frameCustomization?: {
+      frameColorOverride?: string | null;
+      withVehicleFrame?: boolean;
+      withColorIndicator?: boolean;
+   };
 }
 
 function buildCardFromRequestBody(cardData: CardRequestBody, cardId: number = 0): Card
 {
+   const fc = cardData.frameCustomization;
    return new Card(
       cardId,
       cardData.name || "",
@@ -25,10 +30,14 @@ function buildCardFromRequestBody(cardData: CardRequestBody, cardId: number = 0)
       cardData.type || "",
       cardData.spellDescription || "",
       cardData.flavorText || "",
-      cardData.frame || "",
       cardData.imageUrl || "",
       cardData.power || "",
       cardData.toughness || "",
+      {
+         frameColorOverride: fc?.frameColorOverride ?? null,
+         withVehicleFrame: fc?.withVehicleFrame ?? false,
+         withColorIndicator: fc?.withColorIndicator ?? false,
+      },
    );
 }
 
@@ -72,8 +81,9 @@ export class CardWriteController
 
          const insertQuery = `
             INSERT INTO "${CARDS_TABLE_NAME}"
-               (name, mana_cost, type, spell_description, flavor_text, card_frame, image_url, power, toughness, user_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+               (name, mana_cost, type, spell_description, flavor_text, image_url, power, toughness, user_id,
+                frame_color_override, with_vehicle_frame, with_color_indicator)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
             RETURNING *`;
 
          const result = await dbConnectionPool.query(insertQuery,
@@ -83,11 +93,13 @@ export class CardWriteController
             card.type,
             card.spellDescription,
             card.flavorText,
-            card.frame,
             card.imageUrl,
             card.power,
             card.toughness,
             userId,
+            card.frameCustomization.frameColorOverride,
+            card.frameCustomization.withVehicleFrame,
+            card.frameCustomization.withColorIndicator,
          ]);
 
          const savedCard = result.rows[0];
@@ -132,7 +144,8 @@ export class CardWriteController
          const updateQuery = `
             UPDATE "${CARDS_TABLE_NAME}" SET
                name = $2, mana_cost = $3, type = $4, spell_description = $5,
-               flavor_text = $6, card_frame = $7, image_url = $8, power = $9, toughness = $10
+               flavor_text = $6, image_url = $7, power = $8, toughness = $9,
+               frame_color_override = $10, with_vehicle_frame = $11, with_color_indicator = $12
             WHERE id = $1
             RETURNING *`;
 
@@ -143,10 +156,12 @@ export class CardWriteController
             card.type,
             card.spellDescription,
             card.flavorText,
-            card.frame,
             card.imageUrl,
             card.power,
             card.toughness,
+            card.frameCustomization.frameColorOverride,
+            card.frameCustomization.withVehicleFrame,
+            card.frameCustomization.withColorIndicator,
          ]);
 
          if (result.rows.length === 0)

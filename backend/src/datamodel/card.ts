@@ -1,8 +1,10 @@
+import type { FrameCustomization } from "./frame_customization.js";
+
 export const CARDS_TABLE_NAME: string = "cards";
 
 const MAX_NAME_LENGTH = 120;
+const MAX_FRAME_COLOR_LENGTH = 5;
 const MAX_MANA_COST_LENGTH = 120;
-const MAX_FRAME_LENGTH = 30;
 const MAX_POWER_TOUGHNESS_LENGTH = 10;
 const MAX_TEXT_LENGTH = 2000;
 const MAX_IMAGE_URL_LENGTH = 255;
@@ -29,15 +31,24 @@ export class Card
    type: string;
    spellDescription: string;
    flavorText: string;
-   frame: string;
    imageUrl: string;
    power: string;
    toughness: string;
+   frameCustomization: FrameCustomization;
 
    // Methods
-   constructor(id: number = 0, name: string = "", manaCost: string = "", type: string = "",
-               spellDescription: string = "", flavorText: string = "", frame: string = "",
-               imageUrl: string = "", power: string = "", toughness: string = "")
+   constructor(
+      id: number = 0,
+      name: string = "",
+      manaCost: string = "",
+      type: string = "",
+      spellDescription: string = "",
+      flavorText: string = "",
+      imageUrl: string = "",
+      power: string = "",
+      toughness: string = "",
+      frameCustomization: FrameCustomization = { frameColorOverride: null, withVehicleFrame: false, withColorIndicator: false },
+   )
    {
       this.id = id;
       this.name = name;
@@ -45,10 +56,10 @@ export class Card
       this.type = type;
       this.spellDescription = spellDescription;
       this.flavorText = flavorText;
-      this.frame = frame;
       this.imageUrl = imageUrl;
       this.power = power;
       this.toughness = toughness;
+      this.frameCustomization = frameCustomization;
    }
 
    validateName(): ValidationResult
@@ -69,15 +80,6 @@ export class Card
       if (this.manaCost == null || typeof this.manaCost !== "string" || this.manaCost.length > MAX_MANA_COST_LENGTH)
       {
          return { isValid: false, error: "Mana cost should be 120 characters or less" };
-      }
-      return { isValid: true };
-   }
-
-   validateFrame(): ValidationResult
-   {
-      if (this.frame == null || typeof this.frame !== "string" || this.frame.length > MAX_FRAME_LENGTH)
-      {
-         return { isValid: false, error: "Frame should be 30 characters or less" };
       }
       return { isValid: true };
    }
@@ -128,16 +130,33 @@ export class Card
       return { isValid: true };
    }
 
+   validateFrameCustomization(): ValidationResult
+   {
+      const colorOverride = this.frameCustomization.frameColorOverride;
+      if (colorOverride !== null)
+      {
+         if (typeof colorOverride !== "string" || colorOverride.length > MAX_FRAME_COLOR_LENGTH)
+         {
+            return { isValid: false, error: `Frame color override must be at most ${MAX_FRAME_COLOR_LENGTH} characters` };
+         }
+         if (colorOverride !== "C" && !/^[WUBRG]+$/.test(colorOverride))
+         {
+            return { isValid: false, error: "Frame color override must be a valid WUBRG string or \"C\" for colorless" };
+         }
+      }
+      return { isValid: true };
+   }
+
    validate(): CardValidationResult
    {
       const validations: ValidationResult[] = [
          this.validateName(),
          this.validateManaCost(),
-         this.validateFrame(),
          this.validateSpellDescription(),
          this.validateFlavorText(),
          this.validateImageUrl(),
          this.validatePowerToughness(),
+         this.validateFrameCustomization(),
       ];
 
       const errors = validations.filter(v => !v.isValid).map(v => v.error);
