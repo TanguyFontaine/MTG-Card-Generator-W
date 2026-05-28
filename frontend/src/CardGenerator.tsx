@@ -12,7 +12,7 @@ import "mana-font";
 /***************************************************************/
 
 import theme from "./theme";
-import { UiPanel } from "./components/ui_panel";
+import { UiPanel } from "./components/card_edit/ui_panel";
 import { CardImagePanel } from "./components/card_display/card_image_panel";
 import { AuthenticationPanel } from "./components/users/authentication_panel";
 import { useResizablePanel, MIN_PANEL_WIDTH, MAX_PANEL_WIDTH_RATIO } from "./hooks/use_resizable_panel";
