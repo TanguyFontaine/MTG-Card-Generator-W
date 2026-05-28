@@ -1,5 +1,5 @@
-import { formatSymbol, removeBrackets } from "../components/utilities";
-import { symbols } from "../ressources/symbols";
+import { formatSymbol, removeBrackets } from "../utils";
+import { symbols } from "../resources/symbols";
 
 // returns true if all mana symbols in the list are the same as the provided hybrid symbol
 function isOnlyHybridFromSymbol(manaSymbols: string[], hybridSymbol: string): boolean

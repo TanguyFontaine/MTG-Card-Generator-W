@@ -3,13 +3,14 @@ import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBod
 
 import { Button } from "../../style_components/button";
 import { Text } from "../../style_components/text";
-import CardService from "../../backend_connection/services";
+import CardService from "../../api/services";
 import ImageUploader from "../../classes/image_uploader";
 import { useCardContext } from "../../contexts/card_context";
 import { CardActionName } from "../../contexts/card_actions";
 import { useUserContext } from "../../contexts/user_context";
 import type { ImageFile } from "../../classes/image_file_interface";
-import { colorsToWubrgString } from "../../classes/frame_utilities";
+import { colorsToWubrgString } from "../../classes/frame/frame_utilities";
+import { FrameType } from "../../classes/frame/frame_type";
 /***************************************************************/
 
 // async to wait for the image upload to complete before saving the card
@@ -50,6 +51,10 @@ export function SaveCardButton()
          const imageUrl = await getImageUrl(state.imageFile);
 
          // Create comprehensive card data object
+         const specialFrameData = state.frameType === FrameType.LevelUp
+            ? { levelAbilities: [state.levelBaseAbility, state.levelAbility1, state.levelAbility2] }
+            : null;
+
          const cardToSend = {
             name: state.cardName || "",
             spellDescription: state.spellDescription || "",
@@ -63,7 +68,9 @@ export function SaveCardButton()
                frameColorOverride: colorsToWubrgString(state.frameColorOverride),
                withVehicleFrame: state.withVehicleFrame,
                withColorIndicator: state.withColorIndicator,
+               frameType: state.frameType,
             },
+            specialFrameData,
          };
 
          let savedCard;

@@ -4,7 +4,7 @@ import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBod
 
 import { Button } from "../../style_components/button";
 import { Text } from "../../style_components/text";
-import CardService from "../../backend_connection/services";
+import CardService from "../../api/services";
 import { useUserContext } from "../../contexts/user_context";
 import { useCardContext } from "../../contexts/card_context";
 import { CardActionName } from "../../contexts/card_actions";

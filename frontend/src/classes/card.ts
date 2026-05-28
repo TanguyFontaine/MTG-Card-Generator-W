@@ -6,6 +6,7 @@ interface FrameCustomization
    frameColorOverride: string | null;
    withVehicleFrame: boolean;
    withColorIndicator: boolean;
+   frameType?: string;
 }
 
 interface Card
@@ -21,6 +22,7 @@ interface Card
    toughness: string;
    loyalty?: string;
    frameCustomization: FrameCustomization;
+   specialFrameData?: unknown | null;
 }
 
 export type { Card };

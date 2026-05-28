@@ -3,67 +3,21 @@ import { Image, Box, HStack } from "@chakra-ui/react";
 /***************************************************************/
 
 import { Text } from "../../style_components/text";
-import { resolveFrame } from "../../classes/frame_resolver";
-import { ART_Z_INDEX, CARD_UI_Z_INDEX } from "../../classes/frame_layers";
+import { resolveFrame } from "../../classes/frame/frame_resolver";
+import { ART_Z_INDEX, CARD_UI_Z_INDEX } from "../../classes/frame/frame_layers";
 import { CardState } from "../../contexts/card_state";
-import { Symbol } from "../card_edit/symbol";
-import { TextLine } from "./text_line";
-import { isValidImageExtension } from "../utilities";
+import { Symbol } from "../card_edit/symbols/symbol";
+import { isValidImageExtension } from "../../utils";
+import { FrameType } from "../../classes/frame/frame_type";
+import { transformIntoDisplayableElements } from "./card_render_utilities";
+import { LevelUpCardText } from "./card_render_level_up";
 
-import { symbols } from "../../ressources/symbols";
 import logo from "../../../public/frames/logo_mini.png";
 
 /***************************************************************/
 
 export const CARD_RENDER_WIDTH = 2923;
 export const CARD_RENDER_HEIGHT = 4000;
-
-/***************************************************************/
-
-// Take the spell descrition in param. It is a string whith the descritpion and encoded symbols
-// example : [Tap] : add [g]
-// returns a list of SymbolEments and Strings to be displayed
-function createDisplayableSymbols(spellDescription: string, spellFontSize: number): (string | JSX.Element)[]
-{
-   const leftBracketSplit = spellDescription.split("[");
-
-   let displayableElements: (string | JSX.Element)[] = [];
-   let elementIndex = 0; // Counter for unique keys
-   for (let i = 0; i < leftBracketSplit.length; i++)
-   {
-      const rightBracketSplit = leftBracketSplit[i].split("]");
-
-      if (rightBracketSplit.length === 2)
-      {
-         // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
-         const symbolCode = rightBracketSplit[0];
-         const displayableSymbol = (symbolCode === symbols.Energy) ?
-            <Symbol key={`symbol-${elementIndex++}`} symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 4} style={{ position: "relative", top: "-2px" }} /> :
-            <Symbol key={`symbol-${elementIndex++}`} symbol={symbolCode} fontSize={spellFontSize - 8} style={{ position: "relative", top: "-3px" }} />;
-         displayableElements = displayableElements.concat(displayableSymbol);
-         displayableElements = displayableElements.concat(rightBracketSplit[1]);
-      }
-      else
-      {
-         displayableElements = displayableElements.concat(rightBracketSplit);
-      }
-   }
-
-   return (displayableElements);
-}
-
-// Splits the description into lines and applies custom line height
-// Each line is split into displayable elements (symbols and text)
-// Returns an array of TextLine components, each representing a line of the description
-function transformIntoDisplayableElements(spellDescription: string, spellFontSize: number): JSX.Element[]
-{
-   // React requires that each element in an array has a unique key prop, here we use the line index as a key
-   return spellDescription.split("\n").map((line, idx) =>
-      line.trim() === ""
-         ? <TextLine key={idx} isEmpty={true} />
-         : <TextLine key={idx}>{createDisplayableSymbols(line, spellFontSize)}</TextLine>
-   );
-}
 
 /***************************************************************/
 
@@ -80,8 +34,9 @@ function DisplayImage(props: DisplayImageProps)
    const imageFileName = props.imageFileName;
    const imageFileContent = props.imageFileContent;
    const imageCentering = props.imageCentering;
-
    const artBoxStyle = { position: "absolute" as const, top: "428px", left: "180px", zIndex: props.zIndex };
+   //const artBoxStyle = { position: "absolute" as const, top: "260px", left: "0px", zIndex: props.zIndex }; // for extended frames
+
    // Do not display the error panel while an image has not been selected
    // Display an empty box to avoid download error with html-to-image when no image is selected
    // as it tries to load the image with an empty string as source and fails, even if the image is not displayed at all
@@ -91,6 +46,7 @@ function DisplayImage(props: DisplayImageProps)
    }
    if (isValidImageExtension(imageFileName))
    {
+         //<Box w="2923px" h="2200px" {...artBoxStyle}> for extended frames
       return (
          <Box w="2562px" h="1860px" {...artBoxStyle}>
             <Image boxSize="inherit" objectPosition={imageCentering} objectFit="cover" alt={imageFileName} src={imageFileContent}></Image>
@@ -105,6 +61,8 @@ function DisplayImage(props: DisplayImageProps)
       </Text>
    );
 }
+
+// ─── Level-up card text is rendered by LevelUpCardText in card_render_level_up.tsx.
 
 /***************************************************************/
 
@@ -127,6 +85,7 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
       flavorText, flavorTextFontSize,
       power, toughness, powerToughnessFontSize,
       withColorIndicator, frameColorOverride,
+      frameType,
    } = cardState;
 
    const typesItems = cardType.types.map((type, index) => <Text key={`type-${index}`}>{type}</Text>);
@@ -142,8 +101,9 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
    const manaCostLeftPos = 93.5 - (manaCost.otherManaSymbols.length + (manaCost.colorlessAmount > -1 ? 1 : 0)) * 5.4 + "%";
 
    // adjust the power toughness position depending on the length of both values and the font size
-   const powerLeftPos = 85 - ((power.length + toughness.length) / (160 / powerToughnessFontSize)) + "%";
-   const powerTopPos = 92.55 + (3.36 - powerToughnessFontSize * 0.022) + "%";
+   const baseLeftPos = power.charAt(0) === "1" ? 85.75 : 85.25; // Small adjustment for 1 power based, since 1 takes less space than other digits
+   const powerLeftPos = baseLeftPos - (((power.length + toughness.length) * 1.2) / (160 / powerToughnessFontSize)) + "%";
+   const powerTopPos = 92.5 + (3.36 - powerToughnessFontSize * 0.022) + "%";
 
    // adjust the name height pos depending on the font size
    const nameTopPos = 4.6 + (3.15 - nameFontSize * 0.022) + "%";
@@ -198,19 +158,27 @@ export const CardRender = React.forwardRef<HTMLDivElement, CardRenderProps>(func
          </HStack>
          <Image boxSize="196px" pos="absolute" zIndex={CARD_UI_Z_INDEX} top="58.5%" left="87%" src={logo} />
 
-         <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{ wordSpacing: "0.08em" }}>
-            <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" zIndex={CARD_UI_Z_INDEX} top="65.24%" left="7.25%" width="85.8%">{displayableSpellDescription}</Text>
-         </Box>
+         {
+            frameType === FrameType.LevelUp
+            ? <LevelUpCardText cardState={cardState} />
+            : (
+               <>
+                  <Box fontSize={spellFontSize} lineHeight={spellDescriptionLineHeight} sx={{ wordSpacing: "0.08em" }}>
+                     <Text whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" zIndex={CARD_UI_Z_INDEX} top="65.24%" left="7.25%" width="85.8%">{displayableSpellDescription}</Text>
+                  </Box>
 
-         <HStack fontSize={powerToughnessFontSize} pos="absolute" zIndex={CARD_UI_Z_INDEX} top={powerTopPos} left={powerLeftPos} spacing={1} color={cardState.withVehicleFrame ? "white" : undefined}>
-            <Text>{power} </Text>
-            {power !== "" || toughness !== "" ? <Text>/</Text> : <Text />}
-            <Text>{toughness} </Text>
-         </HStack>
+                  <HStack fontSize={powerToughnessFontSize} pos="absolute" zIndex={CARD_UI_Z_INDEX} top={powerTopPos} left={powerLeftPos} spacing={1} color={cardState.withVehicleFrame ? "white" : undefined}>
+                     <Text>{power} </Text>
+                     {power !== "" || toughness !== "" ? <Text>/</Text> : <Text />}
+                     <Text>{toughness} </Text>
+                  </HStack>
 
-         <Box lineHeight={flavorTextLineHeight} sx={{ wordSpacing: "0.12em" }}>
-            <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" zIndex={CARD_UI_Z_INDEX} top="75%" left="7.25%" width="85.8%">{flavorText}</Text>
-         </Box>
+                  <Box lineHeight={flavorTextLineHeight} sx={{ wordSpacing: "0.12em" }}>
+                     <Text as="i" fontSize={flavorTextFontSize} whiteSpace="pre-wrap" fontFamily="EB Garamond" fontWeight={500} pos="absolute" zIndex={CARD_UI_Z_INDEX} top="75%" left="7.25%" width="85.8%">{flavorText}</Text>
+                  </Box>
+               </>
+            )
+         }
       </Box>
    );
 });

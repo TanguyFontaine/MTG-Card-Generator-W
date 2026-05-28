@@ -4,6 +4,8 @@ import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
 import type { ImageFile } from "../classes/image_file_interface";
 import { CardColor } from "../classes/card_color";
+import { FrameType } from "../classes/frame/frame_type";
+import { LevelAbility } from "../classes/level_ability";
 
 // ─── Action Names ────────────────────────────────────────────
 export enum CardActionName
@@ -29,6 +31,10 @@ export enum CardActionName
    setFrameColorOverride = "SET_FRAME_COLOR_OVERRIDE",
    setWithVehicleFrame = "SET_WITH_VEHICLE_FRAME",
    setWithColorIndicator = "SET_WITH_COLOR_INDICATOR",
+   setFrameType = "SET_FRAME_TYPE",
+   setLevelBaseAbility = "SET_LEVEL_BASE_ABILITY",
+   setLevelAbility1 = "SET_LEVEL_ABILITY_1",
+   setLevelAbility2 = "SET_LEVEL_ABILITY_2",
 }
 
 // ─── Actions ─────────────────────────────────────────────────
@@ -55,4 +61,8 @@ export type CardAction =
    | { name: CardActionName.loadCard; data: Partial<CardState> }
    | { name: CardActionName.setFrameColorOverride; data: CardColor[] | null }
    | { name: CardActionName.setWithVehicleFrame; data: boolean }
-   | { name: CardActionName.setWithColorIndicator; data: boolean };
+   | { name: CardActionName.setWithColorIndicator; data: boolean }
+   | { name: CardActionName.setFrameType; data: FrameType }
+   | { name: CardActionName.setLevelBaseAbility; data: LevelAbility }
+   | { name: CardActionName.setLevelAbility1; data: LevelAbility }
+   | { name: CardActionName.setLevelAbility2; data: LevelAbility };

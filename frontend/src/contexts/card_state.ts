@@ -2,6 +2,8 @@ import { ManaCostObj } from "../classes/mana_cost";
 import { CardTypeObj } from "../classes/card_type";
 import type { ImageFile } from "../classes/image_file_interface";
 import { CardColor } from "../classes/card_color";
+import { FrameType } from "../classes/frame/frame_type";
+import { LevelAbility } from "../classes/level_ability";
 
 // Class reprensenting the entire state of the card in the frontend.
 export interface CardState
@@ -26,6 +28,10 @@ export interface CardState
    frameColorOverride: CardColor[] | null;
    withVehicleFrame: boolean;
    withColorIndicator: boolean;
+   frameType: FrameType;
+   levelBaseAbility: LevelAbility;
+   levelAbility1: LevelAbility;
+   levelAbility2: LevelAbility;
 }
 
 export const INITIAL_STATE: CardState = {
@@ -48,4 +54,8 @@ export const INITIAL_STATE: CardState = {
    frameColorOverride: null,
    withVehicleFrame: false,
    withColorIndicator: false,
+   frameType: FrameType.Normal,
+   levelBaseAbility: { levelMin: "", levelMax: "", spellDescription: "", power: "", toughness: "", levelFontSize: 150, spellFontSize: 100, ptFontSize: 152 },
+   levelAbility1: { levelMin: "", levelMax: "", spellDescription: "", power: "", toughness: "", levelFontSize: 150, spellFontSize: 100, ptFontSize: 152 },
+   levelAbility2: { levelMin: "", levelMax: "", spellDescription: "", power: "", toughness: "", levelFontSize: 150, spellFontSize: 100, ptFontSize: 152 },
 };

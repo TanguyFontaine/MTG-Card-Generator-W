@@ -6,7 +6,7 @@ import { Box, VStack, HStack, FormControl, FormLabel } from "@chakra-ui/react";
 import { Button } from "../../style_components/button";
 import { Input } from "../../style_components/input";
 import { Text } from "../../style_components/text";
-import UserService from "../../backend_connection/user_service";
+import UserService from "../../api/user_service";
 import { useUserContext } from "../../contexts/user_context";
 
 /***************************************************************/

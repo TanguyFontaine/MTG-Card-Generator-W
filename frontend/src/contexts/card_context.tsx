@@ -59,6 +59,14 @@ function cardReducer(state: CardState, action: CardAction): CardState
          return { ...state, withVehicleFrame: action.data };
       case CardActionName.setWithColorIndicator:
          return { ...state, withColorIndicator: action.data };
+      case CardActionName.setFrameType:
+         return { ...state, frameType: action.data };
+      case CardActionName.setLevelBaseAbility:
+         return { ...state, levelBaseAbility: action.data };
+      case CardActionName.setLevelAbility1:
+         return { ...state, levelAbility1: action.data };
+      case CardActionName.setLevelAbility2:
+         return { ...state, levelAbility2: action.data };
       default:
          return state;
    }

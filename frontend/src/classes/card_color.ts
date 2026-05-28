@@ -1,4 +1,4 @@
-import { symbols } from "../ressources/symbols";
+import { symbols } from "../resources/symbols";
 
 /** The six Magic: The Gathering color identities. */
 export enum CardColor

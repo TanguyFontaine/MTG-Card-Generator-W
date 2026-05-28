@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
 
-import type { UserInfo } from "../backend_connection/user_service";
+import type { UserInfo } from "../api/user_service";
 
 /***************************************************************/
 
