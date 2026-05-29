@@ -21,8 +21,8 @@ function createDisplayableSymbols(spellDescription: string, spellFontSize: numbe
          // a symbol has been parsed, it is the left side of the ], the right is the rest of the description
          const symbolCode = rightBracketSplit[0];
          const displayableSymbol = (symbolCode === symbols.Energy) ?
-            <Symbol key={`symbol-${elementIndex++}`} symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 4} style={{ position: "relative", top: "-2px" }} /> :
-            <Symbol key={`symbol-${elementIndex++}`} symbol={symbolCode} fontSize={spellFontSize - 8} style={{ position: "relative", top: "-3px" }} />;
+            <Symbol key={`symbol-${elementIndex++}`} symbolOnly={true} symbol={symbolCode} fontSize={spellFontSize - 12} style={{ position: "relative", top: "-25px" }} /> :
+            <Symbol key={`symbol-${elementIndex++}`} symbol={symbolCode} fontSize={spellFontSize - 45} style={{ position: "relative", top: "-25px" }} />;
          displayableElements = displayableElements.concat(displayableSymbol);
          displayableElements = displayableElements.concat(rightBracketSplit[1]);
       }
