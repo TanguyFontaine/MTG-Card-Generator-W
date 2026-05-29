@@ -5,4 +5,5 @@ export interface FrameCustomization
    frameColorOverride: string | null;
    withVehicleFrame: boolean;
    withColorIndicator: boolean;
+   frameType: string;
 }

@@ -81,6 +81,7 @@ export function LoadedCardItem({ card, onError, setIsLoading, onClose }: LoadedC
 
          const frameType = (selectedCard.frameCustomization?.frameType as FrameType) ?? FrameType.Normal;
          const [levelBaseAbility, levelAbility1, levelAbility2] = extractLevelAbilities(selectedCard.specialFrameData);
+         const fontSizes = selectedCard.fontSizesMainFields;
 
          // Load the entire card state in a single dispatch
          dispatch({
@@ -100,6 +101,11 @@ export function LoadedCardItem({ card, onError, setIsLoading, onClose }: LoadedC
                withVehicleFrame: selectedCard.frameCustomization?.withVehicleFrame ?? false,
                withColorIndicator: selectedCard.frameCustomization?.withColorIndicator ?? false,
                frameType,
+               nameFontSize: fontSizes["name"] ?? 143,
+               typesFontSize: fontSizes["types"] ?? 125,
+               spellFontSize: fontSizes["spell"] ?? 98,
+               flavorTextFontSize: fontSizes["flavorText"] ?? 94,
+               powerToughnessFontSize: fontSizes["powerToughness"] ?? 152,
                levelBaseAbility,
                levelAbility1,
                levelAbility2,

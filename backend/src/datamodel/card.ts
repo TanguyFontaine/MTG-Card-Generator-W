@@ -22,6 +22,8 @@ interface CardValidationResult
    errors: (string | undefined)[];
 }
 
+const VALID_FRAME_TYPES = ["normal", "level_up"];
+
 export class Card
 {
    // Attributes
@@ -35,6 +37,10 @@ export class Card
    power: string;
    toughness: string;
    frameCustomization: FrameCustomization;
+   specialFrameData: unknown | null;
+   fontSizesMainFields: Record<string, number>;
+   // Font sizes for main text fields of normal cards (name, types, spell, flavorText, powerToughness).
+   // For special frame cards (e.g. level-up), field-specific font sizes are stored in special_frame_data.
 
    // Methods
    constructor(
@@ -47,7 +53,10 @@ export class Card
       imageUrl: string = "",
       power: string = "",
       toughness: string = "",
-      frameCustomization: FrameCustomization = { frameColorOverride: null, withVehicleFrame: false, withColorIndicator: false },
+      frameCustomization: FrameCustomization =
+         { frameColorOverride: null, withVehicleFrame: false, withColorIndicator: false, frameType: "normal" },
+      specialFrameData: unknown | null = null,
+      fontSizesMainFields: Record<string, number> = {},
    )
    {
       this.id = id;
@@ -60,6 +69,8 @@ export class Card
       this.power = power;
       this.toughness = toughness;
       this.frameCustomization = frameCustomization;
+      this.specialFrameData = specialFrameData;
+      this.fontSizesMainFields = fontSizesMainFields;
    }
 
    validateName(): ValidationResult
@@ -147,6 +158,53 @@ export class Card
       return { isValid: true };
    }
 
+   validateLevelUpData(): ValidationResult
+   {
+      const data = this.specialFrameData;
+
+      if (data !== null)
+      {
+         const levelData = data as { levelAbilities?: unknown[] };
+         if (!Array.isArray(levelData.levelAbilities) || levelData.levelAbilities.length !== 3)
+            return { isValid: false, error: "Level-up data must have exactly 3 level abilities" };
+
+         for (const ability of levelData.levelAbilities)
+         {
+            if (typeof ability !== "object" || ability === null)
+               return { isValid: false, error: "Each level ability must be an object" };
+
+            const ab = ability as Record<string, unknown>;
+            if (typeof ab.spellDescription !== "string" || ab.spellDescription.length > MAX_TEXT_LENGTH)
+               return { isValid: false, error: "Level ability text must be 2000 characters or less" };
+            if (typeof ab.power !== "string" || ab.power.length > MAX_POWER_TOUGHNESS_LENGTH)
+               return { isValid: false, error: "Level ability power must be 10 characters or less" };
+            if (typeof ab.toughness !== "string" || ab.toughness.length > MAX_POWER_TOUGHNESS_LENGTH)
+               return { isValid: false, error: "Level ability toughness must be 10 characters or less" };
+         }
+      }
+      return { isValid: true };
+   }
+
+   validateSpecialFrameData(): ValidationResult
+   {
+      const frameType = this.frameCustomization.frameType;
+      const data = this.specialFrameData;
+
+      if (!VALID_FRAME_TYPES.includes(frameType))
+         return { isValid: false, error: `Frame type must be one of: ${VALID_FRAME_TYPES.join(", ")}` };
+
+      if (frameType === "level_up")
+      {
+         return this.validateLevelUpData();
+      }
+      else if (data !== null && data !== undefined)
+      {
+         return { isValid: false, error: "Non-level-up cards must not have special frame data" };
+      }
+
+      return { isValid: true };
+   }
+
    validate(): CardValidationResult
    {
       const validations: ValidationResult[] = [
@@ -157,6 +215,7 @@ export class Card
          this.validateImageUrl(),
          this.validatePowerToughness(),
          this.validateFrameCustomization(),
+         this.validateSpecialFrameData(),
       ];
 
       const errors = validations.filter(v => !v.isValid).map(v => v.error);

@@ -13,10 +13,13 @@ interface CardRequestBody
    imageUrl?: string;
    power?: string;
    toughness?: string;
+   specialFrameData?: unknown | null;
+   fontSizesMainFields: Record<string, number>;
    frameCustomization?: {
       frameColorOverride?: string | null;
       withVehicleFrame?: boolean;
       withColorIndicator?: boolean;
+      frameType?: string;
    };
 }
 
@@ -37,7 +40,10 @@ function buildCardFromRequestBody(cardData: CardRequestBody, cardId: number = 0)
          frameColorOverride: fc?.frameColorOverride ?? null,
          withVehicleFrame: fc?.withVehicleFrame ?? false,
          withColorIndicator: fc?.withColorIndicator ?? false,
+         frameType: fc?.frameType ?? "normal",
       },
+      cardData.specialFrameData ?? null,
+      cardData.fontSizesMainFields ?? {},
    );
 }
 
@@ -82,8 +88,9 @@ export class CardWriteController
          const insertQuery = `
             INSERT INTO "${CARDS_TABLE_NAME}"
                (name, mana_cost, type, spell_description, flavor_text, image_url, power, toughness, user_id,
-                frame_color_override, with_vehicle_frame, with_color_indicator)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+                frame_color_override, with_vehicle_frame, with_color_indicator, frame_type, special_frame_data,
+                font_sizes_main_fields)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
             RETURNING *`;
 
          const result = await dbConnectionPool.query(insertQuery,
@@ -100,6 +107,9 @@ export class CardWriteController
             card.frameCustomization.frameColorOverride,
             card.frameCustomization.withVehicleFrame,
             card.frameCustomization.withColorIndicator,
+            card.frameCustomization.frameType,
+            card.specialFrameData !== null ? JSON.stringify(card.specialFrameData) : null,
+            card.fontSizesMainFields !== null ? JSON.stringify(card.fontSizesMainFields) : null,
          ]);
 
          const savedCard = result.rows[0];
@@ -145,7 +155,8 @@ export class CardWriteController
             UPDATE "${CARDS_TABLE_NAME}" SET
                name = $2, mana_cost = $3, type = $4, spell_description = $5,
                flavor_text = $6, image_url = $7, power = $8, toughness = $9,
-               frame_color_override = $10, with_vehicle_frame = $11, with_color_indicator = $12
+               frame_color_override = $10, with_vehicle_frame = $11, with_color_indicator = $12,
+               frame_type = $13, special_frame_data = $14, font_sizes_main_fields = $15
             WHERE id = $1
             RETURNING *`;
 
@@ -162,6 +173,9 @@ export class CardWriteController
             card.frameCustomization.frameColorOverride,
             card.frameCustomization.withVehicleFrame,
             card.frameCustomization.withColorIndicator,
+            card.frameCustomization.frameType,
+            card.specialFrameData !== null ? JSON.stringify(card.specialFrameData) : null,
+            card.fontSizesMainFields !== null ? JSON.stringify(card.fontSizesMainFields) : null,
          ]);
 
          if (result.rows.length === 0)

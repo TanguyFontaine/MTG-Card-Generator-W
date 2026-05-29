@@ -70,6 +70,13 @@ export function SaveCardButton()
                withColorIndicator: state.withColorIndicator,
                frameType: state.frameType,
             },
+            fontSizesMainFields: {
+               name: state.nameFontSize,
+               types: state.typesFontSize,
+               spell: state.spellFontSize,
+               flavorText: state.flavorTextFontSize,
+               powerToughness: state.powerToughnessFontSize,
+            },
             specialFrameData,
          };
 

@@ -21,7 +21,10 @@ function buildCardFromRow(row: Record<string, unknown>): Card
          frameColorOverride: row.frame_color_override as string | null,
          withVehicleFrame: row.with_vehicle_frame as boolean,
          withColorIndicator: row.with_color_indicator as boolean,
+         frameType: (row.frame_type as string) ?? "normal",
       },
+      row.special_frame_data ?? null,
+      (row.font_sizes_main_fields as Record<string, number>) ?? {},
    );
 }
 

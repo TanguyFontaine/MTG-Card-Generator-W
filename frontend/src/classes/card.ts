@@ -22,7 +22,8 @@ interface Card
    toughness: string;
    loyalty?: string;
    frameCustomization: FrameCustomization;
-   specialFrameData?: unknown | null;
+   specialFrameData?: unknown | null; // Contains frame sizes of specific frame fields
+   fontSizesMainFields: Record<string, number>;  // Font sizes for normal card fields: name, types, spell, flavorText, powerToughness
 }
 
 export type { Card };
