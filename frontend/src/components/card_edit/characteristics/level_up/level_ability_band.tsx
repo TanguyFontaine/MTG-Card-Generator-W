@@ -15,8 +15,6 @@ interface LevelAbilityBandProps
    isBaseAbilities?: boolean;
 }
 
-const toDigitsOnly = (value: string): string => value.replace(/\D/g, "");
-
 export function LevelAbilityBand({ label, ability, setAbility, isBaseAbilities }: LevelAbilityBandProps)
 {
    return (
